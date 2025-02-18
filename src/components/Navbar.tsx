@@ -2,13 +2,14 @@
 import { useState } from 'react';
 import { Menu, X, Phone } from 'lucide-react';
 import { Button } from "./ui/button";
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [
-    { text: "Início", href: "#" },
-    { text: "Produtos", href: "#produtos" },
+    { text: "Início", href: "/" },
+    { text: "Produtos", href: "/produtos" },
     { text: "Serviços", href: "#servicos" },
     { text: "Galeria", href: "#galeria" },
     { text: "Contato", href: "#contato" },
@@ -20,23 +21,25 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <img 
-              src="/lovable-uploads/3430e556-b884-4c88-b598-a8520a25ca7f.png"
-              alt="Like Kar Logo"
-              className="h-12 w-auto"
-            />
+            <Link to="/">
+              <img 
+                src="/lovable-uploads/3430e556-b884-4c88-b598-a8520a25ca7f.png"
+                alt="Like Kar Logo"
+                className="h-12 w-auto"
+              />
+            </Link>
           </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             {menuItems.map((item) => (
-              <a
+              <Link
                 key={item.text}
-                href={item.href}
+                to={item.href}
                 className="font-montserrat text-white hover:text-likekar-yellow transition-colors"
               >
                 {item.text}
-              </a>
+              </Link>
             ))}
             <Button className="bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat flex items-center gap-2">
               <Phone size={18} />
@@ -59,14 +62,14 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden pb-4 animate-fadeIn">
             {menuItems.map((item) => (
-              <a
+              <Link
                 key={item.text}
-                href={item.href}
+                to={item.href}
                 className="block py-2 font-montserrat text-white hover:text-likekar-yellow transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 {item.text}
-              </a>
+              </Link>
             ))}
             <Button className="w-full mt-4 bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat flex items-center justify-center gap-2">
               <Phone size={18} />
