@@ -69,15 +69,15 @@ export const PRODUCTS: Product[] = [
 ];
 
 const Products = () => {
-  const [selectedBrand, setSelectedBrand] = useState<string>("");
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [selectedType, setSelectedType] = useState<string>("");
+  const [selectedBrand, setSelectedBrand] = useState<string>("all");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedType, setSelectedType] = useState<string>("all");
   const [activeFilter, setActiveFilter] = useState<string>("todos");
 
   const filteredProducts = PRODUCTS.filter(product => {
     if (activeFilter !== "todos" && product.category !== activeFilter) return false;
-    if (selectedBrand && product.brand !== selectedBrand) return false;
-    if (selectedCategory && product.category !== selectedCategory) return false;
+    if (selectedBrand !== "all" && product.brand !== selectedBrand) return false;
+    if (selectedCategory !== "all" && product.category !== selectedCategory) return false;
     return true;
   });
 
@@ -102,7 +102,7 @@ const Products = () => {
               <SelectValue placeholder="Todas as Marcas" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Todas as Marcas</SelectItem>
+              <SelectItem value="all">Todas as Marcas</SelectItem>
               <SelectItem value="3M">3M</SelectItem>
               <SelectItem value="JBL">JBL</SelectItem>
               <SelectItem value="Osram">Osram</SelectItem>
@@ -114,7 +114,7 @@ const Products = () => {
               <SelectValue placeholder="Todas as Categorias" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Todas as Categorias</SelectItem>
+              <SelectItem value="all">Todas as Categorias</SelectItem>
               <SelectItem value="peliculas">Películas</SelectItem>
               <SelectItem value="som">Som Automotivo</SelectItem>
               <SelectItem value="acessorios">Acessórios</SelectItem>
@@ -126,7 +126,7 @@ const Products = () => {
               <SelectValue placeholder="Todos os Tipos" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Todos os Tipos</SelectItem>
+              <SelectItem value="all">Todos os Tipos</SelectItem>
               <SelectItem value="premium">Premium</SelectItem>
               <SelectItem value="standard">Standard</SelectItem>
             </SelectContent>
