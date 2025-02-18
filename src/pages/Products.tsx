@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
-import { Speakers, Film, Car, Search } from "lucide-react";
+import { Speaker, Film, Car, Search } from "lucide-react";
 
 interface Product {
   name: string;
@@ -94,7 +94,7 @@ const Products = () => {
               value="som"
               className="data-[state=active]:bg-likekar-yellow data-[state=active]:text-black"
             >
-              <Speakers className="mr-2" />
+              <Speaker className="mr-2" />
               Som Automotivo
             </TabsTrigger>
             <TabsTrigger 
