@@ -42,7 +42,7 @@ const Navbar = () => {
             ))}
             <Button className="bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat flex items-center gap-2">
               <Phone size={18} />
-              Contato
+              Fale conosco!
             </Button>
           </div>
 
@@ -72,7 +72,7 @@ const Navbar = () => {
             ))}
             <Button className="w-full mt-4 bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat flex items-center justify-center gap-2">
               <Phone size={18} />
-              Contato
+              Fale conosco!
             </Button>
           </div>
         )}
