@@ -32,7 +32,7 @@ const PRODUCTS: Product[] = [
     specs: ["Proteção UV 99%", "Redução de Calor"]
   },
   {
-    name: "Kit Alto-falantes 6"",
+    name: "Kit Alto-falantes 6\"",
     description: "200W RMS | Qualidade Premium",
     category: "som",
     subCategory: "alto-falantes",
@@ -50,7 +50,7 @@ const PRODUCTS: Product[] = [
     specs: ["6000K", "Farol Alto/Baixo"]
   },
   {
-    name: "Central Multimídia 9"",
+    name: "Central Multimídia 9\"",
     description: "Android | GPS | Bluetooth",
     category: "acessorios",
     subCategory: "multimidia",
