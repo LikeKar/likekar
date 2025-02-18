@@ -1,10 +1,16 @@
 
 import { useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
-import { Speaker, Film, Car, Search } from "lucide-react";
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ChevronRight } from "lucide-react";
 
 interface Product {
   name: string;
@@ -13,195 +19,149 @@ interface Product {
   subCategory?: string;
   brand: string;
   image: string;
-  price?: string;
+  specs?: string[];
 }
 
 const PRODUCTS: Product[] = [
   {
-    name: "Película Premium 3M",
-    description: "Película de alta qualidade para proteção solar e privacidade",
+    name: "Película Fumê Premium",
+    description: "Proteção UV 99% | Redução de Calor",
     category: "peliculas",
     brand: "3M",
     image: "/placeholder.svg",
-    price: "Sob consulta"
+    specs: ["Proteção UV 99%", "Redução de Calor"]
   },
   {
-    name: "Alto-falante JBL 6x9",
-    description: "Alto-falante coaxial de alta performance",
+    name: "Kit Alto-falantes 6"",
+    description: "200W RMS | Qualidade Premium",
     category: "som",
     subCategory: "alto-falantes",
     brand: "JBL",
     image: "/placeholder.svg",
-    price: "Sob consulta"
+    specs: ["200W RMS", "Qualidade Premium"]
   },
   {
-    name: "Kit LED Osram",
-    description: "Kit completo de iluminação LED para faróis",
+    name: "Kit Super LED H7",
+    description: "6000K | Farol Alto/Baixo",
     category: "acessorios",
     subCategory: "iluminacao",
     brand: "Osram",
     image: "/placeholder.svg",
-    price: "Sob consulta"
+    specs: ["6000K", "Farol Alto/Baixo"]
+  },
+  {
+    name: "Central Multimídia 9"",
+    description: "Android | GPS | Bluetooth",
+    category: "acessorios",
+    subCategory: "multimidia",
+    brand: "Pioneer",
+    image: "/placeholder.svg",
+    specs: ["Android", "GPS", "Bluetooth"]
   }
 ];
 
-const BRANDS = [
-  { name: "Focal", logo: "/placeholder.svg", description: "Referência mundial em áudio de alta fidelidade" },
-  { name: "JBL", logo: "/placeholder.svg", description: "Líder em som automotivo de qualidade" },
-  { name: "3M", logo: "/placeholder.svg", description: "Pioneira em películas e produtos automotivos" },
-  { name: "Hertz", logo: "/placeholder.svg", description: "Excelência em som automotivo" },
-  { name: "Taramps", logo: "/placeholder.svg", description: "Potência e qualidade em amplificadores" },
-  { name: "Bravox", logo: "/placeholder.svg", description: "Tradição em alto-falantes" },
-];
-
 const Products = () => {
-  const [activeCategory, setActiveCategory] = useState("peliculas");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState<string>("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedType, setSelectedType] = useState<string>("");
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <div className="text-center mb-16 animate-fadeIn">
-          <span className="bg-likekar-yellow/10 text-black px-4 py-2 rounded-full text-sm font-medium inline-block mb-4">
-            Produtos Premium
-          </span>
-          <h1 className="text-4xl sm:text-5xl font-bold font-montserrat text-likekar-black mb-4">
-            Nossos Produtos
-          </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-            Encontre tudo o que seu carro precisa em um só lugar. Trabalhamos com as melhores marcas do mercado.
-          </p>
+        {/* Filters */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <Select value={selectedBrand} onValueChange={setSelectedBrand}>
+            <SelectTrigger className="bg-white">
+              <SelectValue placeholder="Todas as Marcas" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="">Todas as Marcas</SelectItem>
+              <SelectItem value="3M">3M</SelectItem>
+              <SelectItem value="JBL">JBL</SelectItem>
+              <SelectItem value="Osram">Osram</SelectItem>
+              <SelectItem value="Pioneer">Pioneer</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+            <SelectTrigger className="bg-white">
+              <SelectValue placeholder="Todas as Categorias" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="">Todas as Categorias</SelectItem>
+              <SelectItem value="peliculas">Películas</SelectItem>
+              <SelectItem value="som">Som Automotivo</SelectItem>
+              <SelectItem value="acessorios">Acessórios</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Select value={selectedType} onValueChange={setSelectedType}>
+            <SelectTrigger className="bg-white">
+              <SelectValue placeholder="Todos os Tipos" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="">Todos os Tipos</SelectItem>
+              <SelectItem value="premium">Premium</SelectItem>
+              <SelectItem value="standard">Standard</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
-        {/* Search Bar */}
-        <div className="relative max-w-md mx-auto mb-12 animate-fadeIn" style={{ animationDelay: "0.2s" }}>
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-          <input
-            type="text"
-            placeholder="Buscar produtos..."
-            className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-likekar-yellow shadow-sm"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+        {/* Category Buttons */}
+        <div className="flex flex-wrap gap-2 mb-8">
+          <Button 
+            variant="default"
+            className="bg-blue-600 hover:bg-blue-700"
+          >
+            Todos os Produtos
+          </Button>
+          <Button 
+            variant="outline"
+            className="bg-white"
+          >
+            Películas
+          </Button>
+          <Button 
+            variant="outline"
+            className="bg-white"
+          >
+            Som Automotivo
+          </Button>
+          <Button 
+            variant="outline"
+            className="bg-white"
+          >
+            Acessórios
+          </Button>
         </div>
 
-        {/* Product Categories */}
-        <Tabs defaultValue="peliculas" className="space-y-8 animate-fadeIn" style={{ animationDelay: "0.4s" }}>
-          <TabsList className="w-full justify-start space-x-4 bg-transparent p-0 overflow-x-auto flex-nowrap">
-            <TabsTrigger 
-              value="peliculas"
-              className="data-[state=active]:bg-likekar-yellow data-[state=active]:text-black rounded-xl px-6 py-3"
-            >
-              <Film className="mr-2" />
-              Películas
-            </TabsTrigger>
-            <TabsTrigger 
-              value="som"
-              className="data-[state=active]:bg-likekar-yellow data-[state=active]:text-black rounded-xl px-6 py-3"
-            >
-              <Speaker className="mr-2" />
-              Som Automotivo
-            </TabsTrigger>
-            <TabsTrigger 
-              value="acessorios"
-              className="data-[state=active]:bg-likekar-yellow data-[state=active]:text-black rounded-xl px-6 py-3"
-            >
-              <Car className="mr-2" />
-              Acessórios
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="peliculas" className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {PRODUCTS.filter(p => p.category === "peliculas").map((product, idx) => (
-                <Card key={idx} className="overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 rounded-xl border-0 shadow-md">
-                  <div className="relative">
-                    <img src={product.image} alt={product.name} className="w-full h-56 object-cover" />
-                    <div className="absolute top-4 right-4 bg-white py-1 px-3 rounded-full text-sm font-medium">
-                      {product.brand}
-                    </div>
-                  </div>
-                  <CardContent className="p-6">
-                    <h3 className="font-montserrat font-bold text-xl mb-2">{product.name}</h3>
-                    <p className="text-gray-600 mb-4">{product.description}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-gray-500">{product.price}</span>
-                      <Button className="bg-likekar-yellow hover:bg-yellow-400 text-black">
-                        Saiba mais
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="som" className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {PRODUCTS.filter(p => p.category === "som").map((product, idx) => (
-                <Card key={idx} className="overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 rounded-xl border-0 shadow-md">
-                  <div className="relative">
-                    <img src={product.image} alt={product.name} className="w-full h-56 object-cover" />
-                    <div className="absolute top-4 right-4 bg-white py-1 px-3 rounded-full text-sm font-medium">
-                      {product.brand}
-                    </div>
-                  </div>
-                  <CardContent className="p-6">
-                    <h3 className="font-montserrat font-bold text-xl mb-2">{product.name}</h3>
-                    <p className="text-gray-600 mb-4">{product.description}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-gray-500">{product.price}</span>
-                      <Button className="bg-likekar-yellow hover:bg-yellow-400 text-black">
-                        Saiba mais
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="acessorios" className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {PRODUCTS.filter(p => p.category === "acessorios").map((product, idx) => (
-                <Card key={idx} className="overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 rounded-xl border-0 shadow-md">
-                  <div className="relative">
-                    <img src={product.image} alt={product.name} className="w-full h-56 object-cover" />
-                    <div className="absolute top-4 right-4 bg-white py-1 px-3 rounded-full text-sm font-medium">
-                      {product.brand}
-                    </div>
-                  </div>
-                  <CardContent className="p-6">
-                    <h3 className="font-montserrat font-bold text-xl mb-2">{product.name}</h3>
-                    <p className="text-gray-600 mb-4">{product.description}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-gray-500">{product.price}</span>
-                      <Button className="bg-likekar-yellow hover:bg-yellow-400 text-black">
-                        Saiba mais
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
-
-        {/* Brands Section */}
-        <section className="mt-24 animate-fadeIn" style={{ animationDelay: "0.6s" }}>
-          <h2 className="text-3xl font-bold font-montserrat text-center mb-12">Marcas Parceiras</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-            {BRANDS.map((brand, idx) => (
-              <div key={idx} className="flex flex-col items-center space-y-4 p-6 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow">
-                <img src={brand.logo} alt={`${brand.name} Logo`} className="w-24 h-24 object-contain" />
-                <h3 className="font-montserrat font-bold text-center">{brand.name}</h3>
-                <p className="text-sm text-gray-600 text-center">{brand.description}</p>
+        {/* Products Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {PRODUCTS.map((product, idx) => (
+            <Card key={idx} className="overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow">
+              <div className="aspect-video relative">
+                <img 
+                  src={product.image} 
+                  alt={product.name} 
+                  className="w-full h-full object-cover"
+                />
               </div>
-            ))}
-          </div>
-        </section>
+              <CardContent className="p-4">
+                <h3 className="font-bold text-lg mb-2">{product.name}</h3>
+                <p className="text-sm text-gray-600 mb-4">{product.description}</p>
+                <Button 
+                  variant="outline" 
+                  className="w-full border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors"
+                >
+                  Ver Detalhes
+                  <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </main>
     </div>
   );
