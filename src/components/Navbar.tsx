@@ -10,8 +10,7 @@ const Navbar = () => {
   const menuItems = [
     { text: "Início", href: "/" },
     { text: "Produtos", href: "/produtos" },
-    { text: "Serviços", href: "#servicos" },
-    { text: "Galeria", href: "#galeria" },
+    { text: "Depoimentos", href: "#depoimentos" },
     { text: "Contato", href: "#contato" },
   ];
 
