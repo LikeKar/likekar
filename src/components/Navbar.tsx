@@ -15,7 +15,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed w-full bg-white/80 backdrop-blur-md z-50 shadow-sm">
+    <nav className="fixed w-full bg-likekar-black/90 backdrop-blur-md z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -33,7 +33,7 @@ const Navbar = () => {
               <a
                 key={item.text}
                 href={item.href}
-                className="font-montserrat text-likekar-black hover:text-likekar-yellow transition-colors"
+                className="font-montserrat text-white hover:text-likekar-yellow transition-colors"
               >
                 {item.text}
               </a>
@@ -48,7 +48,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-md focus:outline-none"
+              className="p-2 rounded-md focus:outline-none text-white"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -62,7 +62,7 @@ const Navbar = () => {
               <a
                 key={item.text}
                 href={item.href}
-                className="block py-2 font-montserrat text-likekar-black hover:text-likekar-yellow transition-colors"
+                className="block py-2 font-montserrat text-white hover:text-likekar-yellow transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 {item.text}
