@@ -20,7 +20,7 @@ interface Product {
   fullDescription: string;
 }
 
-const PRODUCTS: Product[] = [
+export const PRODUCTS: Product[] = [
   {
     id: "pelicula-premium-3m",
     name: "Película Premium 3M",
