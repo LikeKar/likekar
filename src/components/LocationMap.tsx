@@ -36,27 +36,89 @@ const LocationMap = () => {
     
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [-46.5307, -23.4446] as [number, number], // Usando type assertion aqui também
-      zoom: 15
+      style: 'mapbox://styles/mapbox/navigation-day-v1', // Estilo mais parecido com Google Maps
+      center: [-46.5307, -23.4446] as [number, number],
+      zoom: 15,
+      pitch: 45, // Adiciona um ângulo de visão
+      bearing: -17.6, // Rotação suave do mapa
     });
 
     // Adicionar marcadores para cada localização
     locations.forEach(location => {
-      const popup = new mapboxgl.Popup({ offset: 25 })
+      // Criar um elemento personalizado para o marcador
+      const el = document.createElement('div');
+      el.className = 'custom-marker';
+      el.style.backgroundColor = '#ffde00';
+      el.style.width = '24px';
+      el.style.height = '24px';
+      el.style.borderRadius = '50%';
+      el.style.border = '2px solid white';
+      el.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
+      el.style.cursor = 'pointer';
+
+      // Criar popup com estilo personalizado
+      const popup = new mapboxgl.Popup({
+        offset: 25,
+        className: 'custom-popup'
+      })
         .setHTML(`
-          <strong>${location.name}</strong><br>
-          ${location.address}
+          <div style="padding: 10px;">
+            <h3 style="font-weight: bold; margin-bottom: 5px; color: #333;">${location.name}</h3>
+            <p style="color: #666; font-size: 14px; margin: 0;">${location.address}</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}" 
+               target="_blank" 
+               style="color: #1a73e8; text-decoration: none; font-size: 12px; display: block; margin-top: 8px;">
+              Ver no Google Maps
+            </a>
+          </div>
         `);
 
-      new mapboxgl.Marker({ color: '#ffde00' })
+      new mapboxgl.Marker(el)
         .setLngLat(location.coordinates)
         .setPopup(popup)
         .addTo(map.current!);
     });
 
-    // Adicionar controles de navegação
-    map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
+    // Adicionar controles de navegação com estilo personalizado
+    map.current.addControl(new mapboxgl.NavigationControl({
+      showCompass: true,
+      showZoom: true,
+      visualizePitch: true
+    }), 'top-right');
+
+    // Adicionar controle de escala
+    map.current.addControl(new mapboxgl.ScaleControl({
+      maxWidth: 150,
+      unit: 'metric'
+    }), 'bottom-right');
+
+    // Adicionar efeito de sombra nas construções para dar mais profundidade
+    map.current.on('style.load', () => {
+      if (map.current) {
+        map.current.addLayer({
+          'id': '3d-buildings',
+          'source': 'composite',
+          'source-layer': 'building',
+          'filter': ['==', 'extrude', 'true'],
+          'type': 'fill-extrusion',
+          'minzoom': 15,
+          'paint': {
+            'fill-extrusion-color': '#aaa',
+            'fill-extrusion-height': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              15,
+              0,
+              15.05,
+              ['get', 'height']
+            ],
+            'fill-extrusion-base': ['get', 'min_height'],
+            'fill-extrusion-opacity': 0.6
+          }
+        });
+      }
+    });
 
     return () => {
       map.current?.remove();
@@ -64,8 +126,26 @@ const LocationMap = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-[400px] rounded-lg overflow-hidden shadow-lg">
+    <div className="relative w-full h-[500px] rounded-xl overflow-hidden shadow-2xl">
       <div ref={mapContainer} className="absolute inset-0" />
+      <style jsx>{`
+        .custom-popup .mapboxgl-popup-content {
+          padding: 0;
+          border-radius: 8px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .custom-popup .mapboxgl-popup-close-button {
+          padding: 5px 8px;
+          color: #666;
+        }
+        .mapboxgl-ctrl-group {
+          border-radius: 8px;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .mapboxgl-ctrl-group button {
+          border-radius: 4px;
+        }
+      `}</style>
     </div>
   );
 };
