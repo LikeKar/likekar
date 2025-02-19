@@ -14,8 +14,8 @@ interface Product {
   name: string;
   description: string;
   full_description: string | null;
-  image: string | null;
-  detail_image: string | null;
+  photos: string[];
+  videos: string[];
   active: boolean | null;
 }
 
@@ -70,16 +70,8 @@ const ProductDetail = () => {
   };
 
   const productMedia = product ? {
-    fotos: [
-      product.detail_image,
-      product.image,
-      "https://images.unsplash.com/photo-1485827404703-89b55fcc595e",
-      "https://images.unsplash.com/photo-1619927938134-ab41528fca67"
-    ].filter(Boolean),
-    videos: [
-      "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      "https://www.youtube.com/embed/dQw4w9WgXcQ"
-    ]
+    fotos: product.photos || [],
+    videos: product.videos || []
   } : { fotos: [], videos: [] };
 
   if (loading) {
