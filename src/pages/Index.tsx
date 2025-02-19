@@ -1,5 +1,7 @@
+
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import PromotionalBanner from "@/components/PromotionalBanner";
 import { Building2, CheckCircle2, MessageSquare, Wrench, Phone, Mail, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -33,6 +35,7 @@ const Index = () => {
     <div className="min-h-screen bg-white flex flex-col">
       <Navbar />
       <Hero />
+      <PromotionalBanner />
 
       {/* Serviços */}
       <section className="py-20 bg-gray-50">
