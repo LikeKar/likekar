@@ -102,7 +102,7 @@ const ProductDetail = () => {
                   Solicitar Orçamento
                 </Button>
 
-                <ShareButtons productName={product.name} className="px-0 py-[212px]" />
+                <ShareButtons productName={product.name} className="px-0 py-[223px]" />
               </div>
             </div>
           </div>
