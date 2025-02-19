@@ -249,7 +249,7 @@ const Index = () => {
             </div>
 
             {/* Menu */}
-            <div>
+            <div className="mx-[94px]">
               <h3 className="text-white font-montserrat font-bold text-xl mb-6 uppercase">
                 Menu
               </h3>
