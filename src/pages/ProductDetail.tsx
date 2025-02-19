@@ -95,11 +95,8 @@ const ProductDetail = () => {
   return <div className="min-h-screen bg-white">
       <Navbar />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-[98px]">
-        <Link to="/produtos" className="inline-flex items-center text-gray-600 hover:text-black transition-colors mb-12">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Voltar para Produtos
-        </Link>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-[168px]">
+        
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-16">
           <div className="py-[10px] px-0 mx-0">
