@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-
 const Index = () => {
   const navigate = useNavigate();
   const whatsappNumber = "551145740701";
@@ -35,7 +34,6 @@ const Index = () => {
     name: "Alpine",
     logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
   }];
-
   return <div className="min-h-screen bg-white flex flex-col">
       <Navbar />
       <Hero />
@@ -234,7 +232,7 @@ const Index = () => {
               <h3 className="text-white font-montserrat font-bold text-2xl">
                 LIKE KAR
               </h3>
-              <p className="text-gray-400 leading-relaxed">
+              <p className="text-gray-400 leading-relaxed mx-[86px]">
                 Transformando seu veículo com excelência e qualidade desde 2010. Referência em personalização automotiva.
               </p>
               <div className="flex space-x-4">
@@ -416,5 +414,4 @@ const Index = () => {
       </footer>
     </div>;
 };
-
 export default Index;
