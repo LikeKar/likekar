@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,19 +26,32 @@ const formSchema = z.object({
 
 export default function Auth() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
 
   // Verificar sessão atual ao montar o componente
   useEffect(() => {
-    const checkCurrentSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log("Current session:", session);
       if (session?.user) {
-        navigate("/admin", { replace: true });
+        console.log("User already logged in, redirecting to admin");
+        navigate("/admin");
       }
-    };
-    
-    checkCurrentSession();
+    });
+
+    // Monitorar mudanças na autenticação
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log("Auth state changed:", event, session);
+      if (event === 'SIGNED_IN' && session) {
+        console.log("Login successful, redirecting to admin");
+        navigate("/admin");
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, [navigate]);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -51,53 +64,57 @@ export default function Auth() {
   });
 
   const handleAuth = async (values: z.infer<typeof formSchema>) => {
-    if (!values.email || !values.password) {
-      toast.error("Por favor, preencha todos os campos");
-      return;
-    }
-
     try {
       setLoading(true);
+      console.log("Starting authentication process...");
 
       if (isLogin) {
+        // Login
         const { data, error } = await supabase.auth.signInWithPassword({
           email: values.email,
           password: values.password,
         });
 
         if (error) {
+          console.error("Login error:", error);
           if (error.message === 'Invalid login credentials') {
             throw new Error('Email ou senha inválidos');
           }
           throw error;
         }
 
-        if (data?.user) {
+        if (data.user) {
+          console.log("Login successful:", data.user);
           toast.success("Login realizado com sucesso!");
-          // Forçar redirecionamento imediato após login bem-sucedido
-          navigate("/admin", { replace: true });
+          // Redirecionamento será feito pelo onAuthStateChange
         }
       } else {
-        const { error: signUpError } = await supabase.auth.signUp({
+        // Signup
+        const { data, error: signUpError } = await supabase.auth.signUp({
           email: values.email,
           password: values.password,
           options: {
             data: {
               name: values.name,
             },
+            emailRedirectTo: `${window.location.origin}/auth`,
           },
         });
 
         if (signUpError) {
+          console.error("Signup error:", signUpError);
           if (signUpError.message.includes('User already registered')) {
             throw new Error('Este email já está cadastrado');
           }
           throw signUpError;
         }
 
-        toast.success("Conta criada com sucesso! Verifique seu email para confirmar.");
-        setIsLogin(true);
-        form.reset();
+        if (data.user) {
+          console.log("Signup successful:", data.user);
+          toast.success("Conta criada com sucesso! Verifique seu email para confirmar.");
+          setIsLogin(true);
+          form.reset();
+        }
       }
     } catch (error: any) {
       console.error("Auth error:", error);
