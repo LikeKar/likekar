@@ -227,44 +227,50 @@ const Index = () => {
 
       {/* Footer Desktop (escondido em mobile) */}
       <footer className="bg-likekar-black hidden md:block">
-        <div className="container mx-auto px-4 max-w-7xl py-8">
-          <div className="grid grid-cols-4 gap-8">
-            {/* Logo e Redes Sociais */}
-            <div>
-              <h3 className="text-white font-montserrat font-bold text-xl mb-4">
+        <div className="container mx-auto px-4 max-w-7xl py-16">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+            {/* Sobre */}
+            <div className="space-y-6">
+              <h3 className="text-white font-montserrat font-bold text-2xl">
                 LIKE KAR
               </h3>
-              <div className="flex space-x-3">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-likekar-yellow rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors">
-                  <Facebook size={16} className="text-black" />
+              <p className="text-gray-400 leading-relaxed">
+                Transformando seu veículo com excelência e qualidade desde 2010. Referência em personalização automotiva.
+              </p>
+              <div className="flex space-x-4">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-likekar-yellow rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors">
+                  <Facebook size={20} className="text-black" />
                 </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-likekar-yellow rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors">
-                  <Instagram size={16} className="text-black" />
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-likekar-yellow rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors">
+                  <Instagram size={20} className="text-black" />
                 </a>
-                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-likekar-yellow rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors">
-                  <Youtube size={16} className="text-black" />
+                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-likekar-yellow rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors">
+                  <Youtube size={20} className="text-black" />
                 </a>
               </div>
             </div>
 
-            {/* Links Rápidos */}
+            {/* Menu */}
             <div>
-              <h3 className="text-white font-montserrat font-bold text-sm mb-4 uppercase">
-                Links Rápidos
+              <h3 className="text-white font-montserrat font-bold text-xl mb-6 uppercase">
+                Menu
               </h3>
-              <ul className="space-y-2 text-sm">
+              <ul className="space-y-4">
                 <li>
-                  <Link to="/" className="text-gray-400 hover:text-likekar-yellow transition-colors">
+                  <Link to="/" className="text-gray-400 hover:text-likekar-yellow transition-colors flex items-center">
+                    <span className="w-2 h-2 bg-likekar-yellow rounded-full mr-2"></span>
                     Home
                   </Link>
                 </li>
                 <li>
-                  <Link to="/produtos" className="text-gray-400 hover:text-likekar-yellow transition-colors">
+                  <Link to="/produtos" className="text-gray-400 hover:text-likekar-yellow transition-colors flex items-center">
+                    <span className="w-2 h-2 bg-likekar-yellow rounded-full mr-2"></span>
                     Produtos
                   </Link>
                 </li>
                 <li>
-                  <Link to="/contato" className="text-gray-400 hover:text-likekar-yellow transition-colors">
+                  <Link to="/contato" className="text-gray-400 hover:text-likekar-yellow transition-colors flex items-center">
+                    <span className="w-2 h-2 bg-likekar-yellow rounded-full mr-2"></span>
                     Contato
                   </Link>
                 </li>
@@ -273,49 +279,59 @@ const Index = () => {
 
             {/* Contato */}
             <div>
-              <h3 className="text-white font-montserrat font-bold text-sm mb-4 uppercase">
+              <h3 className="text-white font-montserrat font-bold text-xl mb-6 uppercase">
                 Contato
               </h3>
-              <ul className="space-y-2 text-sm">
+              <ul className="space-y-4">
                 <li>
                   <a href="tel:+551145740701" className="text-gray-400 hover:text-likekar-yellow transition-colors flex items-center">
-                    <Phone size={14} className="text-likekar-yellow mr-2" />
-                    11 4574-0701
+                    <Phone size={20} className="text-likekar-yellow mr-3" />
+                    +55 11 4574-0701
                   </a>
                 </li>
                 <li>
                   <a href="mailto:contato@likekar.com" className="text-gray-400 hover:text-likekar-yellow transition-colors flex items-center">
-                    <Mail size={14} className="text-likekar-yellow mr-2" />
+                    <Mail size={20} className="text-likekar-yellow mr-3" />
                     contato@likekar.com
                   </a>
                 </li>
-                <li className="flex items-center text-gray-400">
-                  <MapPin size={14} className="text-likekar-yellow mr-2 flex-shrink-0" />
-                  <span>Av. Bartolomeu de Carlos, 333</span>
+                <li className="flex items-start text-gray-400 group">
+                  <MapPin size={20} className="text-likekar-yellow mr-3 mt-1 flex-shrink-0" />
+                  <span className="group-hover:text-likekar-yellow transition-colors">
+                    Av. Bartolomeu de Carlos, 333
+                  </span>
                 </li>
               </ul>
             </div>
 
             {/* Horário */}
             <div>
-              <h3 className="text-white font-montserrat font-bold text-sm mb-4 uppercase">
+              <h3 className="text-white font-montserrat font-bold text-xl mb-6 uppercase">
                 Horário
               </h3>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li className="flex items-center">
-                  <Clock size={14} className="text-likekar-yellow mr-2" />
-                  Seg-Sex: 08:00 - 18:00
+              <ul className="space-y-4">
+                <li className="flex items-center text-gray-400">
+                  <Clock size={20} className="text-likekar-yellow mr-3" />
+                  <div>
+                    <p className="font-semibold">Segunda à Sexta</p>
+                    <p>08:00 - 18:00</p>
+                  </div>
                 </li>
-                <li className="flex items-center">
-                  <Clock size={14} className="text-likekar-yellow mr-2" />
-                  Sáb: 08:00 - 12:00
+                <li className="flex items-center text-gray-400">
+                  <Clock size={20} className="text-likekar-yellow mr-3" />
+                  <div>
+                    <p className="font-semibold">Sábado</p>
+                    <p>08:00 - 12:00</p>
+                  </div>
                 </li>
               </ul>
             </div>
           </div>
+        </div>
 
-          <div className="border-t border-gray-800 mt-6 pt-6">
-            <p className="text-center text-gray-400 text-sm">
+        <div className="border-t border-gray-800">
+          <div className="container mx-auto px-4 max-w-7xl py-6">
+            <p className="text-center text-gray-400">
               © {new Date().getFullYear()} Like Kar. Todos os direitos reservados.
             </p>
           </div>
@@ -324,75 +340,77 @@ const Index = () => {
 
       {/* Footer Mobile (visível apenas em mobile) */}
       <footer className="bg-likekar-black md:hidden">
-        <div className="container px-4 py-6">
+        <div className="container px-4 py-8">
           {/* Logo e Redes Sociais */}
-          <div className="text-center mb-6">
-            <h3 className="text-white font-montserrat font-bold text-xl mb-3">
+          <div className="text-center mb-8">
+            <h3 className="text-white font-montserrat font-bold text-2xl mb-4">
               LIKE KAR
             </h3>
-            <div className="flex justify-center space-x-4">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-likekar-yellow rounded-full flex items-center justify-center">
-                <Facebook size={16} className="text-black" />
+            <div className="flex justify-center space-x-6">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-likekar-yellow rounded-full flex items-center justify-center">
+                <Facebook size={24} className="text-black" />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-likekar-yellow rounded-full flex items-center justify-center">
-                <Instagram size={16} className="text-black" />
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-likekar-yellow rounded-full flex items-center justify-center">
+                <Instagram size={24} className="text-black" />
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-likekar-yellow rounded-full flex items-center justify-center">
-                <Youtube size={16} className="text-black" />
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-likekar-yellow rounded-full flex items-center justify-center">
+                <Youtube size={24} className="text-black" />
               </a>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-6 mb-6">
-            {/* Contato */}
-            <div>
-              <h4 className="text-white font-montserrat font-bold text-sm mb-3 uppercase">
-                Contato
-              </h4>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="tel:+551145740701" className="text-gray-400 hover:text-likekar-yellow transition-colors flex items-center">
-                    <Phone size={14} className="text-likekar-yellow mr-2" />
-                    11 4574-0701
-                  </a>
-                </li>
-                <li>
-                  <a href="mailto:contato@likekar.com" className="text-gray-400 hover:text-likekar-yellow transition-colors flex items-center">
-                    <Mail size={14} className="text-likekar-yellow mr-2" />
-                    contato@likekar.com
-                  </a>
-                </li>
-              </ul>
+          {/* Informações de Contato */}
+          <div className="bg-black/20 rounded-lg p-6 mb-8">
+            <div className="grid grid-cols-1 gap-4">
+              <a href="tel:+551145740701" className="flex items-center justify-start bg-black/20 p-4 rounded-lg">
+                <Phone size={24} className="text-likekar-yellow mr-4" />
+                <span className="text-white">+55 11 4574-0701</span>
+              </a>
+              <a href="mailto:contato@likekar.com" className="flex items-center justify-start bg-black/20 p-4 rounded-lg">
+                <Mail size={24} className="text-likekar-yellow mr-4" />
+                <span className="text-white">contato@likekar.com</span>
+              </a>
+              <div className="flex items-start bg-black/20 p-4 rounded-lg">
+                <MapPin size={24} className="text-likekar-yellow mr-4 flex-shrink-0 mt-1" />
+                <span className="text-white">Av. Bartolomeu de Carlos, 333</span>
+              </div>
             </div>
+          </div>
 
-            {/* Horário */}
-            <div>
-              <h4 className="text-white font-montserrat font-bold text-sm mb-3 uppercase">
-                Horário
-              </h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>Seg-Sex: 08:00 - 18:00</li>
-                <li>Sáb: 08:00 - 12:00</li>
-              </ul>
+          {/* Horário de Funcionamento */}
+          <div className="bg-black/20 rounded-lg p-6 mb-8">
+            <h4 className="text-white font-montserrat font-bold text-lg mb-4 text-center">
+              Horário de Funcionamento
+            </h4>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between text-gray-300">
+                <span>Segunda à Sexta:</span>
+                <span>08:00 - 18:00</span>
+              </div>
+              <div className="flex items-center justify-between text-gray-300">
+                <span>Sábado:</span>
+                <span>08:00 - 12:00</span>
+              </div>
             </div>
           </div>
 
           {/* Links Rápidos */}
-          <div className="grid grid-cols-3 gap-2 mb-6">
-            <Link to="/" className="bg-likekar-yellow text-black text-xs font-medium py-2 px-3 rounded text-center">
+          <div className="grid grid-cols-3 gap-4 mb-8">
+            <Link to="/" className="bg-likekar-yellow text-black font-medium py-3 px-4 rounded-lg text-center text-sm">
               Home
             </Link>
-            <Link to="/produtos" className="bg-likekar-yellow text-black text-xs font-medium py-2 px-3 rounded text-center">
+            <Link to="/produtos" className="bg-likekar-yellow text-black font-medium py-3 px-4 rounded-lg text-center text-sm">
               Produtos
             </Link>
-            <Link to="/contato" className="bg-likekar-yellow text-black text-xs font-medium py-2 px-3 rounded text-center">
+            <Link to="/contato" className="bg-likekar-yellow text-black font-medium py-3 px-4 rounded-lg text-center text-sm">
               Contato
             </Link>
           </div>
 
           {/* Copyright */}
-          <div className="text-center text-xs text-gray-400">
-            <p>© {new Date().getFullYear()} Like Kar. Todos os direitos reservados.</p>
+          <div className="text-center text-sm text-gray-400">
+            <p>© {new Date().getFullYear()} Like Kar.</p>
+            <p>Todos os direitos reservados.</p>
           </div>
         </div>
       </footer>
