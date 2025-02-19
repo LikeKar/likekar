@@ -232,10 +232,10 @@ const Index = () => {
               <h3 className="text-white font-montserrat font-bold text-2xl">
                 LIKE KAR
               </h3>
-              <p className="text-gray-400 leading-relaxed mx-[86px]">
+              <p className="text-gray-400 leading-relaxed mx-[23px]">
                 Transformando seu veículo com excelência e qualidade desde 2010. Referência em personalização automotiva.
               </p>
-              <div className="flex space-x-4">
+              <div className="flex space-x-4 mx-[60px]">
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-likekar-yellow rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors">
                   <Facebook size={20} className="text-black" />
                 </a>
