@@ -1,14 +1,11 @@
-
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import { Building2, CheckCircle2, MessageSquare, Wrench } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-
 const Index = () => {
-  return (
-    <div className="min-h-screen bg-white">
+  return <div className="min-h-screen bg-white">
       <Navbar />
       <Hero />
 
@@ -81,11 +78,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:flex lg:items-center lg:gap-12">
             <div className="lg:w-1/2 mb-10 lg:mb-0">
-              <img 
-                src="/lovable-uploads/3430e556-b884-4c88-b598-a8520a25ca7f.png"
-                alt="Like Kar Serviços"
-                className="rounded-lg shadow-xl w-full"
-              />
+              <img src="/lovable-uploads/3430e556-b884-4c88-b598-a8520a25ca7f.png" alt="Like Kar Serviços" className="rounded-lg shadow-xl w-full object-cover" />
             </div>
             
             <div className="lg:w-1/2">
@@ -157,8 +150,6 @@ const Index = () => {
           </Button>
         </div>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
