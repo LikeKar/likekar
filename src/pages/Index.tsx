@@ -3,7 +3,7 @@ import Hero from "@/components/Hero";
 import { Building2, CheckCircle2, MessageSquare, Wrench, Phone, Mail, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import {
   Carousel,
@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/carousel";
 
 const Index = () => {
+  const navigate = useNavigate();
   const partners = [
     { name: "3M", logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" },
     { name: "JBL", logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" },
@@ -24,12 +25,8 @@ const Index = () => {
   ];
 
   const handleContactClick = () => {
-    const phoneNumber = "5511999999999";
-    const message = "Olá! Gostaria de saber mais sobre os serviços da Like Kar";
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    
-    window.open(whatsappUrl, '_blank');
-    toast.success("Redirecionando para o WhatsApp...");
+    navigate('/contato');
+    toast.success("Redirecionando para página de contato...");
   };
 
   return (
