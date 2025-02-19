@@ -3,9 +3,17 @@ import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from "./ui/button";
 import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const whatsappNumber = "551145740701";
+  const whatsappLink = `https://wa.me/${whatsappNumber}`;
+
+  const handleContactClick = () => {
+    window.open(whatsappLink, '_blank');
+    toast.success("Redirecionando para o WhatsApp...");
+  };
 
   const menuItems = [
     { text: "Início", href: "/" },
@@ -39,7 +47,10 @@ const Navbar = () => {
                 {item.text}
               </Link>
             ))}
-            <Button className="bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat">
+            <Button 
+              onClick={handleContactClick}
+              className="bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat"
+            >
               Fale conosco!
             </Button>
           </div>
@@ -68,7 +79,10 @@ const Navbar = () => {
                 {item.text}
               </Link>
             ))}
-            <Button className="w-full mt-4 bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat">
+            <Button 
+              onClick={handleContactClick}
+              className="w-full mt-4 bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat"
+            >
               Fale conosco!
             </Button>
           </div>

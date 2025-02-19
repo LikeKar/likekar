@@ -1,4 +1,3 @@
-
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import PromotionalBanner from "@/components/PromotionalBanner";
@@ -17,6 +16,14 @@ import {
 
 const Index = () => {
   const navigate = useNavigate();
+  const whatsappNumber = "551145740701";
+  const whatsappLink = `https://wa.me/${whatsappNumber}`;
+  
+  const handleContactClick = () => {
+    window.open(whatsappLink, '_blank');
+    toast.success("Redirecionando para o WhatsApp...");
+  };
+
   const partners = [
     { name: "3M", logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" },
     { name: "JBL", logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" },
@@ -25,11 +32,6 @@ const Index = () => {
     { name: "Bosch", logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" },
     { name: "Alpine", logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" },
   ];
-
-  const handleContactClick = () => {
-    navigate('/contato');
-    toast.success("Redirecionando para página de contato...");
-  };
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -252,8 +254,8 @@ const Index = () => {
               <ul className="space-y-3">
                 <li className="flex items-center text-gray-400">
                   <Phone size={20} className="mr-2 text-likekar-yellow" />
-                  <a href="tel:+5511999999999" className="hover:text-white transition-colors">
-                    (11) 99999-9999
+                  <a href="tel:+551145740701" className="hover:text-white transition-colors">
+                    +55 11 4574-0701
                   </a>
                 </li>
                 <li className="flex items-center text-gray-400">
@@ -264,7 +266,7 @@ const Index = () => {
                 </li>
                 <li className="flex items-center text-gray-400">
                   <MapPin size={20} className="mr-2 text-likekar-yellow" />
-                  <span>São Paulo, SP</span>
+                  <span>Av. Bartolomeu de Carlos, 333 - Jardim Flor da Montanha, Guarulhos</span>
                 </li>
               </ul>
             </div>
@@ -286,8 +288,8 @@ const Index = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/sobre" className="text-gray-400 hover:text-white transition-colors">
-                    Sobre Nós
+                  <Link to="/contato" className="text-gray-400 hover:text-white transition-colors">
+                    Contato
                   </Link>
                 </li>
               </ul>
