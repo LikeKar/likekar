@@ -29,23 +29,27 @@ export default function Auth() {
   const [loading, setLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
 
+  // Verificar sessão atual ao montar o componente
   useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session?.user) {
-          navigate("/admin");
-        }
-      } catch (error) {
-        console.error("Error checking session:", error);
+    const checkCurrentSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      console.log("Current session:", session);
+      if (session?.user) {
+        console.log("User is logged in, redirecting to /admin");
+        navigate("/admin", { replace: true });
       }
     };
+    
+    checkCurrentSession();
+  }, [navigate]);
 
-    checkSession();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (session?.user) {
-        navigate("/admin");
+  // Monitorar mudanças no estado de autenticação
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log("Auth state changed:", event, session);
+      if (event === 'SIGNED_IN' && session?.user) {
+        console.log("User signed in, redirecting to /admin");
+        navigate("/admin", { replace: true });
       }
     });
 
@@ -64,26 +68,35 @@ export default function Auth() {
   const handleAuth = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
+      console.log("Attempting authentication...");
 
       if (isLogin) {
+        console.log("Attempting login with:", values.email);
         const { data, error } = await supabase.auth.signInWithPassword({
           email: values.email,
           password: values.password,
         });
 
         if (error) {
+          console.error("Login error:", error);
           if (error.message === 'Invalid login credentials') {
             throw new Error('Email ou senha inválidos');
           }
           throw error;
         }
 
-        if (data.user) {
+        if (data?.user) {
+          console.log("Login successful:", data.user);
           toast.success("Login realizado com sucesso!");
-          navigate("/admin");
+          // Forçar redirecionamento imediato
+          await navigate("/admin", { replace: true });
+        } else {
+          console.error("No user data returned");
+          throw new Error("Erro ao fazer login. Tente novamente.");
         }
       } else {
-        const { error: signUpError } = await supabase.auth.signUp({
+        console.log("Attempting signup with:", values.email);
+        const { data, error: signUpError } = await supabase.auth.signUp({
           email: values.email,
           password: values.password,
           options: {
@@ -94,15 +107,19 @@ export default function Auth() {
         });
 
         if (signUpError) {
+          console.error("Signup error:", signUpError);
           if (signUpError.message.includes('User already registered')) {
             throw new Error('Este email já está cadastrado');
           }
           throw signUpError;
         }
 
-        toast.success("Conta criada com sucesso! Verifique seu email para confirmar.");
-        setIsLogin(true);
-        form.reset();
+        if (data?.user) {
+          console.log("Signup successful:", data.user);
+          toast.success("Conta criada com sucesso! Verifique seu email para confirmar.");
+          setIsLogin(true);
+          form.reset();
+        }
       }
     } catch (error: any) {
       console.error("Auth error:", error);
