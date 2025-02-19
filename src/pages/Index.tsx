@@ -1,7 +1,7 @@
+
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import PromotionalBanner from "@/components/PromotionalBanner";
-import LocationMap from "@/components/LocationMap";
 import { Building2, CheckCircle2, MessageSquare, Wrench, Phone, Mail, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -17,10 +17,6 @@ import {
 
 const Index = () => {
   const navigate = useNavigate();
-  const whatsappNumber = "5511945740701";
-  const whatsappMessage = encodeURIComponent("Olá! Gostaria de saber mais sobre os serviços da Like Kar.");
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
-
   const partners = [
     { name: "3M", logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" },
     { name: "JBL", logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" },
@@ -31,8 +27,8 @@ const Index = () => {
   ];
 
   const handleContactClick = () => {
-    window.open(whatsappUrl, '_blank');
-    toast.success("Redirecionando para o WhatsApp...");
+    navigate('/contato');
+    toast.success("Redirecionando para página de contato...");
   };
 
   return (
@@ -215,21 +211,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Nossa Localização */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold font-montserrat mb-4">
-              Nossas Unidades
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Encontre a unidade Like Kar mais próxima de você
-            </p>
-          </div>
-          <LocationMap />
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="py-20 bg-likekar-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -271,13 +252,8 @@ const Index = () => {
               <ul className="space-y-3">
                 <li className="flex items-center text-gray-400">
                   <Phone size={20} className="mr-2 text-likekar-yellow" />
-                  <a 
-                    href={whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-white transition-colors"
-                  >
-                    +55 11 4574-0701
+                  <a href="tel:+5511999999999" className="hover:text-white transition-colors">
+                    (11) 99999-9999
                   </a>
                 </li>
                 <li className="flex items-center text-gray-400">
@@ -286,16 +262,9 @@ const Index = () => {
                     contato@likekar.com
                   </a>
                 </li>
-                <li className="flex items-start text-gray-400">
-                  <MapPin size={20} className="mr-2 text-likekar-yellow mt-1" />
-                  <div className="space-y-2">
-                    <p className="hover:text-white transition-colors">
-                      Av. Bartolomeu de Carlos, 333 - Jardim Flor da Montanha, Guarulhos - SP, 07097-420
-                    </p>
-                    <p className="hover:text-white transition-colors">
-                      Av. Bartolomeu de Carlos, 245 - Jardim Flor da Montanha, Guarulhos - SP, 07097-420
-                    </p>
-                  </div>
+                <li className="flex items-center text-gray-400">
+                  <MapPin size={20} className="mr-2 text-likekar-yellow" />
+                  <span>São Paulo, SP</span>
                 </li>
               </ul>
             </div>
