@@ -297,7 +297,7 @@ const Index = () => {
               </ul>
             </div>
 
-            <div>
+            <div className="my-0 mx-[50px]">
               <h3 className="text-white font-montserrat font-bold text-xl mb-6 uppercase">
                 Horário
               </h3>
