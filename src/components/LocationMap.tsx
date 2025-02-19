@@ -1,134 +1,114 @@
 
-import React, { useEffect, useRef } from 'react';
-import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
+import React from 'react';
+import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import { useState } from 'react';
 
-// Definindo o tipo correto para as coordenadas
 type Location = {
   name: string;
   address: string;
-  coordinates: [number, number]; // Usando tuple type para garantir exatamente 2 números
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
 };
 
-// Localizações da Like Kar
 const locations: Location[] = [
   {
     name: "Like Kar - Unidade 333",
     address: "Av. Bartolomeu de Carlos, 333 - Jardim Flor da Montanha, Guarulhos - SP",
-    coordinates: [-46.5307, -23.4445] as [number, number]
+    coordinates: {
+      lat: -23.4445,
+      lng: -46.5307
+    }
   },
   {
     name: "Like Kar - Unidade 245",
     address: "Av. Bartolomeu de Carlos, 245 - Jardim Flor da Montanha, Guarulhos - SP",
-    coordinates: [-46.5307, -23.4447] as [number, number]
+    coordinates: {
+      lat: -23.4447,
+      lng: -46.5307
+    }
   }
 ];
 
+const mapContainerStyle = {
+  width: '100%',
+  height: '500px'
+};
+
+const center = {
+  lat: -23.4446,
+  lng: -46.5307
+};
+
+const options = {
+  disableDefaultUI: false,
+  zoomControl: true,
+  mapTypeControl: true,
+  streetViewControl: true,
+  styles: [
+    {
+      featureType: "all",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#333333" }]
+    }
+  ]
+};
+
 const LocationMap = () => {
-  const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<mapboxgl.Map | null>(null);
-
-  useEffect(() => {
-    if (!mapContainer.current) return;
-
-    // Inicializar mapa
-    mapboxgl.accessToken = 'YOUR_MAPBOX_TOKEN'; // Substitua pelo seu token do Mapbox
-    
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/navigation-day-v1', // Estilo mais parecido com Google Maps
-      center: [-46.5307, -23.4446] as [number, number],
-      zoom: 15,
-      pitch: 45, // Adiciona um ângulo de visão
-      bearing: -17.6, // Rotação suave do mapa
-    });
-
-    // Adicionar marcadores para cada localização
-    locations.forEach(location => {
-      // Criar um elemento personalizado para o marcador
-      const el = document.createElement('div');
-      el.className = 'custom-marker';
-      el.style.backgroundColor = '#ffde00';
-      el.style.width = '24px';
-      el.style.height = '24px';
-      el.style.borderRadius = '50%';
-      el.style.border = '2px solid white';
-      el.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
-      el.style.cursor = 'pointer';
-
-      // Criar popup com estilo personalizado
-      const popup = new mapboxgl.Popup({
-        offset: 25,
-        className: 'custom-popup'
-      })
-        .setHTML(`
-          <div style="padding: 10px;">
-            <h3 style="font-weight: bold; margin-bottom: 5px; color: #333;">${location.name}</h3>
-            <p style="color: #666; font-size: 14px; margin: 0;">${location.address}</p>
-            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}" 
-               target="_blank" 
-               style="color: #1a73e8; text-decoration: none; font-size: 12px; display: block; margin-top: 8px;">
-              Ver no Google Maps
-            </a>
-          </div>
-        `);
-
-      new mapboxgl.Marker(el)
-        .setLngLat(location.coordinates)
-        .setPopup(popup)
-        .addTo(map.current!);
-    });
-
-    // Adicionar controles de navegação com estilo personalizado
-    map.current.addControl(new mapboxgl.NavigationControl({
-      showCompass: true,
-      showZoom: true,
-      visualizePitch: true
-    }), 'top-right');
-
-    // Adicionar controle de escala
-    map.current.addControl(new mapboxgl.ScaleControl({
-      maxWidth: 150,
-      unit: 'metric'
-    }), 'bottom-right');
-
-    // Adicionar efeito de sombra nas construções para dar mais profundidade
-    map.current.on('style.load', () => {
-      if (map.current) {
-        map.current.addLayer({
-          'id': '3d-buildings',
-          'source': 'composite',
-          'source-layer': 'building',
-          'filter': ['==', 'extrude', 'true'],
-          'type': 'fill-extrusion',
-          'minzoom': 15,
-          'paint': {
-            'fill-extrusion-color': '#aaa',
-            'fill-extrusion-height': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
-              15,
-              0,
-              15.05,
-              ['get', 'height']
-            ],
-            'fill-extrusion-base': ['get', 'min_height'],
-            'fill-extrusion-opacity': 0.6
-          }
-        });
-      }
-    });
-
-    return () => {
-      map.current?.remove();
-    };
-  }, []);
+  const [selectedPlace, setSelectedPlace] = useState<Location | null>(null);
 
   return (
-    <div className="relative w-full h-[500px] rounded-xl overflow-hidden shadow-2xl">
-      <div ref={mapContainer} className="absolute inset-0" />
-    </div>
+    <LoadScript googleMapsApiKey="YOUR_GOOGLE_MAPS_API_KEY">
+      <div className="relative w-full h-[500px] rounded-xl overflow-hidden shadow-2xl">
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          zoom={15}
+          center={center}
+          options={options}
+        >
+          {locations.map((location, index) => (
+            <Marker
+              key={index}
+              position={location.coordinates}
+              icon={{
+                url: "data:image/svg+xml;base64," + btoa(`
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="12" fill="#FFDE00"/>
+                    <circle cx="12" cy="12" r="10" fill="#FFDE00" stroke="white" stroke-width="2"/>
+                  </svg>
+                `),
+                scaledSize: new google.maps.Size(32, 32),
+                anchor: new google.maps.Point(16, 16)
+              }}
+              onClick={() => setSelectedPlace(location)}
+            />
+          ))}
+
+          {selectedPlace && (
+            <InfoWindow
+              position={selectedPlace.coordinates}
+              onCloseClick={() => setSelectedPlace(null)}
+            >
+              <div className="p-2 max-w-xs">
+                <h3 className="font-bold text-gray-800 mb-1">{selectedPlace.name}</h3>
+                <p className="text-gray-600 text-sm mb-2">{selectedPlace.address}</p>
+                <a
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+                    selectedPlace.address
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 text-sm hover:text-blue-800"
+                >
+                  Como chegar
+                </a>
+              </div>
+            </InfoWindow>
+          )}
+        </GoogleMap>
+      </div>
+    </LoadScript>
   );
 };
 
