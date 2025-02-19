@@ -21,6 +21,7 @@ export type Database = {
           id: string
           image: string | null
           name: string
+          price: number | null
           status: boolean | null
           video_url: string | null
         }
@@ -35,6 +36,7 @@ export type Database = {
           id?: string
           image?: string | null
           name: string
+          price?: number | null
           status?: boolean | null
           video_url?: string | null
         }
@@ -49,6 +51,7 @@ export type Database = {
           id?: string
           image?: string | null
           name?: string
+          price?: number | null
           status?: boolean | null
           video_url?: string | null
         }

@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -44,8 +43,8 @@ interface Product {
   detail_image: string | null;
   video_url: string | null;
   price: number | null;
-  active: boolean;
-  status: boolean;
+  active: boolean | null;
+  status: boolean | null;
 }
 
 export default function Admin() {
@@ -101,7 +100,6 @@ export default function Admin() {
 
       setProducts(data || []);
       
-      // Calcular estatísticas
       const stats = {
         total: data?.length || 0,
         active: data?.filter(p => p.active).length || 0,
@@ -224,7 +222,6 @@ export default function Admin() {
 
       toast.success("Produto criado com sucesso!");
       fetchProducts();
-      // Limpar formulário e fechar dialog
       (e.target as HTMLFormElement).reset();
       setImageFile(null);
       setDetailImageFile(null);
@@ -255,7 +252,6 @@ export default function Admin() {
         </Button>
       </div>
 
-      {/* Dashboard com métricas */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <Card>
           <CardHeader>
@@ -283,7 +279,6 @@ export default function Admin() {
         </Card>
       </div>
 
-      {/* Barra de ações */}
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <div className="flex-1">
           <div className="relative">
@@ -390,7 +385,6 @@ export default function Admin() {
         </Dialog>
       </div>
 
-      {/* Lista de produtos */}
       <div className="bg-white rounded-lg shadow overflow-hidden">
         <Table>
           <TableHeader>
@@ -469,7 +463,6 @@ export default function Admin() {
         </Table>
       </div>
 
-      {/* Modal de edição */}
       {selectedProduct && (
         <Dialog open={!!selectedProduct} onOpenChange={(open) => !open && setSelectedProduct(null)}>
           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
