@@ -7,8 +7,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { ProductCarousel } from '@/components/product/ProductCarousel';
 import { ShareButtons } from '@/components/product/ShareButtons';
 import { QuoteForm } from '@/components/product/QuoteForm';
-import { ShimmerButton } from '@/components/ui/shimmer-button';
-
 interface Product {
   id: string;
   name: string;
@@ -18,7 +16,6 @@ interface Product {
   videos: string[];
   active: boolean | null;
 }
-
 const ProductDetail = () => {
   const {
     productId
@@ -26,7 +23,6 @@ const ProductDetail = () => {
   const [showForm, setShowForm] = useState(false);
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     fetchProduct();
     const channel = supabase.channel('product-detail-changes').on('postgres_changes', {
@@ -41,7 +37,6 @@ const ProductDetail = () => {
       supabase.removeChannel(channel);
     };
   }, [productId]);
-
   const fetchProduct = async () => {
     try {
       setLoading(true);
@@ -58,7 +53,6 @@ const ProductDetail = () => {
       setLoading(false);
     }
   };
-
   const productMedia = product ? {
     fotos: product.photos || [],
     videos: product.videos || []
@@ -66,7 +60,6 @@ const ProductDetail = () => {
     fotos: [],
     videos: []
   };
-
   if (loading) {
     return <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
         <Navbar />
@@ -75,7 +68,6 @@ const ProductDetail = () => {
         </div>
       </div>;
   }
-
   if (!product) {
     return <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
         <Navbar />
@@ -87,20 +79,12 @@ const ProductDetail = () => {
         </div>
       </div>;
   }
-
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+  return <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <Navbar />
       
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="max-w-6xl mx-auto">
-          <Link 
-            to="/produtos"
-            className="inline-flex items-center text-gray-600 hover:text-black transition-colors mb-8"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Voltar para Produtos
-          </Link>
+          
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
             <div className="lg:sticky lg:top-24">
@@ -114,17 +98,11 @@ const ProductDetail = () => {
               </div>
               
               <div className="space-y-6 mt-8">
-                <ShimmerButton
-                  onClick={() => setShowForm(true)}
-                  className="w-full py-4 text-lg font-semibold"
-                  background="#ffde00"
-                  shimmerColor="rgba(255, 255, 255, 0.4)"
-                  borderRadius="12px"
-                >
-                  <span className="text-black">Solicitar Orçamento</span>
-                </ShimmerButton>
+                <Button onClick={() => setShowForm(true)} className="w-full bg-likekar-yellow hover:bg-yellow-400 text-black font-medium py-3 text-lg">
+                  Solicitar Orçamento
+                </Button>
 
-                <ShareButtons productName={product.name} />
+                <ShareButtons productName={product.name} className="px-0 py-[223px]" />
               </div>
             </div>
           </div>
@@ -132,8 +110,6 @@ const ProductDetail = () => {
 
         {showForm && <QuoteForm onClose={() => setShowForm(false)} />}
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default ProductDetail;
