@@ -49,9 +49,9 @@ const Map = ({ className = "" }: MapProps) => {
       });
     };
 
-    // Carrega a API do Google Maps
+    // Carrega a API do Google Maps com a chave fornecida
     const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY`; // Substitua YOUR_API_KEY pela sua chave
+    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDMhG_DptDwtfsUt2zbDP1Efb1L4g5_qYw`;
     script.async = true;
     script.defer = true;
     script.onload = initMap;
