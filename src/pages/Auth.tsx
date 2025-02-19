@@ -41,17 +41,6 @@ export default function Auth() {
     checkCurrentSession();
   }, [navigate]);
 
-  // Monitorar mudanças no estado de autenticação
-  useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event === 'SIGNED_IN' && session?.user) {
-        navigate("/admin", { replace: true });
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, [navigate]);
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -71,7 +60,7 @@ export default function Auth() {
       setLoading(true);
 
       if (isLogin) {
-        const { error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signInWithPassword({
           email: values.email,
           password: values.password,
         });
@@ -82,9 +71,12 @@ export default function Auth() {
           }
           throw error;
         }
-        
-        // O redirecionamento será feito pelo onAuthStateChange
-        toast.success("Login realizado com sucesso!");
+
+        if (data?.user) {
+          toast.success("Login realizado com sucesso!");
+          // Forçar redirecionamento imediato após login bem-sucedido
+          navigate("/admin", { replace: true });
+        }
       } else {
         const { error: signUpError } = await supabase.auth.signUp({
           email: values.email,
