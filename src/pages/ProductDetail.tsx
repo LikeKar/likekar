@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { ProductCarousel } from '@/components/product/ProductCarousel';
 import { ShareButtons } from '@/components/product/ShareButtons';
 import { QuoteForm } from '@/components/product/QuoteForm';
+
 interface Product {
   id: string;
   name: string;
@@ -16,13 +17,13 @@ interface Product {
   videos: string[];
   active: boolean | null;
 }
+
 const ProductDetail = () => {
-  const {
-    productId
-  } = useParams();
+  const { productId } = useParams();
   const [showForm, setShowForm] = useState(false);
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     fetchProduct();
     const channel = supabase.channel('product-detail-changes').on('postgres_changes', {
@@ -37,6 +38,7 @@ const ProductDetail = () => {
       supabase.removeChannel(channel);
     };
   }, [productId]);
+
   const fetchProduct = async () => {
     try {
       setLoading(true);
@@ -53,6 +55,7 @@ const ProductDetail = () => {
       setLoading(false);
     }
   };
+
   const productMedia = product ? {
     fotos: product.photos || [],
     videos: product.videos || []
@@ -60,6 +63,7 @@ const ProductDetail = () => {
     fotos: [],
     videos: []
   };
+
   const features = [{
     icon: <Shield className="w-8 h-8" />,
     title: "Proteção UV 99%",
@@ -73,6 +77,7 @@ const ProductDetail = () => {
     title: "Privacidade Total",
     description: "Visibilidade de dentro para fora"
   }];
+
   if (loading) {
     return <div className="min-h-screen bg-white">
         <Navbar />
@@ -81,6 +86,7 @@ const ProductDetail = () => {
         </div>
       </div>;
   }
+
   if (!product) {
     return <div className="min-h-screen bg-white">
         <Navbar />
@@ -92,6 +98,7 @@ const ProductDetail = () => {
         </div>
       </div>;
   }
+
   return <div className="min-h-screen bg-white">
       <Navbar />
       
@@ -105,7 +112,9 @@ const ProductDetail = () => {
 
           <div className="flex flex-col justify-between">
             <div>
-              <h1 className="text-4xl font-bold font-montserrat mb-4">{product.name} <span className="text-gray-400">Series</span></h1>
+              <h1 className="text-[40px] leading-tight font-bold font-montserrat mb-4">
+                {product.name}
+              </h1>
               <p className="text-gray-600 text-lg leading-relaxed mb-8">
                 {product.full_description || product.description}
               </p>
@@ -135,4 +144,5 @@ const ProductDetail = () => {
       {showForm && <QuoteForm onClose={() => setShowForm(false)} />}
     </div>;
 };
+
 export default ProductDetail;
