@@ -103,10 +103,10 @@ const ProductDetail = () => {
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <Navbar />
       
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Link 
           to="/produtos"
-          className="inline-flex items-center text-gray-600 hover:text-black transition-colors mb-12"
+          className="inline-flex items-center text-gray-600 hover:text-black transition-colors mb-8"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
           Voltar para Produtos
