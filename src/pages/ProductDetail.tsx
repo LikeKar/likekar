@@ -1,3 +1,4 @@
+
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
@@ -18,7 +19,6 @@ import { PRODUCTS } from './Products';
 const ProductDetail = () => {
   const { productId } = useParams();
   const [showForm, setShowForm] = useState(false);
-  const [activeTab, setActiveTab] = useState<'fotos' | 'videos'>('fotos');
   
   const product = PRODUCTS.find(p => p.id === productId);
 
@@ -87,97 +87,37 @@ const ProductDetail = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Media Section */}
           <div className="space-y-6">
-            {/* Tab Buttons */}
-            <div className="flex space-x-4 mb-4">
-              <Button 
-                variant={activeTab === 'fotos' ? 'default' : 'outline'}
-                onClick={() => setActiveTab('fotos')}
-                className={activeTab === 'fotos' ? 'bg-likekar-yellow text-black hover:bg-yellow-400' : ''}
-              >
-                Fotos
-              </Button>
-              <Button 
-                variant={activeTab === 'videos' ? 'default' : 'outline'}
-                onClick={() => setActiveTab('videos')}
-                className={activeTab === 'videos' ? 'bg-likekar-yellow text-black hover:bg-yellow-400' : ''}
-              >
-                Vídeos
-              </Button>
-            </div>
-
-            {/* Media Content */}
-            {activeTab === 'fotos' ? (
-              <Carousel className="w-full max-w-full">
-                <CarouselContent>
-                  {productMedia.fotos.map((foto, index) => (
-                    <CarouselItem key={index}>
-                      <div className="relative aspect-video">
-                        <img 
-                          src={foto} 
-                          alt={`${product.name} - Foto ${index + 1}`}
-                          className="w-full h-full object-cover rounded-xl"
-                        />
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
-              </Carousel>
-            ) : (
-              <div className="space-y-4">
-                {productMedia.videos.map((video, index) => (
-                  <div key={index} className="relative aspect-video">
-                    <iframe
-                      src={video}
-                      title={`${product.name} - Vídeo ${index + 1}`}
-                      className="w-full h-full rounded-xl"
-                      allowFullScreen
-                    />
-                  </div>
+            <Carousel className="w-full max-w-full">
+              <CarouselContent>
+                {/* Fotos primeiro */}
+                {productMedia.fotos.map((foto, index) => (
+                  <CarouselItem key={`foto-${index}`}>
+                    <div className="relative aspect-video">
+                      <img 
+                        src={foto} 
+                        alt={`${product.name} - Foto ${index + 1}`}
+                        className="w-full h-full object-cover rounded-xl"
+                      />
+                    </div>
+                  </CarouselItem>
                 ))}
-              </div>
-            )}
-
-            {/* Share Buttons */}
-            <div className="flex items-center space-x-4 pt-4">
-              <span className="text-sm text-gray-500 flex items-center">
-                <Share2 className="w-4 h-4 mr-2" />
-                Compartilhar:
-              </span>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => handleShare('whatsapp')}
-                className="rounded-full"
-              >
-                <MessageSquare className="w-4 h-4 text-green-600" />
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => handleShare('facebook')}
-                className="rounded-full"
-              >
-                <Facebook className="w-4 h-4 text-blue-600" />
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => handleShare('instagram')}
-                className="rounded-full"
-              >
-                <Instagram className="w-4 h-4 text-pink-600" />
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => handleShare('copy')}
-                className="rounded-full"
-              >
-                <LinkIcon className="w-4 h-4" />
-              </Button>
-            </div>
+                {/* Videos depois */}
+                {productMedia.videos.map((video, index) => (
+                  <CarouselItem key={`video-${index}`}>
+                    <div className="relative aspect-video">
+                      <iframe
+                        src={video}
+                        title={`${product.name} - Vídeo ${index + 1}`}
+                        className="w-full h-full rounded-xl"
+                        allowFullScreen
+                      />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
           </div>
 
           {/* Product Info */}
@@ -185,13 +125,53 @@ const ProductDetail = () => {
             <h1 className="text-3xl font-bold font-montserrat mb-4">{product.name}</h1>
             <p className="text-gray-600 mb-6 text-lg">{product.fullDescription}</p>
             
-            <div className="space-y-4">
+            <div className="space-y-6">
               <Button 
                 onClick={() => setShowForm(true)}
                 className="w-full bg-likekar-yellow hover:bg-yellow-400 text-black font-medium py-3 text-lg"
               >
                 Solicitar Orçamento
               </Button>
+
+              {/* Share Buttons moved below the CTA */}
+              <div className="flex items-center space-x-4 justify-center pt-4 border-t">
+                <span className="text-sm text-gray-500 flex items-center">
+                  <Share2 className="w-4 h-4 mr-2" />
+                  Compartilhar:
+                </span>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => handleShare('whatsapp')}
+                  className="rounded-full"
+                >
+                  <MessageSquare className="w-4 h-4 text-green-600" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => handleShare('facebook')}
+                  className="rounded-full"
+                >
+                  <Facebook className="w-4 h-4 text-blue-600" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => handleShare('instagram')}
+                  className="rounded-full"
+                >
+                  <Instagram className="w-4 h-4 text-pink-600" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => handleShare('copy')}
+                  className="rounded-full"
+                >
+                  <LinkIcon className="w-4 h-4" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
