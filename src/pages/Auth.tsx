@@ -30,11 +30,14 @@ export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
       if (session) {
         navigate("/admin");
       }
-    });
+    };
+    
+    checkUser();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session) {
@@ -70,6 +73,8 @@ export default function Auth() {
           }
           throw error;
         }
+
+        toast.success("Login realizado com sucesso!");
       } else {
         const { error: signUpError } = await supabase.auth.signUp({
           email: values.email,
