@@ -7,7 +7,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { ProductCarousel } from '@/components/product/ProductCarousel';
 import { ShareButtons } from '@/components/product/ShareButtons';
 import { QuoteForm } from '@/components/product/QuoteForm';
-
 interface Product {
   id: string;
   name: string;
@@ -17,13 +16,13 @@ interface Product {
   videos: string[];
   active: boolean | null;
 }
-
 const ProductDetail = () => {
-  const { productId } = useParams();
+  const {
+    productId
+  } = useParams();
   const [showForm, setShowForm] = useState(false);
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     fetchProduct();
     const channel = supabase.channel('product-detail-changes').on('postgres_changes', {
@@ -38,7 +37,6 @@ const ProductDetail = () => {
       supabase.removeChannel(channel);
     };
   }, [productId]);
-
   const fetchProduct = async () => {
     try {
       setLoading(true);
@@ -55,7 +53,6 @@ const ProductDetail = () => {
       setLoading(false);
     }
   };
-
   const productMedia = product ? {
     fotos: product.photos || [],
     videos: product.videos || []
@@ -63,39 +60,29 @@ const ProductDetail = () => {
     fotos: [],
     videos: []
   };
-
-  const features = [
-    {
-      icon: <Shield className="w-8 h-8" />,
-      title: "Proteção UV 99%",
-      description: "Máxima proteção contra raios ultravioleta"
-    },
-    {
-      icon: <Thermometer className="w-8 h-8" />,
-      title: "Redução de Calor",
-      description: "Até 78% de redução da temperatura interna"
-    },
-    {
-      icon: <Eye className="w-8 h-8" />,
-      title: "Privacidade Total",
-      description: "Visibilidade de dentro para fora"
-    }
-  ];
-
+  const features = [{
+    icon: <Shield className="w-8 h-8" />,
+    title: "Proteção UV 99%",
+    description: "Máxima proteção contra raios ultravioleta"
+  }, {
+    icon: <Thermometer className="w-8 h-8" />,
+    title: "Redução de Calor",
+    description: "Até 78% de redução da temperatura interna"
+  }, {
+    icon: <Eye className="w-8 h-8" />,
+    title: "Privacidade Total",
+    description: "Visibilidade de dentro para fora"
+  }];
   if (loading) {
-    return (
-      <div className="min-h-screen bg-white">
+    return <div className="min-h-screen bg-white">
         <Navbar />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <p>Carregando produto...</p>
         </div>
-      </div>
-    );
+      </div>;
   }
-
   if (!product) {
-    return (
-      <div className="min-h-screen bg-white">
+    return <div className="min-h-screen bg-white">
         <Navbar />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <p>Produto não encontrado ou foi desativado.</p>
@@ -103,25 +90,19 @@ const ProductDetail = () => {
             <Button className="mt-4">Voltar para Produtos</Button>
           </Link>
         </div>
-      </div>
-    );
+      </div>;
   }
-
-  return (
-    <div className="min-h-screen bg-white">
+  return <div className="min-h-screen bg-white">
       <Navbar />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <Link 
-          to="/produtos"
-          className="inline-flex items-center text-gray-600 hover:text-black transition-colors mb-12"
-        >
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-[98px]">
+        <Link to="/produtos" className="inline-flex items-center text-gray-600 hover:text-black transition-colors mb-12">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Voltar para Produtos
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-16">
-          <div>
+          <div className="py-[10px] px-0 mx-0">
             <ProductCarousel media={productMedia} productName={product.name} />
           </div>
 
@@ -133,23 +114,18 @@ const ProductDetail = () => {
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {features.map((feature, index) => (
-                  <div key={index} className="flex flex-col items-center text-center">
+                {features.map((feature, index) => <div key={index} className="flex flex-col items-center text-center">
                     <div className="mb-4 text-likekar-yellow">
                       {feature.icon}
                     </div>
                     <h3 className="font-semibold mb-2">{feature.title}</h3>
                     <p className="text-sm text-gray-500">{feature.description}</p>
-                  </div>
-                ))}
+                  </div>)}
               </div>
             </div>
             
             <div className="mt-12">
-              <Button 
-                onClick={() => setShowForm(true)}
-                className="w-full bg-likekar-black hover:bg-black/90 text-white py-6 rounded-none text-lg font-medium"
-              >
+              <Button onClick={() => setShowForm(true)} className="w-full bg-likekar-black hover:bg-black/90 text-white py-6 rounded-none text-lg font-medium">
                 Solicitar Orçamento
               </Button>
 
@@ -160,8 +136,6 @@ const ProductDetail = () => {
       </main>
 
       {showForm && <QuoteForm onClose={() => setShowForm(false)} />}
-    </div>
-  );
+    </div>;
 };
-
 export default ProductDetail;
