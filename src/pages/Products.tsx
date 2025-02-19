@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -87,14 +86,12 @@ const Products = () => {
       
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
         <div className="text-center mb-8 md:mb-12">
-          <div className="bg-[#ffdd00] py-8 px-4 rounded-lg shadow-lg mb-6">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-montserrat text-black">
-              Nossos Produtos
-            </h1>
-            <p className="text-gray-800 max-w-2xl mx-auto mt-4">
-              Encontre tudo o que seu carro precisa em um só lugar. Trabalhamos com as melhores marcas do mercado.
-            </p>
-          </div>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-montserrat text-black mb-4">
+            Nossos Produtos
+          </h1>
+          <p className="text-gray-800 max-w-2xl mx-auto">
+            Encontre tudo o que seu carro precisa em um só lugar. Trabalhamos com as melhores marcas do mercado.
+          </p>
         </div>
 
         {/* Filters */}
