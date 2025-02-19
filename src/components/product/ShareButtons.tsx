@@ -1,11 +1,11 @@
 
 import { Button } from "@/components/ui/button";
-import { Share2, Facebook, Instagram, Link as LinkIcon, MessageSquare } from 'lucide-react';
+import { Share2, Link as LinkIcon } from 'lucide-react';
 import { toast } from "sonner";
 
 interface ShareButtonsProps {
   productName: string;
-  className?: string; // Adicionando className como prop opcional
+  className?: string;
 }
 
 export const ShareButtons = ({ productName, className }: ShareButtonsProps) => {
@@ -41,25 +41,37 @@ export const ShareButtons = ({ productName, className }: ShareButtonsProps) => {
         variant="outline"
         size="icon"
         onClick={() => handleShare('whatsapp')}
-        className="rounded-full"
+        className="rounded-full p-0 overflow-hidden border-0"
       >
-        <MessageSquare className="w-4 h-4 text-green-600" />
+        <img 
+          src="/lovable-uploads/62d89078-3e05-4152-9df3-539d6801c128.png" 
+          alt="WhatsApp" 
+          className="w-8 h-8"
+        />
       </Button>
       <Button
         variant="outline"
         size="icon"
         onClick={() => handleShare('facebook')}
-        className="rounded-full"
+        className="rounded-full p-0 overflow-hidden border-0"
       >
-        <Facebook className="w-4 h-4 text-blue-600" />
+        <img 
+          src="/lovable-uploads/94528df8-a7dd-4597-a349-37b57a0953c3.png" 
+          alt="Facebook" 
+          className="w-8 h-8"
+        />
       </Button>
       <Button
         variant="outline"
         size="icon"
         onClick={() => handleShare('instagram')}
-        className="rounded-full"
+        className="rounded-full p-0 overflow-hidden border-0"
       >
-        <Instagram className="w-4 h-4 text-pink-600" />
+        <img 
+          src="/lovable-uploads/7a042ba0-7e80-4bfc-ab38-ce91350be9ce.png" 
+          alt="Instagram" 
+          className="w-8 h-8"
+        />
       </Button>
       <Button
         variant="outline"
