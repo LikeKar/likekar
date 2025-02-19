@@ -1,7 +1,6 @@
 
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-import { useState } from 'react';
 
 type Location = {
   name: string;
@@ -57,9 +56,28 @@ const options = {
 
 const LocationMap = () => {
   const [selectedPlace, setSelectedPlace] = useState<Location | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const onLoad = useCallback(() => {
+    setIsLoaded(true);
+  }, []);
+
+  const markerIcon = isLoaded ? {
+    url: "data:image/svg+xml;base64," + btoa(`
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="12" fill="#FFDE00"/>
+        <circle cx="12" cy="12" r="10" fill="#FFDE00" stroke="white" stroke-width="2"/>
+      </svg>
+    `),
+    scaledSize: new window.google?.maps?.Size(32, 32),
+    anchor: new window.google?.maps?.Point(16, 16)
+  } : undefined;
 
   return (
-    <LoadScript googleMapsApiKey="YOUR_GOOGLE_MAPS_API_KEY">
+    <LoadScript 
+      googleMapsApiKey="YOUR_GOOGLE_MAPS_API_KEY"
+      onLoad={onLoad}
+    >
       <div className="relative w-full h-[500px] rounded-xl overflow-hidden shadow-2xl">
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
@@ -67,20 +85,11 @@ const LocationMap = () => {
           center={center}
           options={options}
         >
-          {locations.map((location, index) => (
+          {isLoaded && locations.map((location, index) => (
             <Marker
               key={index}
               position={location.coordinates}
-              icon={{
-                url: "data:image/svg+xml;base64," + btoa(`
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="12" fill="#FFDE00"/>
-                    <circle cx="12" cy="12" r="10" fill="#FFDE00" stroke="white" stroke-width="2"/>
-                  </svg>
-                `),
-                scaledSize: new google.maps.Size(32, 32),
-                anchor: new google.maps.Point(16, 16)
-              }}
+              icon={markerIcon}
               onClick={() => setSelectedPlace(location)}
             />
           ))}
