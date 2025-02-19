@@ -3,16 +3,11 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Share2, Facebook, Instagram, Link as LinkIcon, MessageSquare } from 'lucide-react';
-import { toast } from "sonner";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
+import { ArrowLeft } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
+import { ProductCarousel } from '@/components/product/ProductCarousel';
+import { ShareButtons } from '@/components/product/ShareButtons';
+import { QuoteForm } from '@/components/product/QuoteForm';
 
 interface Product {
   id: string;
@@ -33,7 +28,6 @@ const ProductDetail = () => {
   useEffect(() => {
     fetchProduct();
 
-    // Inscrever-se para atualizações em tempo real
     const channel = supabase
       .channel('product-detail-changes')
       .on(
@@ -65,10 +59,7 @@ const ProductDetail = () => {
         .eq('active', true)
         .single();
 
-      if (error) {
-        throw error;
-      }
-
+      if (error) throw error;
       setProduct(data);
     } catch (error) {
       console.error('Erro ao buscar produto:', error);
@@ -90,28 +81,6 @@ const ProductDetail = () => {
       "https://www.youtube.com/embed/dQw4w9WgXcQ"
     ]
   } : { fotos: [], videos: [] };
-
-  const handleShare = (platform: string) => {
-    const url = window.location.href;
-    const text = `Confira ${product?.name} na Like Kar!`;
-
-    switch (platform) {
-      case 'whatsapp':
-        window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
-        break;
-      case 'facebook':
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
-        break;
-      case 'instagram':
-        toast.info("Copie o link e compartilhe no Instagram!");
-        navigator.clipboard.writeText(url);
-        break;
-      case 'copy':
-        navigator.clipboard.writeText(url);
-        toast.success("Link copiado para a área de transferência!");
-        break;
-    }
-  };
 
   if (loading) {
     return (
@@ -153,35 +122,7 @@ const ProductDetail = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="space-y-6">
-            <Carousel className="w-full max-w-full">
-              <CarouselContent>
-                {productMedia.fotos.map((foto, index) => (
-                  <CarouselItem key={`foto-${index}`}>
-                    <div className="relative aspect-video">
-                      <img 
-                        src={foto || '/placeholder.svg'} 
-                        alt={`${product.name} - Foto ${index + 1}`}
-                        className="w-full h-full object-cover rounded-xl"
-                      />
-                    </div>
-                  </CarouselItem>
-                ))}
-                {productMedia.videos.map((video, index) => (
-                  <CarouselItem key={`video-${index}`}>
-                    <div className="relative aspect-video">
-                      <iframe
-                        src={video}
-                        title={`${product.name} - Vídeo ${index + 1}`}
-                        className="w-full h-full rounded-xl"
-                        allowFullScreen
-                      />
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
+            <ProductCarousel media={productMedia} productName={product.name} />
           </div>
 
           <div>
@@ -196,105 +137,12 @@ const ProductDetail = () => {
                 Solicitar Orçamento
               </Button>
 
-              <div className="flex items-center space-x-4 justify-center pt-4 border-t">
-                <span className="text-sm text-gray-500 flex items-center">
-                  <Share2 className="w-4 h-4 mr-2" />
-                  Compartilhar:
-                </span>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => handleShare('whatsapp')}
-                  className="rounded-full"
-                >
-                  <MessageSquare className="w-4 h-4 text-green-600" />
-                </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => handleShare('facebook')}
-                  className="rounded-full"
-                >
-                  <Facebook className="w-4 h-4 text-blue-600" />
-                </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => handleShare('instagram')}
-                  className="rounded-full"
-                >
-                  <Instagram className="w-4 h-4 text-pink-600" />
-                </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => handleShare('copy')}
-                  className="rounded-full"
-                >
-                  <LinkIcon className="w-4 h-4" />
-                </Button>
-              </div>
+              <ShareButtons productName={product.name} />
             </div>
           </div>
         </div>
 
-        {showForm && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-xl p-6 max-w-md w-full">
-              <h2 className="text-2xl font-bold mb-4">Solicitar Orçamento</h2>
-              <form className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium mb-1">Nome</label>
-                  <input
-                    type="text"
-                    className="w-full p-2 border rounded-md"
-                    placeholder="Seu nome"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1">Email</label>
-                  <input
-                    type="email"
-                    className="w-full p-2 border rounded-md"
-                    placeholder="seu@email.com"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1">Telefone</label>
-                  <input
-                    type="tel"
-                    className="w-full p-2 border rounded-md"
-                    placeholder="(00) 00000-0000"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1">Mensagem</label>
-                  <textarea
-                    className="w-full p-2 border rounded-md"
-                    rows={4}
-                    placeholder="Sua mensagem..."
-                  />
-                </div>
-                <div className="flex gap-4">
-                  <Button
-                    type="submit"
-                    className="flex-1 bg-likekar-yellow hover:bg-yellow-400 text-black"
-                  >
-                    Enviar
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => setShowForm(false)}
-                    className="flex-1"
-                  >
-                    Cancelar
-                  </Button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
+        {showForm && <QuoteForm onClose={() => setShowForm(false)} />}
       </main>
     </div>
   );
