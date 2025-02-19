@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+
 const Index = () => {
   const navigate = useNavigate();
   const whatsappNumber = "551145740701";
@@ -35,6 +36,7 @@ const Index = () => {
     name: "Alpine",
     logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
   }];
+
   return <div className="min-h-screen bg-white flex flex-col">
       <Navbar />
       <Hero />
@@ -111,7 +113,11 @@ const Index = () => {
           <div className="container mx-auto px-4 max-w-7xl">
             <div className="lg:flex lg:items-center lg:gap-12">
               <div className="lg:w-1/2 mb-10 lg:mb-0">
-                <img alt="Like Kar Serviços" className="rounded-lg shadow-xl w-full object-cover" src="/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" />
+                <img 
+                  src="/lovable-uploads/33a81e49-eb24-4d74-95ac-4c015e322153.png"
+                  alt="Like Kar"
+                  className="rounded-lg shadow-xl w-full object-cover"
+                />
               </div>
               
               <div className="lg:w-1/2">
@@ -235,9 +241,11 @@ const Index = () => {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
             {/* Sobre */}
             <div className="space-y-6">
-              <h3 className="text-white font-montserrat font-bold text-2xl">
-                LIKE KAR
-              </h3>
+              <img 
+                src="/lovable-uploads/33a81e49-eb24-4d74-95ac-4c015e322153.png"
+                alt="Like Kar"
+                className="h-12 w-auto"
+              />
               <p className="text-gray-400 leading-relaxed mx-[23px]">
                 Transformando seu veículo com excelência e qualidade desde 2010. Referência em personalização automotiva.
               </p>
@@ -405,4 +413,5 @@ const Index = () => {
       </footer>
     </div>;
 };
+
 export default Index;
