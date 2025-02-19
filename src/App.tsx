@@ -8,9 +8,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
-// Criar a instância do QueryClient fora do componente
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -32,6 +32,7 @@ const App: React.FC = () => {
               <Route path="/" element={<Index />} />
               <Route path="/produtos" element={<Products />} />
               <Route path="/produtos/:productId" element={<ProductDetail />} />
+              <Route path="/contato" element={<Contact />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
