@@ -103,7 +103,7 @@ const ProductDetail = () => {
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <Navbar />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Link 
           to="/produtos"
           className="inline-flex items-center text-gray-600 hover:text-black transition-colors mb-8"
@@ -112,16 +112,18 @@ const ProductDetail = () => {
           Voltar para Produtos
         </Link>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+          <div className="lg:sticky lg:top-24">
             <ProductCarousel media={productMedia} productName={product.name} />
           </div>
 
-          <div>
-            <h1 className="text-3xl font-bold font-montserrat mb-4">{product.name}</h1>
-            <p className="text-gray-600 mb-6 text-lg">{product.full_description || product.description}</p>
+          <div className="flex flex-col justify-between">
+            <div>
+              <h1 className="text-4xl font-bold font-montserrat mb-6">{product.name}</h1>
+              <p className="text-gray-600 mb-8 text-lg leading-relaxed">{product.full_description || product.description}</p>
+            </div>
             
-            <div className="space-y-6">
+            <div className="space-y-6 mt-8">
               <Button 
                 onClick={() => setShowForm(true)}
                 className="w-full bg-likekar-yellow hover:bg-yellow-400 text-black font-medium py-3 text-lg"
