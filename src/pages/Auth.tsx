@@ -30,17 +30,23 @@ export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
 
   useEffect(() => {
-    const checkUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        navigate("/admin");
+    const checkSession = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        console.log("Session check:", session);
+        if (session?.user) {
+          navigate("/admin");
+        }
+      } catch (error) {
+        console.error("Error checking session:", error);
       }
     };
-    
-    checkUser();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session) {
+    checkSession();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log("Auth state changed:", event, session);
+      if (session?.user) {
         navigate("/admin");
       }
     });
@@ -60,33 +66,44 @@ export default function Auth() {
   const handleAuth = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
-      
+      console.log("Attempting auth:", isLogin ? "login" : "signup", values);
+
       if (isLogin) {
-        const { error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signInWithPassword({
           email: values.email,
           password: values.password,
         });
 
+        console.log("Login response:", { data, error });
+
         if (error) {
+          console.error("Login error:", error);
           if (error.message === 'Invalid login credentials') {
             throw new Error('Email ou senha inválidos');
           }
           throw error;
         }
 
-        toast.success("Login realizado com sucesso!");
+        if (data.user) {
+          toast.success("Login realizado com sucesso!");
+          navigate("/admin");
+        }
       } else {
-        const { error: signUpError } = await supabase.auth.signUp({
+        const { data, error: signUpError } = await supabase.auth.signUp({
           email: values.email,
           password: values.password,
           options: {
             data: {
               name: values.name,
             },
+            emailRedirectTo: `${window.location.origin}/auth`,
           },
         });
 
+        console.log("Signup response:", { data, signUpError });
+
         if (signUpError) {
+          console.error("Signup error:", signUpError);
           if (signUpError.message.includes('User already registered')) {
             throw new Error('Este email já está cadastrado');
           }
@@ -96,9 +113,9 @@ export default function Auth() {
         toast.success("Conta criada com sucesso! Verifique seu email para confirmar.");
         setIsLogin(true);
         form.reset();
-        return;
       }
     } catch (error: any) {
+      console.error("Auth error:", error);
       toast.error(error.message);
     } finally {
       setLoading(false);
