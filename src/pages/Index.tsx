@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+
 const Index = () => {
   const navigate = useNavigate();
   const whatsappNumber = "551145740701";
@@ -34,6 +35,7 @@ const Index = () => {
     name: "Alpine",
     logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
   }];
+
   return <div className="min-h-screen bg-white flex flex-col">
       <Navbar />
       <Hero />
@@ -226,15 +228,16 @@ const Index = () => {
       {/* Footer */}
       <footer className="bg-likekar-black">
         <div className="container mx-auto px-4 max-w-7xl py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-            <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+            {/* Sobre */}
+            <div className="space-y-6 text-center md:text-left">
               <h3 className="text-white font-montserrat font-bold text-2xl">
                 LIKE KAR
               </h3>
               <p className="text-gray-400 leading-relaxed">
                 Transformando seu veículo com excelência e qualidade desde 2010. Referência em personalização automotiva.
               </p>
-              <div className="flex space-x-4 px-0 mx-[58px]">
+              <div className="flex space-x-4 justify-center md:justify-start">
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-likekar-yellow rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors">
                   <Facebook size={20} className="text-black" />
                 </a>
@@ -247,25 +250,26 @@ const Index = () => {
               </div>
             </div>
 
-            <div className="py-0 px-[97px]">
+            {/* Menu */}
+            <div className="text-center md:text-left">
               <h3 className="text-white font-montserrat font-bold text-xl mb-6 uppercase">
                 Menu
               </h3>
               <ul className="space-y-4">
                 <li>
-                  <Link to="/" className="text-gray-400 hover:text-likekar-yellow transition-colors flex items-center">
+                  <Link to="/" className="text-gray-400 hover:text-likekar-yellow transition-colors flex items-center justify-center md:justify-start">
                     <span className="w-2 h-2 bg-likekar-yellow rounded-full mr-2"></span>
                     Home
                   </Link>
                 </li>
                 <li>
-                  <Link to="/produtos" className="text-gray-400 hover:text-likekar-yellow transition-colors flex items-center">
+                  <Link to="/produtos" className="text-gray-400 hover:text-likekar-yellow transition-colors flex items-center justify-center md:justify-start">
                     <span className="w-2 h-2 bg-likekar-yellow rounded-full mr-2"></span>
                     Produtos
                   </Link>
                 </li>
                 <li>
-                  <Link to="/contato" className="text-gray-400 hover:text-likekar-yellow transition-colors flex items-center">
+                  <Link to="/contato" className="text-gray-400 hover:text-likekar-yellow transition-colors flex items-center justify-center md:justify-start">
                     <span className="w-2 h-2 bg-likekar-yellow rounded-full mr-2"></span>
                     Contato
                   </Link>
@@ -273,46 +277,50 @@ const Index = () => {
               </ul>
             </div>
 
-            <div className="px-[44px]">
+            {/* Contato */}
+            <div className="text-center md:text-left">
               <h3 className="text-white font-montserrat font-bold text-xl mb-6 uppercase">
                 Contato
               </h3>
               <ul className="space-y-4">
-                <li className="flex items-center text-gray-400 hover:text-likekar-yellow transition-colors">
+                <li className="flex items-center text-gray-400 hover:text-likekar-yellow transition-colors justify-center md:justify-start">
                   <Phone size={20} className="text-likekar-yellow mr-3" />
                   <a href="tel:+551145740701">
                     +55 11 4574-0701
                   </a>
                 </li>
-                <li className="flex items-center text-gray-400 hover:text-likekar-yellow transition-colors">
+                <li className="flex items-center text-gray-400 hover:text-likekar-yellow transition-colors justify-center md:justify-start">
                   <Mail size={20} className="text-likekar-yellow mr-3" />
                   <a href="mailto:contato@likekar.com">
                     contato@likekar.com
                   </a>
                 </li>
-                <li className="flex items-start text-gray-400 group">
+                <li className="flex items-start text-gray-400 group justify-center md:justify-start">
                   <MapPin size={20} className="text-likekar-yellow mr-3 mt-1 flex-shrink-0" />
-                  <span className="group-hover:text-likekar-yellow transition-colors">Av. Bartolomeu de Carlos, 333</span>
+                  <span className="group-hover:text-likekar-yellow transition-colors">
+                    Av. Bartolomeu de Carlos, 333
+                  </span>
                 </li>
               </ul>
             </div>
 
-            <div className="my-0 mx-[50px]">
+            {/* Horário */}
+            <div className="text-center md:text-left">
               <h3 className="text-white font-montserrat font-bold text-xl mb-6 uppercase">
                 Horário
               </h3>
               <ul className="space-y-4">
-                <li className="flex items-center text-gray-400">
+                <li className="flex items-center text-gray-400 justify-center md:justify-start">
                   <Clock size={20} className="text-likekar-yellow mr-3" />
                   <div>
                     <p className="font-semibold">Segunda à Sexta</p>
                     <p>08:00 - 18:00</p>
                   </div>
                 </li>
-                <li className="flex items-center text-gray-400 px-[4px]">
+                <li className="flex items-center text-gray-400 justify-center md:justify-start">
                   <Clock size={20} className="text-likekar-yellow mr-3" />
                   <div>
-                    <p className="font-semibold my-0 px-[29px]">Sábado</p>
+                    <p className="font-semibold">Sábado</p>
                     <p>08:00 - 12:00</p>
                   </div>
                 </li>
@@ -331,4 +339,5 @@ const Index = () => {
       </footer>
     </div>;
 };
+
 export default Index;
