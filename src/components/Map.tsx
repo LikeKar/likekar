@@ -6,6 +6,12 @@ interface MapProps {
   className?: string;
 }
 
+declare global {
+  interface Window {
+    google: typeof google;
+  }
+}
+
 const Map = ({ className = "" }: MapProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
 
@@ -15,7 +21,7 @@ const Map = ({ className = "" }: MapProps) => {
       if (!mapRef.current) return;
 
       const location = { lat: -23.5489, lng: -46.6388 }; // Coordenadas da empresa (ajuste conforme necessário)
-      const map = new google.maps.Map(mapRef.current, {
+      const map = new window.google.maps.Map(mapRef.current, {
         center: location,
         zoom: 15,
         styles: [
@@ -33,7 +39,7 @@ const Map = ({ className = "" }: MapProps) => {
       });
 
       // Adiciona um marcador na localização
-      new google.maps.Marker({
+      new window.google.maps.Marker({
         position: location,
         map: map,
         title: "Like Kar",
