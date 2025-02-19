@@ -2,8 +2,16 @@
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Share2, Facebook, Instagram, Link as LinkIcon, WhatsApp } from 'lucide-react';
 import { useState } from 'react';
+import { toast } from "sonner";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 
 // Importe o array PRODUCTS do arquivo Products.tsx
 import { PRODUCTS } from './Products';
@@ -11,8 +19,44 @@ import { PRODUCTS } from './Products';
 const ProductDetail = () => {
   const { productId } = useParams();
   const [showForm, setShowForm] = useState(false);
+  const [activeTab, setActiveTab] = useState<'fotos' | 'videos'>('fotos');
   
   const product = PRODUCTS.find(p => p.id === productId);
+
+  const productMedia = {
+    fotos: [
+      product?.detailImage,
+      product?.image,
+      "https://images.unsplash.com/photo-1485827404703-89b55fcc595e",
+      "https://images.unsplash.com/photo-1619927938134-ab41528fca67"
+    ],
+    videos: [
+      "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "https://www.youtube.com/embed/dQw4w9WgXcQ"
+    ]
+  };
+
+  const handleShare = (platform: string) => {
+    const url = window.location.href;
+    const text = `Confira ${product?.name} na Like Kar!`;
+
+    switch (platform) {
+      case 'whatsapp':
+        window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+        break;
+      case 'facebook':
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        break;
+      case 'instagram':
+        toast.info("Copie o link e compartilhe no Instagram!");
+        navigator.clipboard.writeText(url);
+        break;
+      case 'copy':
+        navigator.clipboard.writeText(url);
+        toast.success("Link copiado para a área de transferência!");
+        break;
+    }
+  };
 
   if (!product) {
     return (
@@ -42,15 +86,98 @@ const ProductDetail = () => {
         </Link>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Product Image */}
-          <div className="relative">
-            <img 
-              src={product.detailImage} 
-              alt={product.name}
-              className="w-full rounded-xl shadow-lg object-cover aspect-video"
-            />
-            <div className="absolute top-4 right-4 bg-white py-1 px-3 rounded-full text-sm font-medium">
-              {product.brand}
+          {/* Media Section */}
+          <div className="space-y-6">
+            {/* Tab Buttons */}
+            <div className="flex space-x-4 mb-4">
+              <Button 
+                variant={activeTab === 'fotos' ? 'default' : 'outline'}
+                onClick={() => setActiveTab('fotos')}
+                className={activeTab === 'fotos' ? 'bg-likekar-yellow text-black hover:bg-yellow-400' : ''}
+              >
+                Fotos
+              </Button>
+              <Button 
+                variant={activeTab === 'videos' ? 'default' : 'outline'}
+                onClick={() => setActiveTab('videos')}
+                className={activeTab === 'videos' ? 'bg-likekar-yellow text-black hover:bg-yellow-400' : ''}
+              >
+                Vídeos
+              </Button>
+            </div>
+
+            {/* Media Content */}
+            {activeTab === 'fotos' ? (
+              <Carousel className="w-full max-w-full">
+                <CarouselContent>
+                  {productMedia.fotos.map((foto, index) => (
+                    <CarouselItem key={index}>
+                      <div className="relative aspect-video">
+                        <img 
+                          src={foto} 
+                          alt={`${product.name} - Foto ${index + 1}`}
+                          className="w-full h-full object-cover rounded-xl"
+                        />
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
+            ) : (
+              <div className="space-y-4">
+                {productMedia.videos.map((video, index) => (
+                  <div key={index} className="relative aspect-video">
+                    <iframe
+                      src={video}
+                      title={`${product.name} - Vídeo ${index + 1}`}
+                      className="w-full h-full rounded-xl"
+                      allowFullScreen
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Share Buttons */}
+            <div className="flex items-center space-x-4 pt-4">
+              <span className="text-sm text-gray-500 flex items-center">
+                <Share2 className="w-4 h-4 mr-2" />
+                Compartilhar:
+              </span>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => handleShare('whatsapp')}
+                className="rounded-full"
+              >
+                <WhatsApp className="w-4 h-4 text-green-600" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => handleShare('facebook')}
+                className="rounded-full"
+              >
+                <Facebook className="w-4 h-4 text-blue-600" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => handleShare('instagram')}
+                className="rounded-full"
+              >
+                <Instagram className="w-4 h-4 text-pink-600" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => handleShare('copy')}
+                className="rounded-full"
+              >
+                <LinkIcon className="w-4 h-4" />
+              </Button>
             </div>
           </div>
 
@@ -72,7 +199,7 @@ const ProductDetail = () => {
 
         {/* Orçamento Form */}
         {showForm && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
             <div className="bg-white rounded-xl p-6 max-w-md w-full">
               <h2 className="text-2xl font-bold mb-4">Solicitar Orçamento</h2>
               <form className="space-y-4">
