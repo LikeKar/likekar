@@ -4,8 +4,26 @@ import { Building2, CheckCircle2, MessageSquare, Wrench } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
 const Index = () => {
-  return <div className="min-h-screen bg-white">
+  const partners = [
+    { name: "3M", logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" },
+    { name: "JBL", logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" },
+    { name: "Pioneer", logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" },
+    { name: "Osram", logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" },
+    { name: "Bosch", logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" },
+    { name: "Alpine", logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" },
+  ];
+
+  return (
+    <div className="min-h-screen bg-white">
       <Navbar />
       <Hero />
 
@@ -136,6 +154,53 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Parceiros */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold font-montserrat mb-4">
+              Nossos Parceiros
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Trabalhamos com as melhores marcas do mercado para garantir a qualidade dos nossos serviços
+            </p>
+          </div>
+
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full max-w-5xl mx-auto"
+          >
+            <CarouselContent>
+              {partners.map((partner, index) => (
+                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                  <div className="p-4">
+                    <Card className="border-none shadow-lg hover:shadow-xl transition-shadow">
+                      <CardContent className="flex flex-col items-center justify-center p-6">
+                        <div className="w-32 h-32 relative mb-4">
+                          <img
+                            src={partner.logo}
+                            alt={`${partner.name} logo`}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <h3 className="text-xl font-montserrat font-bold text-center">
+                          {partner.name}
+                        </h3>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden md:flex" />
+            <CarouselNext className="hidden md:flex" />
+          </Carousel>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-20 bg-likekar-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -150,6 +215,8 @@ const Index = () => {
           </Button>
         </div>
       </section>
-    </div>;
+    </div>
+  );
 };
+
 export default Index;
