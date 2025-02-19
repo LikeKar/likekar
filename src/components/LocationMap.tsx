@@ -57,21 +57,23 @@ const options = {
 const LocationMap = () => {
   const [selectedPlace, setSelectedPlace] = useState<Location | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [markerIcon, setMarkerIcon] = useState<google.maps.Icon | undefined>(undefined);
 
   const onLoad = useCallback(() => {
+    if (window.google && window.google.maps) {
+      setMarkerIcon({
+        url: "data:image/svg+xml;base64," + btoa(`
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="12" fill="#FFDE00"/>
+            <circle cx="12" cy="12" r="10" fill="#FFDE00" stroke="white" stroke-width="2"/>
+          </svg>
+        `),
+        scaledSize: new window.google.maps.Size(32, 32),
+        anchor: new window.google.maps.Point(16, 16)
+      });
+    }
     setIsLoaded(true);
   }, []);
-
-  const markerIcon = isLoaded ? {
-    url: "data:image/svg+xml;base64," + btoa(`
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="12" r="12" fill="#FFDE00"/>
-        <circle cx="12" cy="12" r="10" fill="#FFDE00" stroke="white" stroke-width="2"/>
-      </svg>
-    `),
-    scaledSize: new window.google?.maps?.Size(32, 32),
-    anchor: new window.google?.maps?.Point(16, 16)
-  } : undefined;
 
   return (
     <LoadScript 
