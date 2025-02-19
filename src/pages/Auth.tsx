@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -30,6 +30,26 @@ export default function Auth() {
   const [loading, setLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
 
+  // Verificar se já existe uma sessão ativa
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        navigate("/admin");
+      }
+    };
+    checkSession();
+
+    // Listener para mudanças no estado de autenticação
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN' && session) {
+        navigate("/admin");
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,7 +68,7 @@ export default function Auth() {
           password: values.password,
         });
         if (error) throw error;
-        navigate("/admin");
+        toast.success("Login realizado com sucesso!");
       } else {
         const { error } = await supabase.auth.signUp({
           email: values.email,
