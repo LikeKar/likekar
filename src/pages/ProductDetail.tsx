@@ -7,7 +7,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { ProductCarousel } from '@/components/product/ProductCarousel';
 import { ShareButtons } from '@/components/product/ShareButtons';
 import { QuoteForm } from '@/components/product/QuoteForm';
-
 interface Product {
   id: string;
   name: string;
@@ -17,13 +16,13 @@ interface Product {
   videos: string[];
   active: boolean | null;
 }
-
 const ProductDetail = () => {
-  const { productId } = useParams();
+  const {
+    productId
+  } = useParams();
   const [showForm, setShowForm] = useState(false);
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     fetchProduct();
     const channel = supabase.channel('product-detail-changes').on('postgres_changes', {
@@ -38,7 +37,6 @@ const ProductDetail = () => {
       supabase.removeChannel(channel);
     };
   }, [productId]);
-
   const fetchProduct = async () => {
     try {
       setLoading(true);
@@ -55,14 +53,12 @@ const ProductDetail = () => {
       setLoading(false);
     }
   };
-
   const handleWhatsAppClick = () => {
     const phoneNumber = "5511457407011";
     const message = encodeURIComponent(`Olá! Gostaria de saber mais sobre o produto ${product?.name}`);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
     window.open(whatsappUrl, '_blank');
   };
-
   const productMedia = product ? {
     fotos: product.photos || [],
     videos: product.videos || []
@@ -70,7 +66,6 @@ const ProductDetail = () => {
     fotos: [],
     videos: []
   };
-
   const features = [{
     icon: <Shield className="w-8 h-8" />,
     title: "Proteção UV 99%",
@@ -84,7 +79,6 @@ const ProductDetail = () => {
     title: "Privacidade Total",
     description: "Visibilidade de dentro para fora"
   }];
-
   if (loading) {
     return <div className="min-h-screen bg-white">
         <Navbar />
@@ -93,7 +87,6 @@ const ProductDetail = () => {
         </div>
       </div>;
   }
-
   if (!product) {
     return <div className="min-h-screen bg-white">
         <Navbar />
@@ -105,7 +98,6 @@ const ProductDetail = () => {
         </div>
       </div>;
   }
-
   return <div className="min-h-screen bg-white">
       <Navbar />
       
@@ -125,23 +117,12 @@ const ProductDetail = () => {
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {features.map((feature, index) => (
-                  <div key={index} className="flex flex-col items-center text-center">
-                    <div className="mb-4 text-likekar-yellow">
-                      {feature.icon}
-                    </div>
-                    <h3 className="font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-sm text-gray-500">{feature.description}</p>
-                  </div>
-                ))}
+                {features.map((feature, index) => {})}
               </div>
             </div>
             
             <div className="mt-12">
-              <Button 
-                onClick={handleWhatsAppClick} 
-                className="w-full bg-likekar-black hover:bg-black/90 text-white py-6 rounded-none text-lg font-medium"
-              >
+              <Button onClick={handleWhatsAppClick} className="w-full bg-likekar-black hover:bg-black/90 text-white py-6 rounded-none text-lg font-medium">
                 Solicitar Orçamento
               </Button>
 
@@ -154,5 +135,4 @@ const ProductDetail = () => {
       {showForm && <QuoteForm onClose={() => setShowForm(false)} />}
     </div>;
 };
-
 export default ProductDetail;
