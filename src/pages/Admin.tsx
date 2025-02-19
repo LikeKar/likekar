@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -131,43 +132,6 @@ export default function Admin() {
     return publicUrl;
   }
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (!selectedProduct) return;
-
-    try {
-      setLoading(true);
-      let uploadedPhotos = [...(selectedProduct.photos || [])];
-
-      for (const file of imageFiles) {
-        const photoUrl = await handleFileUpload(file, "images");
-        uploadedPhotos.push(photoUrl);
-      }
-
-      const { error } = await supabase
-        .from("products")
-        .update({
-          ...selectedProduct,
-          photos: pendingPhotos,
-          videos: pendingVideos,
-        })
-        .eq("id", selectedProduct.id);
-
-      if (error) throw error;
-
-      toast.success("Produto atualizado com sucesso!");
-      fetchProducts();
-      setSelectedProduct(null);
-      setImageFiles([]);
-      setPendingPhotos([]);
-      setPendingVideos([]);
-    } catch (error: any) {
-      toast.error("Erro ao atualizar produto: " + error.message);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   async function handleCreateProduct(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget as HTMLFormElement);
@@ -207,6 +171,37 @@ export default function Admin() {
       setImageFiles([]);
     } catch (error: any) {
       toast.error("Erro ao criar produto: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!selectedProduct) return;
+
+    try {
+      setLoading(true);
+
+      const { error } = await supabase
+        .from("products")
+        .update({
+          ...selectedProduct,
+          photos: pendingPhotos,
+          videos: pendingVideos,
+        })
+        .eq("id", selectedProduct.id);
+
+      if (error) throw error;
+
+      toast.success("Produto atualizado com sucesso!");
+      fetchProducts();
+      setSelectedProduct(null);
+      setImageFiles([]);
+      setPendingPhotos([]);
+      setPendingVideos([]);
+    } catch (error: any) {
+      toast.error("Erro ao atualizar produto: " + error.message);
     } finally {
       setLoading(false);
     }
@@ -355,32 +350,30 @@ export default function Admin() {
                 </Select>
               </div>
               <div>
-                <Label>Marca</Label>
-                <Input name="brand" required />
+                <Label>Marca (opcional)</Label>
+                <Input name="brand" />
               </div>
               <div>
                 <Label>Preço</Label>
                 <Input name="price" type="number" step="0.01" />
               </div>
               <div>
-                <Label>Imagem Principal</Label>
+                <Label>Fotos do Produto</Label>
                 <Input
                   type="file"
-                  onChange={(e) => setImageFile(e.target.files?.[0] || null)}
+                  multiple
+                  onChange={(e) => {
+                    const files = Array.from(e.target.files || []);
+                    setImageFiles(files);
+                  }}
                   accept="image/*"
-                />
-              </div>
-              <div>
-                <Label>Imagem Detalhada</Label>
-                <Input
-                  type="file"
-                  onChange={(e) => setDetailImageFile(e.target.files?.[0] || null)}
-                  accept="image/*"
+                  className="mb-2"
                 />
               </div>
               <div>
                 <Label>Links dos Vídeos (um por linha)</Label>
                 <Textarea
+                  name="video_url"
                   placeholder="Cole aqui os links dos vídeos (YouTube, Vimeo, etc)"
                   rows={3}
                 />
@@ -413,9 +406,9 @@ export default function Admin() {
             {products.map((product) => (
               <TableRow key={product.id}>
                 <TableCell>
-                  {product.image ? (
+                  {product.photos && product.photos.length > 0 ? (
                     <img
-                      src={product.image}
+                      src={product.photos[0]}
                       alt={product.name}
                       className="w-16 h-16 object-cover rounded"
                     />
@@ -610,7 +603,13 @@ export default function Admin() {
                           variant="secondary"
                           size="icon"
                           className="h-6 w-6"
-                          onClick={() => movePhotoUp(index)}
+                          onClick={() => {
+                            const newPhotos = [...pendingPhotos];
+                            if (index > 0) {
+                              [newPhotos[index - 1], newPhotos[index]] = [newPhotos[index], newPhotos[index - 1]];
+                              setPendingPhotos(newPhotos);
+                            }
+                          }}
                           disabled={index === 0}
                         >
                           <ArrowUp className="h-4 w-4" />
@@ -620,7 +619,13 @@ export default function Admin() {
                           variant="secondary"
                           size="icon"
                           className="h-6 w-6"
-                          onClick={() => movePhotoDown(index)}
+                          onClick={() => {
+                            const newPhotos = [...pendingPhotos];
+                            if (index < pendingPhotos.length - 1) {
+                              [newPhotos[index], newPhotos[index + 1]] = [newPhotos[index + 1], newPhotos[index]];
+                              setPendingPhotos(newPhotos);
+                            }
+                          }}
                           disabled={index === pendingPhotos.length - 1}
                         >
                           <ArrowDown className="h-4 w-4" />
