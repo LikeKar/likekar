@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Menu, X, Phone } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Button } from "./ui/button";
 import { Link } from 'react-router-dom';
 
@@ -40,8 +40,7 @@ const Navbar = () => {
                 {item.text}
               </Link>
             ))}
-            <Button className="bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat flex items-center gap-2">
-              <Phone size={18} />
+            <Button className="bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat">
               Fale conosco!
             </Button>
           </div>
@@ -70,8 +69,7 @@ const Navbar = () => {
                 {item.text}
               </Link>
             ))}
-            <Button className="w-full mt-4 bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat flex items-center justify-center gap-2">
-              <Phone size={18} />
+            <Button className="w-full mt-4 bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat">
               Fale conosco!
             </Button>
           </div>

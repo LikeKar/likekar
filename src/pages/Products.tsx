@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ChevronRight, Film, Speaker, Car } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface Product {
@@ -96,7 +95,7 @@ const Products = () => {
         </div>
 
         {/* Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
           <Select value={selectedBrand} onValueChange={setSelectedBrand}>
             <SelectTrigger className="bg-white border-[#ffdd00] focus:ring-[#ffdd00]">
               <SelectValue placeholder="Todas as Marcas" />
@@ -134,42 +133,39 @@ const Products = () => {
         </div>
 
         {/* Category Buttons */}
-        <div className="flex flex-wrap gap-3 mb-8">
+        <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-3 mb-8">
           <Button 
             variant={activeFilter === "todos" ? "default" : "outline"}
-            className={`${activeFilter === "todos" ? "bg-[#ffdd00] hover:bg-[#ffdd00]/90 text-black" : "border-[#ffdd00] text-black hover:bg-[#ffdd00]/10"}`}
+            className={`w-full sm:w-auto ${activeFilter === "todos" ? "bg-[#ffdd00] hover:bg-[#ffdd00]/90 text-black" : "border-[#ffdd00] text-black hover:bg-[#ffdd00]/10"}`}
             onClick={() => setActiveFilter("todos")}
           >
             Todos os Produtos
           </Button>
           <Button 
             variant={activeFilter === "peliculas" ? "default" : "outline"}
-            className={`gap-2 ${activeFilter === "peliculas" ? "bg-[#ffdd00] hover:bg-[#ffdd00]/90 text-black" : "border-[#ffdd00] text-black hover:bg-[#ffdd00]/10"}`}
+            className={`w-full sm:w-auto ${activeFilter === "peliculas" ? "bg-[#ffdd00] hover:bg-[#ffdd00]/90 text-black" : "border-[#ffdd00] text-black hover:bg-[#ffdd00]/10"}`}
             onClick={() => setActiveFilter("peliculas")}
           >
-            <Film size={18} />
             Películas
           </Button>
           <Button 
             variant={activeFilter === "som" ? "default" : "outline"}
-            className={`gap-2 ${activeFilter === "som" ? "bg-[#ffdd00] hover:bg-[#ffdd00]/90 text-black" : "border-[#ffdd00] text-black hover:bg-[#ffdd00]/10"}`}
+            className={`w-full sm:w-auto ${activeFilter === "som" ? "bg-[#ffdd00] hover:bg-[#ffdd00]/90 text-black" : "border-[#ffdd00] text-black hover:bg-[#ffdd00]/10"}`}
             onClick={() => setActiveFilter("som")}
           >
-            <Speaker size={18} />
             Som Automotivo
           </Button>
           <Button 
             variant={activeFilter === "acessorios" ? "default" : "outline"}
-            className={`gap-2 ${activeFilter === "acessorios" ? "bg-[#ffdd00] hover:bg-[#ffdd00]/90 text-black" : "border-[#ffdd00] text-black hover:bg-[#ffdd00]/10"}`}
+            className={`w-full sm:w-auto ${activeFilter === "acessorios" ? "bg-[#ffdd00] hover:bg-[#ffdd00]/90 text-black" : "border-[#ffdd00] text-black hover:bg-[#ffdd00]/10"}`}
             onClick={() => setActiveFilter("acessorios")}
           >
-            <Car size={18} />
             Acessórios
           </Button>
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {filteredProducts.map((product) => (
             <Link key={product.id} to={`/produtos/${product.id}`}>
               <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300 border-[#ffdd00]/20">
