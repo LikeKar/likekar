@@ -82,23 +82,25 @@ const Products = () => {
   });
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-b from-[#ffdd00]/10 to-white">
       <Navbar />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold font-montserrat text-black mb-4">
-            Nossos Produtos
-          </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Encontre tudo o que seu carro precisa em um só lugar. Trabalhamos com as melhores marcas do mercado.
-          </p>
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
+        <div className="text-center mb-8 md:mb-12">
+          <div className="bg-[#ffdd00] py-8 px-4 rounded-lg shadow-lg mb-6">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-montserrat text-black">
+              Nossos Produtos
+            </h1>
+            <p className="text-gray-800 max-w-2xl mx-auto mt-4">
+              Encontre tudo o que seu carro precisa em um só lugar. Trabalhamos com as melhores marcas do mercado.
+            </p>
+          </div>
         </div>
 
         {/* Filters */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <Select value={selectedBrand} onValueChange={setSelectedBrand}>
-            <SelectTrigger>
+            <SelectTrigger className="bg-white border-[#ffdd00] focus:ring-[#ffdd00]">
               <SelectValue placeholder="Todas as Marcas" />
             </SelectTrigger>
             <SelectContent>
@@ -110,7 +112,7 @@ const Products = () => {
           </Select>
 
           <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-            <SelectTrigger>
+            <SelectTrigger className="bg-white border-[#ffdd00] focus:ring-[#ffdd00]">
               <SelectValue placeholder="Todas as Categorias" />
             </SelectTrigger>
             <SelectContent>
@@ -122,7 +124,7 @@ const Products = () => {
           </Select>
 
           <Select value={selectedType} onValueChange={setSelectedType}>
-            <SelectTrigger>
+            <SelectTrigger className="bg-white border-[#ffdd00] focus:ring-[#ffdd00]">
               <SelectValue placeholder="Todos os Tipos" />
             </SelectTrigger>
             <SelectContent>
@@ -137,14 +139,14 @@ const Products = () => {
         <div className="flex flex-wrap gap-3 mb-8">
           <Button 
             variant={activeFilter === "todos" ? "default" : "outline"}
-            className={activeFilter === "todos" ? "bg-blue-600 hover:bg-blue-700" : ""}
+            className={`${activeFilter === "todos" ? "bg-[#ffdd00] hover:bg-[#ffdd00]/90 text-black" : "border-[#ffdd00] text-black hover:bg-[#ffdd00]/10"}`}
             onClick={() => setActiveFilter("todos")}
           >
             Todos os Produtos
           </Button>
           <Button 
             variant={activeFilter === "peliculas" ? "default" : "outline"}
-            className={`gap-2 ${activeFilter === "peliculas" ? "bg-blue-600 hover:bg-blue-700" : ""}`}
+            className={`gap-2 ${activeFilter === "peliculas" ? "bg-[#ffdd00] hover:bg-[#ffdd00]/90 text-black" : "border-[#ffdd00] text-black hover:bg-[#ffdd00]/10"}`}
             onClick={() => setActiveFilter("peliculas")}
           >
             <Film size={18} />
@@ -152,7 +154,7 @@ const Products = () => {
           </Button>
           <Button 
             variant={activeFilter === "som" ? "default" : "outline"}
-            className={`gap-2 ${activeFilter === "som" ? "bg-blue-600 hover:bg-blue-700" : ""}`}
+            className={`gap-2 ${activeFilter === "som" ? "bg-[#ffdd00] hover:bg-[#ffdd00]/90 text-black" : "border-[#ffdd00] text-black hover:bg-[#ffdd00]/10"}`}
             onClick={() => setActiveFilter("som")}
           >
             <Speaker size={18} />
@@ -160,7 +162,7 @@ const Products = () => {
           </Button>
           <Button 
             variant={activeFilter === "acessorios" ? "default" : "outline"}
-            className={`gap-2 ${activeFilter === "acessorios" ? "bg-blue-600 hover:bg-blue-700" : ""}`}
+            className={`gap-2 ${activeFilter === "acessorios" ? "bg-[#ffdd00] hover:bg-[#ffdd00]/90 text-black" : "border-[#ffdd00] text-black hover:bg-[#ffdd00]/10"}`}
             onClick={() => setActiveFilter("acessorios")}
           >
             <Car size={18} />
@@ -169,11 +171,11 @@ const Products = () => {
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredProducts.map((product) => (
             <Link key={product.id} to={`/produtos/${product.id}`}>
-              <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300">
-                <div className="aspect-[4/3] relative overflow-hidden">
+              <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300 border-[#ffdd00]/20">
+                <div className="aspect-[4/3] relative overflow-hidden rounded-t-lg">
                   <img 
                     src={product.image} 
                     alt={product.name} 
@@ -185,7 +187,7 @@ const Products = () => {
                   <p className="text-sm text-gray-600 mb-3">{product.description}</p>
                   <Button 
                     variant="link" 
-                    className="p-0 h-auto text-blue-600 hover:text-blue-700 font-medium flex items-center"
+                    className="p-0 h-auto text-black hover:text-[#ffdd00] font-medium flex items-center"
                   >
                     Ver Detalhes
                     <ChevronRight className="ml-1 h-4 w-4" />
