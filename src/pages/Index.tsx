@@ -78,7 +78,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:flex lg:items-center lg:gap-12">
             <div className="lg:w-1/2 mb-10 lg:mb-0">
-              <img src="/lovable-uploads/3430e556-b884-4c88-b598-a8520a25ca7f.png" alt="Like Kar Serviços" className="rounded-lg shadow-xl w-full object-cover" />
+              <img alt="Like Kar Serviços" className="rounded-lg shadow-xl w-full object-cover" src="/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" />
             </div>
             
             <div className="lg:w-1/2">
