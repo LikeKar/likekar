@@ -1,7 +1,7 @@
 
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import { Building2, CheckCircle2, MessageSquare, Tool } from "lucide-react";
+import { Building2, CheckCircle2, MessageSquare, Wrench } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -40,7 +40,7 @@ const Index = () => {
             <Card className="border-none shadow-lg hover:shadow-xl transition-shadow">
               <CardContent className="pt-6">
                 <div className="w-12 h-12 bg-likekar-yellow rounded-lg flex items-center justify-center mb-4 mx-auto">
-                  <Tool className="text-black" size={24} />
+                  <Wrench className="text-black" size={24} />
                 </div>
                 <h3 className="text-xl font-montserrat font-bold text-center mb-2">Som Automotivo</h3>
                 <p className="text-gray-600 text-center">
@@ -108,7 +108,7 @@ const Index = () => {
 
                 <div className="flex gap-4">
                   <div className="w-12 h-12 bg-likekar-yellow rounded-full flex items-center justify-center flex-shrink-0">
-                    <Tool className="text-black" size={24} />
+                    <Wrench className="text-black" size={24} />
                   </div>
                   <div>
                     <h3 className="text-xl font-montserrat font-bold mb-2">Produtos Premium</h3>
