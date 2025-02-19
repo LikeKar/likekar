@@ -247,7 +247,7 @@ const Index = () => {
               </div>
             </div>
 
-            <div>
+            <div className="py-0 px-[97px]">
               <h3 className="text-white font-montserrat font-bold text-xl mb-6 uppercase">
                 Menu
               </h3>
@@ -273,7 +273,7 @@ const Index = () => {
               </ul>
             </div>
 
-            <div>
+            <div className="px-[44px]">
               <h3 className="text-white font-montserrat font-bold text-xl mb-6 uppercase">
                 Contato
               </h3>
