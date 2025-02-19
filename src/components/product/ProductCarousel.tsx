@@ -48,18 +48,18 @@ export const ProductCarousel = ({ media, productName }: ProductCarouselProps) =>
       <CarouselContent>
         {validPhotos.map((foto, index) => (
           <CarouselItem key={`foto-${index}`}>
-            <div className="relative aspect-video">
+            <div className="relative aspect-[4/3] lg:aspect-[16/9]">
               <img 
                 src={foto || '/placeholder.svg'} 
                 alt={`${productName} - Foto ${index + 1}`}
-                className="w-full h-full object-cover rounded-xl"
+                className="w-full h-full object-contain rounded-xl"
               />
             </div>
           </CarouselItem>
         ))}
         {validVideos.map((video, index) => (
           <CarouselItem key={`video-${index}`}>
-            <div className="relative aspect-video">
+            <div className="relative aspect-[4/3] lg:aspect-[16/9]">
               <iframe
                 src={video}
                 title={`${productName} - Vídeo ${index + 1}`}
