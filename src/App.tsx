@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import Contact from "./pages/Contact";
+import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -33,6 +34,7 @@ const App: React.FC = () => {
               <Route path="/produtos" element={<Products />} />
               <Route path="/produtos/:productId" element={<ProductDetail />} />
               <Route path="/contato" element={<Contact />} />
+              <Route path="/sobre" element={<About />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
