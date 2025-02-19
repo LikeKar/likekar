@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/dialog";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Plus, Search, Edit2, Trash2, Image as ImageIcon } from "lucide-react";
+import { Plus, Search, Edit2, Trash2, Image as ImageIcon, X, ArrowUp, ArrowDown } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import {
@@ -38,10 +38,9 @@ interface Product {
   description: string;
   full_description: string | null;
   category: string;
-  brand: string;
-  image: string | null;
-  detail_image: string | null;
-  video_url: string | null;
+  brand: string | null;
+  photos: string[];
+  videos: string[];
   price: number | null;
   active: boolean | null;
   status: boolean | null;
@@ -52,8 +51,7 @@ export default function Admin() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [detailImageFile, setDetailImageFile] = useState<File | null>(null);
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCategory, setFilterCategory] = useState<string>("all");
   const [filterStatus, setFilterStatus] = useState<string>("all");
@@ -62,6 +60,8 @@ export default function Admin() {
     active: 0,
     inactive: 0,
   });
+  const [pendingPhotos, setPendingPhotos] = useState<string[]>([]);
+  const [pendingVideos, setPendingVideos] = useState<string[]>([]);
 
   useEffect(() => {
     checkUser();
@@ -137,22 +137,19 @@ export default function Admin() {
 
     try {
       setLoading(true);
-      let imageUrl = selectedProduct.image;
-      let detailImageUrl = selectedProduct.detail_image;
+      let uploadedPhotos = [...(selectedProduct.photos || [])];
 
-      if (imageFile) {
-        imageUrl = await handleFileUpload(imageFile, "images");
-      }
-      if (detailImageFile) {
-        detailImageUrl = await handleFileUpload(detailImageFile, "detail-images");
+      for (const file of imageFiles) {
+        const photoUrl = await handleFileUpload(file, "images");
+        uploadedPhotos.push(photoUrl);
       }
 
       const { error } = await supabase
         .from("products")
         .update({
           ...selectedProduct,
-          image: imageUrl,
-          detail_image: detailImageUrl,
+          photos: pendingPhotos,
+          videos: pendingVideos,
         })
         .eq("id", selectedProduct.id);
 
@@ -161,8 +158,55 @@ export default function Admin() {
       toast.success("Produto atualizado com sucesso!");
       fetchProducts();
       setSelectedProduct(null);
+      setImageFiles([]);
+      setPendingPhotos([]);
+      setPendingVideos([]);
     } catch (error: any) {
       toast.error("Erro ao atualizar produto: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleCreateProduct(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget as HTMLFormElement);
+    
+    try {
+      setLoading(true);
+      let uploadedPhotos: string[] = [];
+
+      for (const file of imageFiles) {
+        const photoUrl = await handleFileUpload(file, "images");
+        uploadedPhotos.push(photoUrl);
+      }
+
+      const videoUrl = formData.get("video_url") as string;
+      const videos = videoUrl ? [videoUrl] : [];
+
+      const { error } = await supabase
+        .from("products")
+        .insert({
+          name: formData.get("name") as string,
+          description: formData.get("description") as string,
+          full_description: formData.get("full_description") as string,
+          category: formData.get("category") as string,
+          brand: formData.get("brand") as string || null,
+          photos: uploadedPhotos,
+          videos: videos,
+          price: parseFloat(formData.get("price") as string) || null,
+          active: true,
+          status: true,
+        });
+
+      if (error) throw error;
+
+      toast.success("Produto criado com sucesso!");
+      fetchProducts();
+      (e.target as HTMLFormElement).reset();
+      setImageFiles([]);
+    } catch (error: any) {
+      toast.error("Erro ao criar produto: " + error.message);
     } finally {
       setLoading(false);
     }
@@ -186,56 +230,17 @@ export default function Admin() {
     }
   }
 
-  async function handleCreateProduct(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget as HTMLFormElement);
-    
-    try {
-      setLoading(true);
-      
-      let imageUrl = null;
-      let detailImageUrl = null;
-
-      if (imageFile) {
-        imageUrl = await handleFileUpload(imageFile, "images");
-      }
-      if (detailImageFile) {
-        detailImageUrl = await handleFileUpload(detailImageFile, "detail-images");
-      }
-
-      const { error } = await supabase
-        .from("products")
-        .insert({
-          name: formData.get("name") as string,
-          description: formData.get("description") as string,
-          full_description: formData.get("full_description") as string,
-          category: formData.get("category") as string,
-          brand: formData.get("brand") as string,
-          price: parseFloat(formData.get("price") as string) || null,
-          image: imageUrl,
-          detail_image: detailImageUrl,
-          active: true,
-          status: true,
-        });
-
-      if (error) throw error;
-
-      toast.success("Produto criado com sucesso!");
-      fetchProducts();
-      (e.target as HTMLFormElement).reset();
-      setImageFile(null);
-      setDetailImageFile(null);
-    } catch (error: any) {
-      toast.error("Erro ao criar produto: " + error.message);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   async function handleLogout() {
     await supabase.auth.signOut();
     navigate("/auth");
   }
+
+  useEffect(() => {
+    if (selectedProduct) {
+      setPendingPhotos(selectedProduct.photos || []);
+      setPendingVideos(selectedProduct.videos || []);
+    }
+  }, [selectedProduct]);
 
   if (loading && !products.length) {
     return <div className="flex items-center justify-center min-h-screen">
@@ -373,6 +378,13 @@ export default function Admin() {
                   accept="image/*"
                 />
               </div>
+              <div>
+                <Label>Links dos Vídeos (um por linha)</Label>
+                <Textarea
+                  placeholder="Cole aqui os links dos vídeos (YouTube, Vimeo, etc)"
+                  rows={3}
+                />
+              </div>
               <Button
                 type="submit"
                 className="w-full bg-likekar-yellow hover:bg-yellow-400 text-black"
@@ -473,12 +485,12 @@ export default function Admin() {
               <div>
                 <Label>Nome</Label>
                 <Input
-                  value={selectedProduct.name}
+                  value={selectedProduct?.name}
                   onChange={(e) =>
-                    setSelectedProduct({
-                      ...selectedProduct,
+                    setSelectedProduct(prev => prev ? {
+                      ...prev,
                       name: e.target.value,
-                    })
+                    } : null)
                   }
                   required
                 />
@@ -487,12 +499,12 @@ export default function Admin() {
               <div>
                 <Label>Descrição Curta</Label>
                 <Input
-                  value={selectedProduct.description}
+                  value={selectedProduct?.description}
                   onChange={(e) =>
-                    setSelectedProduct({
-                      ...selectedProduct,
+                    setSelectedProduct(prev => prev ? {
+                      ...prev,
                       description: e.target.value,
-                    })
+                    } : null)
                   }
                   required
                 />
@@ -501,12 +513,12 @@ export default function Admin() {
               <div>
                 <Label>Descrição Completa</Label>
                 <Textarea
-                  value={selectedProduct.full_description || ""}
+                  value={selectedProduct?.full_description || ""}
                   onChange={(e) =>
-                    setSelectedProduct({
-                      ...selectedProduct,
+                    setSelectedProduct(prev => prev ? {
+                      ...prev,
                       full_description: e.target.value,
-                    })
+                    } : null)
                   }
                   rows={4}
                 />
@@ -515,12 +527,12 @@ export default function Admin() {
               <div>
                 <Label>Categoria</Label>
                 <Select
-                  value={selectedProduct.category}
+                  value={selectedProduct?.category}
                   onValueChange={(value) =>
-                    setSelectedProduct({
-                      ...selectedProduct,
+                    setSelectedProduct(prev => prev ? {
+                      ...prev,
                       category: value,
-                    })
+                    } : null)
                   }
                 >
                   <SelectTrigger>
@@ -535,16 +547,15 @@ export default function Admin() {
               </div>
 
               <div>
-                <Label>Marca</Label>
+                <Label>Marca (opcional)</Label>
                 <Input
-                  value={selectedProduct.brand}
+                  value={selectedProduct?.brand || ""}
                   onChange={(e) =>
-                    setSelectedProduct({
-                      ...selectedProduct,
-                      brand: e.target.value,
-                    })
+                    setSelectedProduct(prev => prev ? {
+                      ...prev,
+                      brand: e.target.value || null,
+                    } : null)
                   }
-                  required
                 />
               </div>
 
@@ -553,57 +564,92 @@ export default function Admin() {
                 <Input
                   type="number"
                   step="0.01"
-                  value={selectedProduct.price || ""}
+                  value={selectedProduct?.price || ""}
                   onChange={(e) =>
-                    setSelectedProduct({
-                      ...selectedProduct,
+                    setSelectedProduct(prev => prev ? {
+                      ...prev,
                       price: parseFloat(e.target.value) || null,
-                    })
+                    } : null)
                   }
                 />
               </div>
 
               <div>
-                <Label>Imagem Principal</Label>
+                <Label>Fotos do Produto</Label>
                 <Input
                   type="file"
-                  onChange={(e) => setImageFile(e.target.files?.[0] || null)}
+                  multiple
+                  onChange={(e) => {
+                    const files = Array.from(e.target.files || []);
+                    setImageFiles(files);
+                  }}
                   accept="image/*"
+                  className="mb-2"
                 />
-                {selectedProduct.image && (
-                  <img
-                    src={selectedProduct.image}
-                    alt="Preview"
-                    className="mt-2 w-32 h-32 object-cover rounded"
-                  />
-                )}
+                
+                <div className="grid grid-cols-2 gap-4 mt-4">
+                  {pendingPhotos.map((photo, index) => (
+                    <div key={index} className="relative">
+                      <img
+                        src={photo}
+                        alt={`Foto ${index + 1}`}
+                        className="w-full h-32 object-cover rounded"
+                      />
+                      <div className="absolute top-2 right-2 flex gap-2">
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          size="icon"
+                          className="h-6 w-6"
+                          onClick={() => setPendingPhotos(photos => photos.filter((_, i) => i !== index))}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="secondary"
+                          size="icon"
+                          className="h-6 w-6"
+                          onClick={() => movePhotoUp(index)}
+                          disabled={index === 0}
+                        >
+                          <ArrowUp className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="secondary"
+                          size="icon"
+                          className="h-6 w-6"
+                          onClick={() => movePhotoDown(index)}
+                          disabled={index === pendingPhotos.length - 1}
+                        >
+                          <ArrowDown className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               <div>
-                <Label>Imagem Detalhada</Label>
-                <Input
-                  type="file"
-                  onChange={(e) => setDetailImageFile(e.target.files?.[0] || null)}
-                  accept="image/*"
+                <Label>Links dos Vídeos (um por linha)</Label>
+                <Textarea
+                  value={pendingVideos.join('\n')}
+                  onChange={(e) => setPendingVideos(e.target.value.split('\n').filter(v => v.trim()))}
+                  placeholder="Cole aqui os links dos vídeos (YouTube, Vimeo, etc)"
+                  rows={3}
                 />
-                {selectedProduct.detail_image && (
-                  <img
-                    src={selectedProduct.detail_image}
-                    alt="Preview"
-                    className="mt-2 w-32 h-32 object-cover rounded"
-                  />
-                )}
               </div>
 
               <div className="flex items-center space-x-2">
                 <Switch
                   id="active"
-                  checked={selectedProduct.active}
+                  checked={selectedProduct?.active}
                   onCheckedChange={(checked) =>
-                    setSelectedProduct({
-                      ...selectedProduct,
+                    setSelectedProduct(prev => prev ? {
+                      ...prev,
                       active: checked,
-                    })
+                    } : null)
                   }
                 />
                 <Label htmlFor="active">Produto Ativo</Label>

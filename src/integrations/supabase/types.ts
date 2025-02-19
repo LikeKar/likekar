@@ -12,7 +12,7 @@ export type Database = {
       products: {
         Row: {
           active: boolean | null
-          brand: string
+          brand: string | null
           category: string
           created_at: string
           description: string
@@ -21,13 +21,15 @@ export type Database = {
           id: string
           image: string | null
           name: string
+          photos: string[] | null
           price: number | null
           status: boolean | null
           video_url: string | null
+          videos: string[] | null
         }
         Insert: {
           active?: boolean | null
-          brand: string
+          brand?: string | null
           category: string
           created_at?: string
           description: string
@@ -36,13 +38,15 @@ export type Database = {
           id?: string
           image?: string | null
           name: string
+          photos?: string[] | null
           price?: number | null
           status?: boolean | null
           video_url?: string | null
+          videos?: string[] | null
         }
         Update: {
           active?: boolean | null
-          brand?: string
+          brand?: string | null
           category?: string
           created_at?: string
           description?: string
@@ -51,9 +55,11 @@ export type Database = {
           id?: string
           image?: string | null
           name?: string
+          photos?: string[] | null
           price?: number | null
           status?: boolean | null
           video_url?: string | null
+          videos?: string[] | null
         }
         Relationships: []
       }
