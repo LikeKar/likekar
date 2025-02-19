@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,42 +16,25 @@ import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { LockIcon, MailIcon, UserIcon } from "lucide-react";
+import { LockIcon, MailIcon } from "lucide-react";
 
 const formSchema = z.object({
   email: z.string().email("Email inválido"),
   password: z.string().min(6, "A senha deve ter no mínimo 6 caracteres"),
-  name: z.string().min(2, "O nome deve ter no mínimo 2 caracteres").optional(),
 });
 
 export default function Auth() {
   const navigate = useNavigate();
-  const location = useLocation();
   const [loading, setLoading] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
 
-  // Verificar sessão atual ao montar o componente
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      console.log("Current session:", session);
-      if (session?.user) {
-        console.log("User already logged in, redirecting to admin");
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
         navigate("/admin");
       }
-    });
-
-    // Monitorar mudanças na autenticação
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      console.log("Auth state changed:", event, session);
-      if (event === 'SIGNED_IN' && session) {
-        console.log("Login successful, redirecting to admin");
-        navigate("/admin");
-      }
-    });
-
-    return () => subscription.unsubscribe();
+    };
+    checkSession();
   }, [navigate]);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -59,66 +42,29 @@ export default function Auth() {
     defaultValues: {
       email: "",
       password: "",
-      name: "",
     },
   });
 
-  const handleAuth = async (values: z.infer<typeof formSchema>) => {
+  const handleLogin = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
-      console.log("Starting authentication process...");
 
-      if (isLogin) {
-        // Login
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email: values.email,
-          password: values.password,
-        });
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: values.email,
+        password: values.password,
+      });
 
-        if (error) {
-          console.error("Login error:", error);
-          if (error.message === 'Invalid login credentials') {
-            throw new Error('Email ou senha inválidos');
-          }
-          throw error;
-        }
-
-        if (data.user) {
-          console.log("Login successful:", data.user);
-          toast.success("Login realizado com sucesso!");
-          // Redirecionamento será feito pelo onAuthStateChange
-        }
-      } else {
-        // Signup
-        const { data, error: signUpError } = await supabase.auth.signUp({
-          email: values.email,
-          password: values.password,
-          options: {
-            data: {
-              name: values.name,
-            },
-            emailRedirectTo: `${window.location.origin}/auth`,
-          },
-        });
-
-        if (signUpError) {
-          console.error("Signup error:", signUpError);
-          if (signUpError.message.includes('User already registered')) {
-            throw new Error('Este email já está cadastrado');
-          }
-          throw signUpError;
-        }
-
-        if (data.user) {
-          console.log("Signup successful:", data.user);
-          toast.success("Conta criada com sucesso! Verifique seu email para confirmar.");
-          setIsLogin(true);
-          form.reset();
-        }
+      if (error) {
+        toast.error("Email ou senha inválidos");
+        return;
       }
-    } catch (error: any) {
-      console.error("Auth error:", error);
-      toast.error(error.message);
+
+      if (data.user) {
+        toast.success("Login realizado com sucesso!");
+        navigate("/admin");
+      }
+    } catch (error) {
+      toast.error("Erro ao fazer login. Tente novamente.");
     } finally {
       setLoading(false);
     }
@@ -129,40 +75,15 @@ export default function Auth() {
       <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-2xl shadow-lg">
         <div className="text-center space-y-2">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900">
-            {isLogin ? "Fazer Login" : "Criar Conta"}
+            Fazer Login
           </h2>
           <p className="text-sm text-gray-500">
-            {isLogin
-              ? "Faça login para gerenciar os produtos"
-              : "Crie sua conta para acessar"}
+            Faça login para gerenciar os produtos
           </p>
         </div>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleAuth)} className="space-y-6">
-            {!isLogin && (
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Nome</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <UserIcon className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                        <Input
-                          placeholder="Seu nome"
-                          className="pl-10"
-                          {...field}
-                        />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            )}
-
+          <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-6">
             <FormField
               control={form.control}
               name="email"
@@ -212,29 +133,10 @@ export default function Auth() {
               className="w-full bg-likekar-yellow hover:bg-yellow-400 text-black font-medium"
               disabled={loading}
             >
-              {loading
-                ? "Carregando..."
-                : isLogin
-                ? "Entrar"
-                : "Criar Conta"}
+              {loading ? "Carregando..." : "Entrar"}
             </Button>
           </form>
         </Form>
-
-        <div className="text-center">
-          <button
-            type="button"
-            onClick={() => {
-              setIsLogin(!isLogin);
-              form.reset();
-            }}
-            className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
-          >
-            {isLogin
-              ? "Não tem uma conta? Cadastre-se"
-              : "Já tem uma conta? Faça login"}
-          </button>
-        </div>
       </div>
     </div>
   );
