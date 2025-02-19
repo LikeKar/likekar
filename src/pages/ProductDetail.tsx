@@ -1,8 +1,7 @@
-
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Share2, Facebook, Instagram, Link as LinkIcon, MessageSquare } from 'lucide-react';
+import { ArrowLeft, Share2, Facebook, Instagram, Link as LinkIcon, Whatsapp } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from "sonner";
 import {
@@ -13,7 +12,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 
-// Importe o array PRODUCTS do arquivo Products.tsx
 import { PRODUCTS } from './Products';
 
 const ProductDetail = () => {
@@ -85,11 +83,9 @@ const ProductDetail = () => {
         </Link>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Media Section */}
           <div className="space-y-6">
             <Carousel className="w-full max-w-full">
               <CarouselContent>
-                {/* Fotos primeiro */}
                 {productMedia.fotos.map((foto, index) => (
                   <CarouselItem key={`foto-${index}`}>
                     <div className="relative aspect-video">
@@ -101,7 +97,6 @@ const ProductDetail = () => {
                     </div>
                   </CarouselItem>
                 ))}
-                {/* Videos depois */}
                 {productMedia.videos.map((video, index) => (
                   <CarouselItem key={`video-${index}`}>
                     <div className="relative aspect-video">
@@ -120,7 +115,6 @@ const ProductDetail = () => {
             </Carousel>
           </div>
 
-          {/* Product Info */}
           <div>
             <h1 className="text-3xl font-bold font-montserrat mb-4">{product.name}</h1>
             <p className="text-gray-600 mb-6 text-lg">{product.fullDescription}</p>
@@ -133,7 +127,6 @@ const ProductDetail = () => {
                 Solicitar Orçamento
               </Button>
 
-              {/* Share Buttons moved below the CTA */}
               <div className="flex items-center space-x-4 justify-center pt-4 border-t">
                 <span className="text-sm text-gray-500 flex items-center">
                   <Share2 className="w-4 h-4 mr-2" />
@@ -145,7 +138,7 @@ const ProductDetail = () => {
                   onClick={() => handleShare('whatsapp')}
                   className="rounded-full"
                 >
-                  <MessageSquare className="w-4 h-4 text-green-600" />
+                  <Whatsapp className="w-4 h-4 text-green-600" />
                 </Button>
                 <Button
                   variant="outline"
@@ -176,7 +169,6 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        {/* Orçamento Form */}
         {showForm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
             <div className="bg-white rounded-xl p-6 max-w-md w-full">
