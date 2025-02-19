@@ -39,7 +39,7 @@ const Map = ({ className = "" }: MapProps) => {
       });
 
       // Adiciona um marcador na localização
-      new window.google.maps.Marker({
+      const marker = new window.google.maps.Marker({
         position: location,
         map: map,
         title: "Like Kar",
@@ -47,11 +47,29 @@ const Map = ({ className = "" }: MapProps) => {
           url: "https://maps.google.com/mapfiles/ms/icons/yellow-dot.png", // Marcador amarelo para combinar com a identidade visual
         },
       });
+
+      // Adiciona uma janela de informação
+      const infoWindow = new window.google.maps.InfoWindow({
+        content: `
+          <div style="padding: 10px;">
+            <h3 style="margin: 0 0 5px 0;">Like Kar</h3>
+            <p style="margin: 0;">Av. Bartolomeu de Carlos, 333</p>
+          </div>
+        `
+      });
+
+      // Abre a janela de informação quando clicar no marcador
+      marker.addListener('click', () => {
+        infoWindow.open(map, marker);
+      });
+
+      // Opcional: abre a janela de informação por padrão
+      infoWindow.open(map, marker);
     };
 
     // Carrega a API do Google Maps com a chave fornecida
     const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDMhG_DptDwtfsUt2zbDP1Efb1L4g5_qYw`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDMhG_DptDwtfsUt2zbDP1Efb1L4g5_qYw&libraries=places`;
     script.async = true;
     script.defer = true;
     script.onload = initMap;
