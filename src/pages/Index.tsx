@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import PromotionalBanner from "@/components/PromotionalBanner";
-import { Building2, CheckCircle2, MessageSquare, Wrench, Phone, Mail, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
+import { Building2, CheckCircle2, MessageSquare, Wrench, Phone, Mail, MapPin, Facebook, Instagram, Youtube, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
@@ -232,105 +232,123 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-likekar-black py-12 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Sobre */}
-            <div>
-              <h3 className="text-white font-montserrat font-bold text-xl mb-4">
-                Sobre a Like Kar
+      {/* Footer Melhorado */}
+      <footer className="bg-likekar-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+            <div className="space-y-6">
+              <h3 className="text-white font-montserrat font-bold text-2xl">
+                LIKE KAR
               </h3>
-              <p className="text-gray-400">
-                Especialistas em personalização automotiva, oferecendo serviços de alta qualidade para transformar seu veículo.
+              <p className="text-gray-400 leading-relaxed">
+                Transformando seu veículo com excelência e qualidade desde 2010. Referência em personalização automotiva.
               </p>
+              <div className="flex space-x-4">
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-likekar-yellow rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors"
+                >
+                  <Facebook size={20} className="text-black" />
+                </a>
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-likekar-yellow rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors"
+                >
+                  <Instagram size={20} className="text-black" />
+                </a>
+                <a
+                  href="https://youtube.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-likekar-yellow rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors"
+                >
+                  <Youtube size={20} className="text-black" />
+                </a>
+              </div>
             </div>
 
-            {/* Contato */}
             <div>
-              <h3 className="text-white font-montserrat font-bold text-xl mb-4">
-                Contato
+              <h3 className="text-white font-montserrat font-bold text-xl mb-6 uppercase">
+                Menu
               </h3>
-              <ul className="space-y-3">
-                <li className="flex items-center text-gray-400">
-                  <Phone size={20} className="mr-2 text-likekar-yellow" />
-                  <a href="tel:+551145740701" className="hover:text-white transition-colors">
-                    +55 11 4574-0701
-                  </a>
-                </li>
-                <li className="flex items-center text-gray-400">
-                  <Mail size={20} className="mr-2 text-likekar-yellow" />
-                  <a href="mailto:contato@likekar.com" className="hover:text-white transition-colors">
-                    contato@likekar.com
-                  </a>
-                </li>
-                <li className="flex items-center text-gray-400">
-                  <MapPin size={20} className="mr-2 text-likekar-yellow" />
-                  <span>Av. Bartolomeu de Carlos, 333 - Jardim Flor da Montanha, Guarulhos</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Links Rápidos */}
-            <div>
-              <h3 className="text-white font-montserrat font-bold text-xl mb-4">
-                Links Rápidos
-              </h3>
-              <ul className="space-y-2">
+              <ul className="space-y-4">
                 <li>
-                  <Link to="/" className="text-gray-400 hover:text-white transition-colors">
+                  <Link to="/" className="text-gray-400 hover:text-likekar-yellow transition-colors flex items-center">
+                    <span className="w-2 h-2 bg-likekar-yellow rounded-full mr-2"></span>
                     Home
                   </Link>
                 </li>
                 <li>
-                  <Link to="/produtos" className="text-gray-400 hover:text-white transition-colors">
+                  <Link to="/produtos" className="text-gray-400 hover:text-likekar-yellow transition-colors flex items-center">
+                    <span className="w-2 h-2 bg-likekar-yellow rounded-full mr-2"></span>
                     Produtos
                   </Link>
                 </li>
                 <li>
-                  <Link to="/contato" className="text-gray-400 hover:text-white transition-colors">
+                  <Link to="/contato" className="text-gray-400 hover:text-likekar-yellow transition-colors flex items-center">
+                    <span className="w-2 h-2 bg-likekar-yellow rounded-full mr-2"></span>
                     Contato
                   </Link>
                 </li>
               </ul>
             </div>
 
-            {/* Redes Sociais */}
             <div>
-              <h3 className="text-white font-montserrat font-bold text-xl mb-4">
-                Siga-nos
+              <h3 className="text-white font-montserrat font-bold text-xl mb-6 uppercase">
+                Contato
               </h3>
-              <div className="flex space-x-4">
-                <a
-                  href="https://facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-likekar-yellow transition-colors"
-                >
-                  <Facebook size={20} className="text-white" />
-                </a>
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-likekar-yellow transition-colors"
-                >
-                  <Instagram size={20} className="text-white" />
-                </a>
-                <a
-                  href="https://youtube.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-likekar-yellow transition-colors"
-                >
-                  <Youtube size={20} className="text-white" />
-                </a>
-              </div>
+              <ul className="space-y-4">
+                <li className="flex items-center text-gray-400 hover:text-likekar-yellow transition-colors">
+                  <Phone size={20} className="text-likekar-yellow mr-3" />
+                  <a href="tel:+551145740701">
+                    +55 11 4574-0701
+                  </a>
+                </li>
+                <li className="flex items-center text-gray-400 hover:text-likekar-yellow transition-colors">
+                  <Mail size={20} className="text-likekar-yellow mr-3" />
+                  <a href="mailto:contato@likekar.com">
+                    contato@likekar.com
+                  </a>
+                </li>
+                <li className="flex items-start text-gray-400 group">
+                  <MapPin size={20} className="text-likekar-yellow mr-3 mt-1 flex-shrink-0" />
+                  <span className="group-hover:text-likekar-yellow transition-colors">
+                    Av. Bartolomeu de Carlos, 333 - Jardim Flor da Montanha, Guarulhos
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-white font-montserrat font-bold text-xl mb-6 uppercase">
+                Horário
+              </h3>
+              <ul className="space-y-4">
+                <li className="flex items-center text-gray-400">
+                  <Clock size={20} className="text-likekar-yellow mr-3" />
+                  <div>
+                    <p className="font-semibold">Segunda à Sexta</p>
+                    <p>08:00 - 18:00</p>
+                  </div>
+                </li>
+                <li className="flex items-center text-gray-400">
+                  <Clock size={20} className="text-likekar-yellow mr-3" />
+                  <div>
+                    <p className="font-semibold">Sábado</p>
+                    <p>08:00 - 12:00</p>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
+        </div>
 
-          {/* Copyright */}
-          <div className="mt-12 pt-8 border-t border-gray-800">
+        <div className="border-t border-gray-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <p className="text-center text-gray-400">
               © {new Date().getFullYear()} Like Kar. Todos os direitos reservados.
             </p>
