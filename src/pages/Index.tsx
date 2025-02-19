@@ -276,7 +276,7 @@ const Index = () => {
             </div>
 
             {/* Contato */}
-            <div>
+            <div className="py-[4px] mx-[26px]">
               <h3 className="text-white font-montserrat font-bold text-xl mb-6 uppercase">
                 Contato
               </h3>
@@ -303,7 +303,7 @@ const Index = () => {
             </div>
 
             {/* Horário */}
-            <div>
+            <div className="mx-[57px]">
               <h3 className="text-white font-montserrat font-bold text-xl mb-6 uppercase">
                 Horário
               </h3>
@@ -318,7 +318,7 @@ const Index = () => {
                 <li className="flex items-center text-gray-400">
                   <Clock size={20} className="text-likekar-yellow mr-3" />
                   <div>
-                    <p className="font-semibold">Sábado</p>
+                    <p className="font-semibold mx-[31px]">Sábado</p>
                     <p>08:00 - 12:00</p>
                   </div>
                 </li>
