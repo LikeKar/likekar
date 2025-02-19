@@ -29,19 +29,15 @@ export default function Auth() {
   const [loading, setLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
 
-  // Verificar se já existe uma sessão ativa
   useEffect(() => {
-    const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+    supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
         navigate("/admin");
       }
-    };
-    checkSession();
+    });
 
-    // Listener para mudanças no estado de autenticação
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_IN' && session) {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) {
         navigate("/admin");
       }
     });
@@ -61,15 +57,21 @@ export default function Auth() {
   const handleAuth = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
+      
       if (isLogin) {
         const { error } = await supabase.auth.signInWithPassword({
           email: values.email,
           password: values.password,
         });
-        if (error) throw error;
-        toast.success("Login realizado com sucesso!");
+
+        if (error) {
+          if (error.message === 'Invalid login credentials') {
+            throw new Error('Email ou senha inválidos');
+          }
+          throw error;
+        }
       } else {
-        const { error } = await supabase.auth.signUp({
+        const { error: signUpError } = await supabase.auth.signUp({
           email: values.email,
           password: values.password,
           options: {
@@ -78,9 +80,18 @@ export default function Auth() {
             },
           },
         });
-        if (error) throw error;
-        toast.success("Conta criada com sucesso! Verifique seu email.");
+
+        if (signUpError) {
+          if (signUpError.message.includes('User already registered')) {
+            throw new Error('Este email já está cadastrado');
+          }
+          throw signUpError;
+        }
+
+        toast.success("Conta criada com sucesso! Verifique seu email para confirmar.");
         setIsLogin(true);
+        form.reset();
+        return;
       }
     } catch (error: any) {
       toast.error(error.message);
@@ -91,10 +102,10 @@ export default function Auth() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 px-4 py-8">
-      <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-2xl shadow-lg animate-fade-in">
+      <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-2xl shadow-lg">
         <div className="text-center space-y-2">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900">
-            Central de Administração
+            {isLogin ? "Fazer Login" : "Criar Conta"}
           </h2>
           <p className="text-sm text-gray-500">
             {isLogin
@@ -172,26 +183,27 @@ export default function Auth() {
               )}
             />
 
-            <div>
-              <Button
-                type="submit"
-                className="w-full bg-likekar-yellow hover:bg-yellow-400 text-black font-medium"
-                disabled={loading}
-              >
-                {loading
-                  ? "Carregando..."
-                  : isLogin
-                  ? "Entrar"
-                  : "Criar Conta"}
-              </Button>
-            </div>
+            <Button
+              type="submit"
+              className="w-full bg-likekar-yellow hover:bg-yellow-400 text-black font-medium"
+              disabled={loading}
+            >
+              {loading
+                ? "Carregando..."
+                : isLogin
+                ? "Entrar"
+                : "Criar Conta"}
+            </Button>
           </form>
         </Form>
 
         <div className="text-center">
           <button
             type="button"
-            onClick={() => setIsLogin(!isLogin)}
+            onClick={() => {
+              setIsLogin(!isLogin);
+              form.reset();
+            }}
             className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
           >
             {isLogin
