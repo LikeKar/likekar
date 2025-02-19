@@ -1,12 +1,14 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import PromotionalBanner from "@/components/PromotionalBanner";
+import Map from "@/components/Map";
 import { Building2, CheckCircle2, MessageSquare, Wrench, Phone, Mail, MapPin, Facebook, Instagram, Youtube, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+
 const Index = () => {
   const navigate = useNavigate();
   const whatsappNumber = "551145740701";
@@ -34,6 +36,7 @@ const Index = () => {
     name: "Alpine",
     logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
   }];
+
   return <div className="min-h-screen bg-white flex flex-col">
       <Navbar />
       <Hero />
@@ -203,6 +206,34 @@ const Index = () => {
               <CarouselPrevious className="hidden md:flex" />
               <CarouselNext className="hidden md:flex" />
             </Carousel>
+          </div>
+        </section>
+
+        {/* Localização */}
+        <section className="py-20 bg-gray-50">
+          <div className="container mx-auto px-4 max-w-7xl">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold font-montserrat mb-4">
+                Nossa Localização
+              </h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Venha nos visitar e conheça nossa estrutura
+              </p>
+            </div>
+            
+            <Map />
+            
+            <div className="mt-8 text-center">
+              <a
+                href="https://goo.gl/maps/your-location-link"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center text-likekar-black hover:text-likekar-yellow transition-colors"
+              >
+                <MapPin className="mr-2" size={20} />
+                <span>Av. Bartolomeu de Carlos, 333 - São Paulo, SP</span>
+              </a>
+            </div>
           </div>
         </section>
 
