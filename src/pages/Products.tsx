@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -81,10 +82,10 @@ const Products = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#ffdd00]/10 to-white">
+    <div className="min-h-screen bg-white">
       <Navbar />
       
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
         <div className="text-center mb-8 md:mb-12">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-montserrat text-black mb-4">
             Nossos Produtos
