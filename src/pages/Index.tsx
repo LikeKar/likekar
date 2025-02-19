@@ -358,22 +358,7 @@ const Index = () => {
           </div>
 
           {/* Informações de Contato */}
-          <div className="bg-black/20 rounded-lg p-6 mb-8">
-            <div className="grid grid-cols-1 gap-4">
-              <a href="tel:+551145740701" className="flex items-center justify-start bg-black/20 p-4 rounded-lg">
-                <Phone size={24} className="text-likekar-yellow mr-4" />
-                <span className="text-white">+55 11 4574-0701</span>
-              </a>
-              <a href="mailto:contato@likekar.com" className="flex items-center justify-start bg-black/20 p-4 rounded-lg">
-                <Mail size={24} className="text-likekar-yellow mr-4" />
-                <span className="text-white">contato@likekar.com</span>
-              </a>
-              <div className="flex items-start bg-black/20 p-4 rounded-lg">
-                <MapPin size={24} className="text-likekar-yellow mr-4 flex-shrink-0 mt-1" />
-                <span className="text-white">Av. Bartolomeu de Carlos, 333</span>
-              </div>
-            </div>
-          </div>
+          
 
           {/* Horário de Funcionamento */}
           <div className="bg-black/20 rounded-lg p-6 mb-8">
