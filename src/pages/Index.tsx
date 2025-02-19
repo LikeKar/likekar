@@ -1,9 +1,10 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import { Building2, CheckCircle2, MessageSquare, Wrench } from "lucide-react";
+import { Building2, CheckCircle2, MessageSquare, Wrench, Phone, Mail, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 import {
   Carousel,
   CarouselContent,
@@ -22,8 +23,17 @@ const Index = () => {
     { name: "Alpine", logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" },
   ];
 
+  const handleContactClick = () => {
+    const phoneNumber = "5511999999999";
+    const message = "Olá! Gostaria de saber mais sobre os serviços da Like Kar";
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    
+    window.open(whatsappUrl, '_blank');
+    toast.success("Redirecionando para o WhatsApp...");
+  };
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white flex flex-col">
       <Navbar />
       <Hero />
 
@@ -210,11 +220,121 @@ const Index = () => {
           <p className="text-gray-300 max-w-2xl mx-auto mb-8">
             Entre em contato conosco e descubra como podemos ajudar você a ter o carro dos seus sonhos.
           </p>
-          <Button className="bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat text-lg">
+          <Button 
+            onClick={handleContactClick}
+            className="bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat text-lg"
+          >
+            <Phone className="mr-2" size={20} />
             Fale Conosco
           </Button>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="bg-likekar-black py-12 mt-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Sobre */}
+            <div>
+              <h3 className="text-white font-montserrat font-bold text-xl mb-4">
+                Sobre a Like Kar
+              </h3>
+              <p className="text-gray-400">
+                Especialistas em personalização automotiva, oferecendo serviços de alta qualidade para transformar seu veículo.
+              </p>
+            </div>
+
+            {/* Contato */}
+            <div>
+              <h3 className="text-white font-montserrat font-bold text-xl mb-4">
+                Contato
+              </h3>
+              <ul className="space-y-3">
+                <li className="flex items-center text-gray-400">
+                  <Phone size={20} className="mr-2 text-likekar-yellow" />
+                  <a href="tel:+5511999999999" className="hover:text-white transition-colors">
+                    (11) 99999-9999
+                  </a>
+                </li>
+                <li className="flex items-center text-gray-400">
+                  <Mail size={20} className="mr-2 text-likekar-yellow" />
+                  <a href="mailto:contato@likekar.com" className="hover:text-white transition-colors">
+                    contato@likekar.com
+                  </a>
+                </li>
+                <li className="flex items-center text-gray-400">
+                  <MapPin size={20} className="mr-2 text-likekar-yellow" />
+                  <span>São Paulo, SP</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Links Rápidos */}
+            <div>
+              <h3 className="text-white font-montserrat font-bold text-xl mb-4">
+                Links Rápidos
+              </h3>
+              <ul className="space-y-2">
+                <li>
+                  <Link to="/" className="text-gray-400 hover:text-white transition-colors">
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/produtos" className="text-gray-400 hover:text-white transition-colors">
+                    Produtos
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/sobre" className="text-gray-400 hover:text-white transition-colors">
+                    Sobre Nós
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Redes Sociais */}
+            <div>
+              <h3 className="text-white font-montserrat font-bold text-xl mb-4">
+                Siga-nos
+              </h3>
+              <div className="flex space-x-4">
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-likekar-yellow transition-colors"
+                >
+                  <Facebook size={20} className="text-white" />
+                </a>
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-likekar-yellow transition-colors"
+                >
+                  <Instagram size={20} className="text-white" />
+                </a>
+                <a
+                  href="https://youtube.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-likekar-yellow transition-colors"
+                >
+                  <Youtube size={20} className="text-white" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Copyright */}
+          <div className="mt-12 pt-8 border-t border-gray-800">
+            <p className="text-center text-gray-400">
+              © {new Date().getFullYear()} Like Kar. Todos os direitos reservados.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
