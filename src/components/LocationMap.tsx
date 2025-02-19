@@ -128,24 +128,6 @@ const LocationMap = () => {
   return (
     <div className="relative w-full h-[500px] rounded-xl overflow-hidden shadow-2xl">
       <div ref={mapContainer} className="absolute inset-0" />
-      <style jsx>{`
-        .custom-popup .mapboxgl-popup-content {
-          padding: 0;
-          border-radius: 8px;
-          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .custom-popup .mapboxgl-popup-close-button {
-          padding: 5px 8px;
-          color: #666;
-        }
-        .mapboxgl-ctrl-group {
-          border-radius: 8px;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .mapboxgl-ctrl-group button {
-          border-radius: 4px;
-        }
-      `}</style>
     </div>
   );
 };
