@@ -20,7 +20,7 @@ const Map = ({ className = "" }: MapProps) => {
     const initMap = () => {
       if (!mapRef.current) return;
 
-      const location = { lat: -23.5489, lng: -46.6388 }; // Coordenadas da empresa (ajuste conforme necessário)
+      const location = { lat: -23.591002, lng: -46.569402 }; // Coordenadas da Av. Bartolomeu de Carlos, 333
       const map = new window.google.maps.Map(mapRef.current, {
         center: location,
         zoom: 15,
