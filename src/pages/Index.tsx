@@ -292,9 +292,7 @@ const Index = () => {
                 </li>
                 <li className="flex items-start text-gray-400 group">
                   <MapPin size={20} className="text-likekar-yellow mr-3 mt-1 flex-shrink-0" />
-                  <span className="group-hover:text-likekar-yellow transition-colors">
-                    Av. Bartolomeu de Carlos, 333 - Jardim Flor da Montanha, Guarulhos
-                  </span>
+                  <span className="group-hover:text-likekar-yellow transition-colors">Av. Bartolomeu de Carlos, 333</span>
                 </li>
               </ul>
             </div>
@@ -311,10 +309,10 @@ const Index = () => {
                     <p>08:00 - 18:00</p>
                   </div>
                 </li>
-                <li className="flex items-center text-gray-400">
+                <li className="flex items-center text-gray-400 px-[4px]">
                   <Clock size={20} className="text-likekar-yellow mr-3" />
                   <div>
-                    <p className="font-semibold">Sábado</p>
+                    <p className="font-semibold my-0 px-[29px]">Sábado</p>
                     <p>08:00 - 12:00</p>
                   </div>
                 </li>
