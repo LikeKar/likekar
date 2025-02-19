@@ -5,9 +5,10 @@ import { toast } from "sonner";
 
 interface ShareButtonsProps {
   productName: string;
+  className?: string; // Adicionando className como prop opcional
 }
 
-export const ShareButtons = ({ productName }: ShareButtonsProps) => {
+export const ShareButtons = ({ productName, className }: ShareButtonsProps) => {
   const handleShare = (platform: string) => {
     const url = window.location.href;
     const text = `Confira ${productName} na Like Kar!`;
@@ -31,7 +32,7 @@ export const ShareButtons = ({ productName }: ShareButtonsProps) => {
   };
 
   return (
-    <div className="flex items-center space-x-4 justify-center pt-4 border-t">
+    <div className={`flex items-center space-x-4 justify-center pt-4 border-t ${className || ''}`}>
       <span className="text-sm text-gray-500 flex items-center">
         <Share2 className="w-4 h-4 mr-2" />
         Compartilhar:
