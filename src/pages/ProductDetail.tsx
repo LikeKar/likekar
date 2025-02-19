@@ -1,7 +1,8 @@
+
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Share2, Facebook, Instagram, Link as LinkIcon, Whatsapp } from 'lucide-react';
+import { ArrowLeft, Share2, Facebook, Instagram, Link as LinkIcon, MessageSquareMore } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from "sonner";
 import {
@@ -138,7 +139,7 @@ const ProductDetail = () => {
                   onClick={() => handleShare('whatsapp')}
                   className="rounded-full"
                 >
-                  <Whatsapp className="w-4 h-4 text-green-600" />
+                  <MessageSquareMore className="w-4 h-4 text-green-600" />
                 </Button>
                 <Button
                   variant="outline"
