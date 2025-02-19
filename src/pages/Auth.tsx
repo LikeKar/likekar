@@ -66,7 +66,7 @@ export default function Auth() {
       setLoading(true);
 
       if (isLogin) {
-        const { error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signInWithPassword({
           email: values.email,
           password: values.password,
         });
@@ -78,7 +78,10 @@ export default function Auth() {
           throw error;
         }
 
-        toast.success("Login realizado com sucesso!");
+        if (data.user) {
+          toast.success("Login realizado com sucesso!");
+          navigate("/admin");
+        }
       } else {
         const { error: signUpError } = await supabase.auth.signUp({
           email: values.email,
