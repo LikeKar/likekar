@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Shield, Thermometer, Eye } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { ProductCarousel } from '@/components/product/ProductCarousel';
 import { ShareButtons } from '@/components/product/ShareButtons';
 import { QuoteForm } from '@/components/product/QuoteForm';
+
 interface Product {
   id: string;
   name: string;
@@ -16,13 +17,13 @@ interface Product {
   videos: string[];
   active: boolean | null;
 }
+
 const ProductDetail = () => {
-  const {
-    productId
-  } = useParams();
+  const { productId } = useParams();
   const [showForm, setShowForm] = useState(false);
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     fetchProduct();
     const channel = supabase.channel('product-detail-changes').on('postgres_changes', {
@@ -37,6 +38,7 @@ const ProductDetail = () => {
       supabase.removeChannel(channel);
     };
   }, [productId]);
+
   const fetchProduct = async () => {
     try {
       setLoading(true);
@@ -53,6 +55,7 @@ const ProductDetail = () => {
       setLoading(false);
     }
   };
+
   const productMedia = product ? {
     fotos: product.photos || [],
     videos: product.videos || []
@@ -60,16 +63,39 @@ const ProductDetail = () => {
     fotos: [],
     videos: []
   };
+
+  const features = [
+    {
+      icon: <Shield className="w-8 h-8" />,
+      title: "Proteção UV 99%",
+      description: "Máxima proteção contra raios ultravioleta"
+    },
+    {
+      icon: <Thermometer className="w-8 h-8" />,
+      title: "Redução de Calor",
+      description: "Até 78% de redução da temperatura interna"
+    },
+    {
+      icon: <Eye className="w-8 h-8" />,
+      title: "Privacidade Total",
+      description: "Visibilidade de dentro para fora"
+    }
+  ];
+
   if (loading) {
-    return <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    return (
+      <div className="min-h-screen bg-white">
         <Navbar />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <p>Carregando produto...</p>
         </div>
-      </div>;
+      </div>
+    );
   }
+
   if (!product) {
-    return <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    return (
+      <div className="min-h-screen bg-white">
         <Navbar />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <p>Produto não encontrado ou foi desativado.</p>
@@ -77,39 +103,65 @@ const ProductDetail = () => {
             <Button className="mt-4">Voltar para Produtos</Button>
           </Link>
         </div>
-      </div>;
+      </div>
+    );
   }
-  return <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+
+  return (
+    <div className="min-h-screen bg-white">
       <Navbar />
       
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <div className="max-w-6xl mx-auto">
-          
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <Link 
+          to="/produtos"
+          className="inline-flex items-center text-gray-600 hover:text-black transition-colors mb-12"
+        >
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Voltar para Produtos
+        </Link>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
-            <div className="lg:sticky lg:top-24">
-              <ProductCarousel media={productMedia} productName={product.name} />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-16">
+          <div>
+            <ProductCarousel media={productMedia} productName={product.name} />
+          </div>
+
+          <div className="flex flex-col justify-between">
+            <div>
+              <h1 className="text-4xl font-bold font-montserrat mb-4">{product.name} <span className="text-gray-400">Series</span></h1>
+              <p className="text-gray-600 text-lg leading-relaxed mb-8">
+                {product.full_description || product.description}
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {features.map((feature, index) => (
+                  <div key={index} className="flex flex-col items-center text-center">
+                    <div className="mb-4 text-likekar-yellow">
+                      {feature.icon}
+                    </div>
+                    <h3 className="font-semibold mb-2">{feature.title}</h3>
+                    <p className="text-sm text-gray-500">{feature.description}</p>
+                  </div>
+                ))}
+              </div>
             </div>
+            
+            <div className="mt-12">
+              <Button 
+                onClick={() => setShowForm(true)}
+                className="w-full bg-likekar-black hover:bg-black/90 text-white py-6 rounded-none text-lg font-medium"
+              >
+                Solicitar Orçamento
+              </Button>
 
-            <div className="flex flex-col justify-between">
-              <div>
-                <h1 className="text-4xl font-bold font-montserrat mb-6">{product.name}</h1>
-                <p className="text-gray-600 mb-8 text-lg leading-relaxed">{product.full_description || product.description}</p>
-              </div>
-              
-              <div className="space-y-6 mt-8">
-                <Button onClick={() => setShowForm(true)} className="w-full bg-likekar-yellow hover:bg-yellow-400 text-black font-medium py-3 text-lg">
-                  Solicitar Orçamento
-                </Button>
-
-                <ShareButtons productName={product.name} className="px-0 py-[223px]" />
-              </div>
+              <ShareButtons productName={product.name} className="mt-6" />
             </div>
           </div>
         </div>
-
-        {showForm && <QuoteForm onClose={() => setShowForm(false)} />}
       </main>
-    </div>;
+
+      {showForm && <QuoteForm onClose={() => setShowForm(false)} />}
+    </div>
+  );
 };
+
 export default ProductDetail;
