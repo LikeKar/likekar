@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -36,16 +35,17 @@ export default function Admin() {
   const [detailImageFile, setDetailImageFile] = useState<File | null>(null);
 
   useEffect(() => {
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        toast.error("Você precisa estar logado para acessar esta página");
+        navigate("/auth");
+      } else {
+        fetchProducts();
+      }
+    };
     checkUser();
-    fetchProducts();
-  }, []);
-
-  async function checkUser() {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      navigate("/auth");
-    }
-  }
+  }, [navigate]);
 
   async function fetchProducts() {
     try {
