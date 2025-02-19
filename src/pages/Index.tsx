@@ -39,202 +39,205 @@ const Index = () => {
       <Hero />
       <PromotionalBanner />
 
-      {/* Serviços */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold font-montserrat mb-4">
-              Nossos Serviços
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Oferecemos uma ampla gama de serviços para deixar seu carro com a sua cara
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="border-none shadow-lg hover:shadow-xl transition-shadow">
-              <CardContent className="pt-6">
-                <div className="w-12 h-12 bg-likekar-yellow rounded-lg flex items-center justify-center mb-4 mx-auto">
-                  <Building2 className="text-black" size={24} />
-                </div>
-                <h3 className="text-xl font-montserrat font-bold text-center mb-2">Películas</h3>
-                <p className="text-gray-600 text-center">
-                  Instalação profissional de películas automotivas com garantia
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-none shadow-lg hover:shadow-xl transition-shadow">
-              <CardContent className="pt-6">
-                <div className="w-12 h-12 bg-likekar-yellow rounded-lg flex items-center justify-center mb-4 mx-auto">
-                  <Wrench className="text-black" size={24} />
-                </div>
-                <h3 className="text-xl font-montserrat font-bold text-center mb-2">Som Automotivo</h3>
-                <p className="text-gray-600 text-center">
-                  Instalação e manutenção de sistemas de som de alta qualidade
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-none shadow-lg hover:shadow-xl transition-shadow">
-              <CardContent className="pt-6">
-                <div className="w-12 h-12 bg-likekar-yellow rounded-lg flex items-center justify-center mb-4 mx-auto">
-                  <CheckCircle2 className="text-black" size={24} />
-                </div>
-                <h3 className="text-xl font-montserrat font-bold text-center mb-2">Acessórios</h3>
-                <p className="text-gray-600 text-center">
-                  Instalação de acessórios para personalizar seu veículo
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-none shadow-lg hover:shadow-xl transition-shadow">
-              <CardContent className="pt-6">
-                <div className="w-12 h-12 bg-likekar-yellow rounded-lg flex items-center justify-center mb-4 mx-auto">
-                  <MessageSquare className="text-black" size={24} />
-                </div>
-                <h3 className="text-xl font-montserrat font-bold text-center mb-2">Consultoria</h3>
-                <p className="text-gray-600 text-center">
-                  Orientação especializada para melhorar seu veículo
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Por que nos escolher */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:flex lg:items-center lg:gap-12">
-            <div className="lg:w-1/2 mb-10 lg:mb-0">
-              <img alt="Like Kar Serviços" className="rounded-lg shadow-xl w-full object-cover" src="/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" />
-            </div>
-            
-            <div className="lg:w-1/2">
-              <h2 className="text-3xl font-bold font-montserrat mb-6">
-                Por que escolher a Like Kar?
+      {/* Conteúdo Principal com Container */}
+      <div className="flex-1">
+        {/* Serviços */}
+        <section className="py-20 bg-gray-50">
+          <div className="container mx-auto px-4 max-w-7xl">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold font-montserrat mb-4">
+                Nossos Serviços
               </h2>
-              
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 bg-likekar-yellow rounded-full flex items-center justify-center flex-shrink-0">
-                    <CheckCircle2 className="text-black" size={24} />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-montserrat font-bold mb-2">Experiência Comprovada</h3>
-                    <p className="text-gray-600">
-                      Mais de 10 anos no mercado automotivo, com milhares de clientes satisfeitos.
-                    </p>
-                  </div>
-                </div>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Oferecemos uma ampla gama de serviços para deixar seu carro com a sua cara
+              </p>
+            </div>
 
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 bg-likekar-yellow rounded-full flex items-center justify-center flex-shrink-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <Card className="border-none shadow-lg hover:shadow-xl transition-shadow">
+                <CardContent className="pt-6">
+                  <div className="w-12 h-12 bg-likekar-yellow rounded-lg flex items-center justify-center mb-4 mx-auto">
+                    <Building2 className="text-black" size={24} />
+                  </div>
+                  <h3 className="text-xl font-montserrat font-bold text-center mb-2">Películas</h3>
+                  <p className="text-gray-600 text-center">
+                    Instalação profissional de películas automotivas com garantia
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-none shadow-lg hover:shadow-xl transition-shadow">
+                <CardContent className="pt-6">
+                  <div className="w-12 h-12 bg-likekar-yellow rounded-lg flex items-center justify-center mb-4 mx-auto">
                     <Wrench className="text-black" size={24} />
                   </div>
-                  <div>
-                    <h3 className="text-xl font-montserrat font-bold mb-2">Produtos Premium</h3>
-                    <p className="text-gray-600">
-                      Trabalhamos apenas com as melhores marcas e produtos do mercado.
-                    </p>
-                  </div>
-                </div>
+                  <h3 className="text-xl font-montserrat font-bold text-center mb-2">Som Automotivo</h3>
+                  <p className="text-gray-600 text-center">
+                    Instalação e manutenção de sistemas de som de alta qualidade
+                  </p>
+                </CardContent>
+              </Card>
 
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 bg-likekar-yellow rounded-full flex items-center justify-center flex-shrink-0">
+              <Card className="border-none shadow-lg hover:shadow-xl transition-shadow">
+                <CardContent className="pt-6">
+                  <div className="w-12 h-12 bg-likekar-yellow rounded-lg flex items-center justify-center mb-4 mx-auto">
+                    <CheckCircle2 className="text-black" size={24} />
+                  </div>
+                  <h3 className="text-xl font-montserrat font-bold text-center mb-2">Acessórios</h3>
+                  <p className="text-gray-600 text-center">
+                    Instalação de acessórios para personalizar seu veículo
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-none shadow-lg hover:shadow-xl transition-shadow">
+                <CardContent className="pt-6">
+                  <div className="w-12 h-12 bg-likekar-yellow rounded-lg flex items-center justify-center mb-4 mx-auto">
                     <MessageSquare className="text-black" size={24} />
                   </div>
-                  <div>
-                    <h3 className="text-xl font-montserrat font-bold mb-2">Atendimento Personalizado</h3>
-                    <p className="text-gray-600">
-                      Equipe especializada para atender todas as suas necessidades.
-                    </p>
+                  <h3 className="text-xl font-montserrat font-bold text-center mb-2">Consultoria</h3>
+                  <p className="text-gray-600 text-center">
+                    Orientação especializada para melhorar seu veículo
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Por que nos escolher */}
+        <section className="py-20 bg-white">
+          <div className="container mx-auto px-4 max-w-7xl">
+            <div className="lg:flex lg:items-center lg:gap-12">
+              <div className="lg:w-1/2 mb-10 lg:mb-0">
+                <img alt="Like Kar Serviços" className="rounded-lg shadow-xl w-full object-cover" src="/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" />
+              </div>
+              
+              <div className="lg:w-1/2">
+                <h2 className="text-3xl font-bold font-montserrat mb-6">
+                  Por que escolher a Like Kar?
+                </h2>
+                
+                <div className="space-y-6">
+                  <div className="flex gap-4">
+                    <div className="w-12 h-12 bg-likekar-yellow rounded-full flex items-center justify-center flex-shrink-0">
+                      <CheckCircle2 className="text-black" size={24} />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-montserrat font-bold mb-2">Experiência Comprovada</h3>
+                      <p className="text-gray-600">
+                        Mais de 10 anos no mercado automotivo, com milhares de clientes satisfeitos.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4">
+                    <div className="w-12 h-12 bg-likekar-yellow rounded-full flex items-center justify-center flex-shrink-0">
+                      <Wrench className="text-black" size={24} />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-montserrat font-bold mb-2">Produtos Premium</h3>
+                      <p className="text-gray-600">
+                        Trabalhamos apenas com as melhores marcas e produtos do mercado.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4">
+                    <div className="w-12 h-12 bg-likekar-yellow rounded-full flex items-center justify-center flex-shrink-0">
+                      <MessageSquare className="text-black" size={24} />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-montserrat font-bold mb-2">Atendimento Personalizado</h3>
+                      <p className="text-gray-600">
+                        Equipe especializada para atender todas as suas necessidades.
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="mt-8">
-                <Link to="/produtos">
-                  <Button className="bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat text-lg">
-                    Conheça Nossos Produtos
-                  </Button>
-                </Link>
+                <div className="mt-8">
+                  <Link to="/produtos">
+                    <Button className="bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat text-lg">
+                      Conheça Nossos Produtos
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Parceiros */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold font-montserrat mb-4">
-              Nossos Parceiros
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Trabalhamos com as melhores marcas do mercado para garantir a qualidade dos nossos serviços
-            </p>
+        {/* Parceiros */}
+        <section className="py-20 bg-gray-50">
+          <div className="container mx-auto px-4 max-w-7xl">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold font-montserrat mb-4">
+                Nossos Parceiros
+              </h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Trabalhamos com as melhores marcas do mercado para garantir a qualidade dos nossos serviços
+              </p>
+            </div>
+
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full max-w-5xl mx-auto"
+            >
+              <CarouselContent>
+                {partners.map((partner, index) => (
+                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                    <div className="p-4">
+                      <Card className="border-none shadow-lg hover:shadow-xl transition-shadow">
+                        <CardContent className="flex flex-col items-center justify-center p-6">
+                          <div className="w-32 h-32 relative mb-4">
+                            <img
+                              src={partner.logo}
+                              alt={`${partner.name} logo`}
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+                          <h3 className="text-xl font-montserrat font-bold text-center">
+                            {partner.name}
+                          </h3>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex" />
+              <CarouselNext className="hidden md:flex" />
+            </Carousel>
           </div>
+        </section>
 
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full max-w-5xl mx-auto"
-          >
-            <CarouselContent>
-              {partners.map((partner, index) => (
-                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-4">
-                    <Card className="border-none shadow-lg hover:shadow-xl transition-shadow">
-                      <CardContent className="flex flex-col items-center justify-center p-6">
-                        <div className="w-32 h-32 relative mb-4">
-                          <img
-                            src={partner.logo}
-                            alt={`${partner.name} logo`}
-                            className="w-full h-full object-contain"
-                          />
-                        </div>
-                        <h3 className="text-xl font-montserrat font-bold text-center">
-                          {partner.name}
-                        </h3>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden md:flex" />
-            <CarouselNext className="hidden md:flex" />
-          </Carousel>
-        </div>
-      </section>
+        {/* CTA */}
+        <section className="py-20 bg-likekar-black">
+          <div className="container mx-auto px-4 max-w-7xl text-center">
+            <h2 className="text-3xl sm:text-4xl font-bold font-montserrat text-white mb-6">
+              Pronto para transformar seu carro?
+            </h2>
+            <p className="text-gray-300 max-w-2xl mx-auto mb-8">
+              Entre em contato conosco e descubra como podemos ajudar você a ter o carro dos seus sonhos.
+            </p>
+            <Button 
+              onClick={handleContactClick}
+              className="bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat text-lg"
+            >
+              <Phone className="mr-2" size={20} />
+              Fale Conosco
+            </Button>
+          </div>
+        </section>
+      </div>
 
-      {/* CTA */}
-      <section className="py-20 bg-likekar-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold font-montserrat text-white mb-6">
-            Pronto para transformar seu carro?
-          </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto mb-8">
-            Entre em contato conosco e descubra como podemos ajudar você a ter o carro dos seus sonhos.
-          </p>
-          <Button 
-            onClick={handleContactClick}
-            className="bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat text-lg"
-          >
-            <Phone className="mr-2" size={20} />
-            Fale Conosco
-          </Button>
-        </div>
-      </section>
-
-      {/* Footer Melhorado */}
+      {/* Footer */}
       <footer className="bg-likekar-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="container mx-auto px-4 max-w-7xl py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             <div className="space-y-6">
               <h3 className="text-white font-montserrat font-bold text-2xl">
@@ -348,7 +351,7 @@ const Index = () => {
         </div>
 
         <div className="border-t border-gray-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="container mx-auto px-4 max-w-7xl py-6">
             <p className="text-center text-gray-400">
               © {new Date().getFullYear()} Like Kar. Todos os direitos reservados.
             </p>
