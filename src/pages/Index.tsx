@@ -236,16 +236,16 @@ const Index = () => {
         <div className="container mx-auto px-4 max-w-7xl py-16">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
             {/* Sobre */}
-            <div className="space-y-6 flex flex-col items-center text-center col-span-2 lg:col-span-4">
+            <div className="space-y-6">
               <img 
                 src="/lovable-uploads/8ce79c75-2588-4a26-9520-1cc873e5af9f.png"
                 alt="Like Kar"
                 className="h-12 w-auto"
               />
-              <p className="text-gray-400 leading-relaxed max-w-xl">
+              <p className="text-gray-400 leading-relaxed mx-[23px]">
                 Transformando seu veículo com excelência e qualidade desde 2010. Referência em personalização automotiva.
               </p>
-              <div className="flex space-x-4">
+              <div className="flex space-x-4 mx-[60px]">
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-likekar-yellow rounded-full flex items-center justify-center hover:bg-yellow-400 transition-colors">
                   <Facebook size={20} className="text-black" />
                 </a>
@@ -259,8 +259,8 @@ const Index = () => {
             </div>
 
             {/* Menu */}
-            <div className="mx-[94px] hidden">
-              <h3 className="text-white font-montserrat font-bold text-xl mb-6">
+            <div className="mx-[94px]">
+              <h3 className="text-white font-montserrat font-bold text-xl mb-6 uppercase">
                 Menu
               </h3>
               <ul className="space-y-4">
@@ -286,8 +286,8 @@ const Index = () => {
             </div>
 
             {/* Contato */}
-            <div className="py-[4px] mx-[26px] hidden">
-              <h3 className="text-white font-montserrat font-bold text-xl mb-6">
+            <div className="py-[4px] mx-[26px]">
+              <h3 className="text-white font-montserrat font-bold text-xl mb-6 uppercase">
                 Contato
               </h3>
               <ul className="space-y-4">
@@ -313,8 +313,8 @@ const Index = () => {
             </div>
 
             {/* Horário */}
-            <div className="mx-[57px] hidden">
-              <h3 className="text-white font-montserrat font-bold text-xl mb-6">
+            <div className="mx-[57px]">
+              <h3 className="text-white font-montserrat font-bold text-xl mb-6 uppercase">
                 Horário
               </h3>
               <ul className="space-y-4">
