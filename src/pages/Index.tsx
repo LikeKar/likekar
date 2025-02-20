@@ -1,3 +1,4 @@
+
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import PromotionalBanner from "@/components/PromotionalBanner";
@@ -171,7 +172,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Parceiros */}
+        {/* Marcas Parceiras */}
         <section className="py-20 bg-gray-50">
           <div className="container mx-auto px-4 max-w-7xl">
             <div className="text-center mb-12">
