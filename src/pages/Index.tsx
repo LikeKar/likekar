@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+
 const Index = () => {
   const navigate = useNavigate();
   const whatsappNumber = "551145740701";
@@ -35,6 +36,7 @@ const Index = () => {
     name: "Alpine",
     logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
   }];
+
   return <div className="min-h-screen bg-white flex flex-col">
       <Navbar />
       <Hero />
@@ -347,7 +349,7 @@ const Index = () => {
         <div className="container px-4 py-8">
           {/* Logo e Redes Sociais */}
           <div className="text-center mb-8">
-            <h3 className="text-white font-montserrat font-bold text-2xl mb-4">
+            <h3 className="text-white font-montserrat font-bold text-2xl mb-4 hidden md:block">
               LIKE KAR
             </h3>
             <div className="flex justify-center space-x-6">
@@ -405,4 +407,5 @@ const Index = () => {
       </footer>
     </div>;
 };
+
 export default Index;
