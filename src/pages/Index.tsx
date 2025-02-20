@@ -129,7 +129,7 @@ const Index = () => {
                     <div>
                       <h3 className="text-xl font-montserrat font-bold mb-2">Experiência Comprovada</h3>
                       <p className="text-gray-600">
-                        Mais de 10 anos no mercado automotivo, com milhares de clientes satisfeitos.
+                        Mais de 26 anos no mercado automotivo, com milhares de clientes satisfeitos.
                       </p>
                     </div>
                   </div>
@@ -139,9 +139,9 @@ const Index = () => {
                       <Wrench className="text-black" size={24} />
                     </div>
                     <div>
-                      <h3 className="text-xl font-montserrat font-bold mb-2">Produtos Premium</h3>
+                      <h3 className="text-xl font-montserrat font-bold mb-2">Sonhos Realizados</h3>
                       <p className="text-gray-600">
-                        Trabalhamos apenas com as melhores marcas e produtos do mercado.
+                        Transformamos o sonho do seu carro ideal em realidade.
                       </p>
                     </div>
                   </div>
@@ -176,7 +176,7 @@ const Index = () => {
           <div className="container mx-auto px-4 max-w-7xl">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold font-montserrat mb-4">
-                Nossos Parceiros
+                Marcas Parceiras
               </h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
                 Trabalhamos com as melhores marcas do mercado para garantir a qualidade dos nossos serviços
