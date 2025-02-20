@@ -1,12 +1,16 @@
+
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+
 interface ProductMedia {
   fotos: (string | null)[];
   videos: string[];
 }
+
 interface ProductCarouselProps {
   media: ProductMedia;
   productName: string;
 }
+
 export const ProductCarousel = ({
   media,
   productName
@@ -23,11 +27,13 @@ export const ProductCarousel = ({
     }
     return video;
   });
+
   if (validPhotos.length === 0 && validVideos.length === 0) {
     return <div className="w-full aspect-video bg-gray-100 rounded-xl flex items-center justify-center">
         <p className="text-gray-500">Sem mídia disponível</p>
       </div>;
   }
+
   return <Carousel className="w-full max-w-full">
       <CarouselContent>
         {validPhotos.map((foto, index) => <CarouselItem key={`foto-${index}`}>
@@ -42,8 +48,8 @@ export const ProductCarousel = ({
           </CarouselItem>)}
       </CarouselContent>
       {(validPhotos.length > 1 || validVideos.length > 0) && <>
-          
-          
+          <CarouselPrevious className="left-2" />
+          <CarouselNext className="right-2" />
         </>}
     </Carousel>;
 };
