@@ -113,7 +113,11 @@ const Index = () => {
           <div className="container mx-auto px-4 max-w-7xl">
             <div className="lg:flex lg:items-center lg:gap-12">
               <div className="lg:w-1/2 mb-10 lg:mb-0">
-                <img alt="Like Kar Serviços" className="rounded-lg shadow-xl w-full object-cover" src="/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" />
+                <img 
+                  src="/lovable-uploads/33a81e49-eb24-4d74-95ac-4c015e322153.png"
+                  alt="Like Kar"
+                  className="rounded-lg shadow-xl w-full object-cover"
+                />
               </div>
               
               <div className="lg:w-1/2">
@@ -238,7 +242,7 @@ const Index = () => {
             {/* Sobre */}
             <div className="space-y-6">
               <img 
-                src="/lovable-uploads/8ce79c75-2588-4a26-9520-1cc873e5af9f.png"
+                src="/lovable-uploads/33a81e49-eb24-4d74-95ac-4c015e322153.png"
                 alt="Like Kar"
                 className="h-12 w-auto"
               />
