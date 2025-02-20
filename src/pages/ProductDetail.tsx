@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -7,6 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { ProductCarousel } from '@/components/product/ProductCarousel';
 import { ShareButtons } from '@/components/product/ShareButtons';
 import { QuoteForm } from '@/components/product/QuoteForm';
+
 interface Product {
   id: string;
   name: string;
@@ -16,34 +18,41 @@ interface Product {
   videos: string[];
   active: boolean | null;
 }
+
 const ProductDetail = () => {
-  const {
-    productId
-  } = useParams();
+  const { productId } = useParams();
   const [showForm, setShowForm] = useState(false);
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     fetchProduct();
-    const channel = supabase.channel('product-detail-changes').on('postgres_changes', {
-      event: '*',
-      schema: 'public',
-      table: 'products',
-      filter: `id=eq.${productId}`
-    }, () => {
-      fetchProduct();
-    }).subscribe();
+    const channel = supabase.channel('product-detail-changes')
+      .on('postgres_changes', {
+        event: '*',
+        schema: 'public',
+        table: 'products',
+        filter: `id=eq.${productId}`
+      }, () => {
+        fetchProduct();
+      })
+      .subscribe();
+
     return () => {
       supabase.removeChannel(channel);
     };
   }, [productId]);
+
   const fetchProduct = async () => {
     try {
       setLoading(true);
-      const {
-        data,
-        error
-      } = await supabase.from('products').select('*').eq('id', productId).eq('active', true).single();
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('id', productId)
+        .eq('active', true)
+        .single();
+
       if (error) throw error;
       setProduct(data);
     } catch (error) {
@@ -53,12 +62,14 @@ const ProductDetail = () => {
       setLoading(false);
     }
   };
+
   const handleWhatsAppClick = () => {
     const phoneNumber = "5511457407011";
     const message = encodeURIComponent(`Olá! Gostaria de saber mais sobre o produto ${product?.name}`);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
     window.open(whatsappUrl, '_blank');
   };
+
   const productMedia = product ? {
     fotos: product.photos || [],
     videos: product.videos || []
@@ -66,6 +77,7 @@ const ProductDetail = () => {
     fotos: [],
     videos: []
   };
+
   const features = [{
     icon: <Shield className="w-8 h-8" />,
     title: "Proteção UV 99%",
@@ -79,6 +91,7 @@ const ProductDetail = () => {
     title: "Privacidade Total",
     description: "Visibilidade de dentro para fora"
   }];
+
   if (loading) {
     return <div className="min-h-screen bg-white">
         <Navbar />
@@ -87,6 +100,7 @@ const ProductDetail = () => {
         </div>
       </div>;
   }
+
   if (!product) {
     return <div className="min-h-screen bg-white">
         <Navbar />
@@ -98,6 +112,7 @@ const ProductDetail = () => {
         </div>
       </div>;
   }
+
   return <div className="min-h-screen bg-white">
       <Navbar />
       
@@ -117,7 +132,15 @@ const ProductDetail = () => {
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
-                {features.map((feature, index) => {})}
+                {features.map((feature, index) => (
+                  <div key={index} className="flex flex-col items-center text-center">
+                    <div className="mb-4 text-likekar-yellow">
+                      {feature.icon}
+                    </div>
+                    <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+                    <p className="text-gray-600 text-sm">{feature.description}</p>
+                  </div>
+                ))}
               </div>
             </div>
             
@@ -135,4 +158,5 @@ const ProductDetail = () => {
       {showForm && <QuoteForm onClose={() => setShowForm(false)} />}
     </div>;
 };
+
 export default ProductDetail;
