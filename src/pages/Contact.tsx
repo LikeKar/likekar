@@ -1,12 +1,9 @@
-
 import Navbar from "@/components/Navbar";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { ContactInfo } from "@/components/contact/ContactInfo";
 import { MapPin, Clock, Mail, Phone } from "lucide-react";
-
 const Contact = () => {
-  return (
-    <div className="min-h-screen bg-white">
+  return <div className="min-h-screen bg-white">
       <Navbar />
 
       {/* Hero Section */}
@@ -22,28 +19,7 @@ const Contact = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-gradient-to-b from-black to-transparent py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl">
-              <p className="text-3xl font-bold text-likekar-yellow mb-2">26+</p>
-              <p className="text-gray-300">Anos de Experiência</p>
-            </div>
-            <div className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl">
-              <p className="text-3xl font-bold text-likekar-yellow mb-2">5000+</p>
-              <p className="text-gray-300">Clientes Satisfeitos</p>
-            </div>
-            <div className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl">
-              <p className="text-3xl font-bold text-likekar-yellow mb-2">50+</p>
-              <p className="text-gray-300">Marcas Premium</p>
-            </div>
-            <div className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl">
-              <p className="text-3xl font-bold text-likekar-yellow mb-2">6500+</p>
-              <p className="text-gray-300">Projetos Realizados</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* Contact Section */}
       <section className="py-20 bg-white">
@@ -105,14 +81,9 @@ const Contact = () => {
               {/* Mapa */}
               <div className="mt-12">
                 <div className="w-full h-[300px] rounded-2xl overflow-hidden shadow-lg">
-                  <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.8869961505543!2d-46.5235297!3d-23.534337399999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5e33e36edd3b%3A0x7d74b04741735cbd!2sAv.%20Bartolomeu%20de%20Carlos%2C%20333%20-%20Vila%20Carrrao%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2003447-000!5e0!3m2!1sen!2sbr!4v1631234567890!5m2!1sen!2sbr" 
-                    width="100%" 
-                    height="100%" 
-                    style={{ border: 0 }} 
-                    allowFullScreen={true} 
-                    loading="lazy"
-                  ></iframe>
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.8869961505543!2d-46.5235297!3d-23.534337399999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5e33e36edd3b%3A0x7d74b04741735cbd!2sAv.%20Bartolomeu%20de%20Carlos%2C%20333%20-%20Vila%20Carrrao%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2003447-000!5e0!3m2!1sen!2sbr!4v1631234567890!5m2!1sen!2sbr" width="100%" height="100%" style={{
+                  border: 0
+                }} allowFullScreen={true} loading="lazy"></iframe>
                 </div>
               </div>
             </div>
@@ -122,8 +93,6 @@ const Contact = () => {
           </div>
         </div>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default Contact;
