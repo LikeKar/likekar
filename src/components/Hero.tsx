@@ -1,5 +1,5 @@
 
-import { ChevronRight, Star, Car, Tool, Shield } from 'lucide-react';
+import { ChevronRight, Star, Car, Wrench, Shield } from 'lucide-react';
 import { Button } from './ui/button';
 
 const Hero = () => {
@@ -85,7 +85,7 @@ const Hero = () => {
             <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-b from-likekar-yellow/20 to-transparent rounded-xl blur-xl transition-opacity opacity-0 group-hover:opacity-100" />
               <div className="relative flex flex-col items-center p-8 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-likekar-yellow/50 transition-all duration-300">
-                <Tool size={32} className="text-likekar-yellow mb-4 group-hover:scale-110 transition-transform" />
+                <Wrench size={32} className="text-likekar-yellow mb-4 group-hover:scale-110 transition-transform" />
                 <div className="font-montserrat font-bold text-3xl text-white">26+</div>
                 <div className="text-gray-400 font-inter text-sm mt-2">Anos de Experiência</div>
               </div>
