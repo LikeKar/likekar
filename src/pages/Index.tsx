@@ -1,4 +1,3 @@
-
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import PromotionalBanner from "@/components/PromotionalBanner";
@@ -9,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-
 const Index = () => {
   const navigate = useNavigate();
   const whatsappNumber = "551145740701";
@@ -37,7 +35,6 @@ const Index = () => {
     name: "Alpine",
     logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
   }];
-
   return <div className="min-h-screen bg-white flex flex-col">
       <Navbar />
       <Hero />
@@ -117,7 +114,7 @@ const Index = () => {
                 <img alt="Like Kar Serviços" className="rounded-lg shadow-xl w-full object-cover" src="/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" />
               </div>
               
-              <div className="lg:w-1/2">
+              <div className="lg:w-1/2 my-[32px] mx-[142px] px-[17px]">
                 <h2 className="text-3xl font-bold font-montserrat mb-6">
                   Por que escolher a Like Kar?
                 </h2>
@@ -408,5 +405,4 @@ const Index = () => {
       </footer>
     </div>;
 };
-
 export default Index;
