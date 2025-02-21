@@ -26,7 +26,7 @@ const Index = () => {
     logo: "/lovable-uploads/c3f316f9-d75f-46c1-bf61-7e5c21bf40cb.png"
   }, {
     name: "Htech",
-    logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
+    logo: "/lovable-uploads/1c884ea7-e928-405d-b340-0e68047813ce.png"
   }, {
     name: "2mix",
     logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
