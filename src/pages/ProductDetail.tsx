@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Shield, Thermometer, Eye } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { ProductCarousel } from '@/components/product/ProductCarousel';
 import { ShareButtons } from '@/components/product/ShareButtons';
@@ -78,20 +78,6 @@ const ProductDetail = () => {
     videos: []
   };
 
-  const features = [{
-    icon: <Shield className="w-8 h-8" />,
-    title: "Proteção UV 99%",
-    description: "Máxima proteção contra raios ultravioleta"
-  }, {
-    icon: <Thermometer className="w-8 h-8" />,
-    title: "Redução de Calor",
-    description: "Até 78% de redução da temperatura interna"
-  }, {
-    icon: <Eye className="w-8 h-8" />,
-    title: "Privacidade Total",
-    description: "Visibilidade de dentro para fora"
-  }];
-
   if (loading) {
     return (
       <div className="min-h-screen bg-white">
@@ -134,18 +120,6 @@ const ProductDetail = () => {
               <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-8">
                 {product.full_description || product.description}
               </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
-                {features.map((feature, index) => (
-                  <div key={index} className="flex flex-col items-center text-center p-4 bg-white rounded-lg">
-                    <div className="mb-4 text-likekar-yellow">
-                      {feature.icon}
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-gray-600 text-sm">{feature.description}</p>
-                  </div>
-                ))}
-              </div>
             </div>
             
             <div className="mt-8 sm:mt-12">
