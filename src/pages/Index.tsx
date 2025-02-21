@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import PromotionalBanner from "@/components/PromotionalBanner";
-import Map from "@/components/Map";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { Building2, CheckCircle2, MessageSquare, Wrench, Phone, Mail, MapPin, Facebook, Instagram, Youtube, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -66,7 +66,8 @@ const Index = () => {
       <Navbar />
       <Hero />
       <PromotionalBanner />
-
+      <WhatsAppButton />
+      
       {/* Conteúdo Principal com Container */}
       <div className="flex-1">
         {/* Serviços */}
@@ -523,4 +524,5 @@ const Index = () => {
       </footer>
     </div>;
 };
+
 export default Index;
