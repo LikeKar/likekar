@@ -418,88 +418,80 @@ const Index = () => {
 
       {/* Footer Mobile (visível apenas em mobile) */}
       <footer className="bg-gradient-to-br from-gray-900 to-black md:hidden">
-        <div className="container px-4 py-8">
-          {/* Logo e Redes Sociais */}
-          <div className="text-center mb-8">
-            <div className="flex justify-center space-x-6">
-              <a 
-                href="https://facebook.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="w-12 h-12 bg-likekar-yellow rounded-lg flex items-center justify-center hover:bg-yellow-400 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
-              >
-                <Facebook size={24} className="text-black" />
-              </a>
-              <a 
-                href="https://instagram.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="w-12 h-12 bg-likekar-yellow rounded-lg flex items-center justify-center hover:bg-yellow-400 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
-              >
-                <Instagram size={24} className="text-black" />
-              </a>
-              <a 
-                href="https://youtube.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="w-12 h-12 bg-likekar-yellow rounded-lg flex items-center justify-center hover:bg-yellow-400 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
-              >
-                <Youtube size={24} className="text-black" />
-              </a>
-            </div>
-          </div>
-
-          {/* Informações de Contato */}
-          <div className="bg-gray-800/20 backdrop-blur-sm rounded-xl p-6 mb-8">
-            <h4 className="text-white font-montserrat font-bold text-lg mb-6 text-center relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-12 after:h-1 after:bg-likekar-yellow">
-              Contato
-            </h4>
-            <div className="space-y-4">
-              <a href="tel:+551145740701" className="flex items-center text-gray-300 hover:text-likekar-yellow transition-colors">
-                <Phone className="mr-2" size={20} />
-                (11) 4574-0701
-              </a>
-              <a href="mailto:contato@likekar.com" className="flex items-center text-gray-300 hover:text-likekar-yellow transition-colors">
-                <Mail className="mr-2" size={20} />
-                contato@likekar.com
-              </a>
-            </div>
-          </div>
-
-          {/* Horário de Funcionamento */}
-          <div className="bg-gray-800/20 backdrop-blur-sm rounded-xl p-6 mb-8">
-            <h4 className="text-white font-montserrat font-bold text-lg mb-6 text-center relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-12 after:h-1 after:bg-likekar-yellow">
-              Horário de Funcionamento
-            </h4>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between text-gray-300">
-                <span>Segunda à Sexta:</span>
-                <span>08:00 - 18:00</span>
+        <div className="container px-4 py-6">
+          {/* Localização e Contato Rápido */}
+          <div className="bg-gray-800/20 backdrop-blur-sm rounded-xl p-4 mb-4">
+            <div className="flex items-center space-x-3 mb-3">
+              <div className="w-10 h-10 bg-likekar-yellow rounded-lg flex items-center justify-center">
+                <MapPin size={20} className="text-black" />
               </div>
-              <div className="flex items-center justify-between text-gray-300">
-                <span>Sábado:</span>
-                <span>08:00 - 12:00</span>
+              <div className="flex-1">
+                <h4 className="text-white font-medium">Visite-nos</h4>
+                <p className="text-gray-300 text-sm">Av. Bartolomeu de Carlos, 333</p>
               </div>
+              <a 
+                href="https://maps.google.com/?q=Av. Bartolomeu de Carlos, 333" 
+                target="_blank"
+                rel="noopener noreferrer" 
+                className="bg-likekar-yellow p-2 rounded-lg"
+              >
+                <Map className="w-5 h-5 text-black" />
+              </a>
+            </div>
+            <div className="flex justify-between">
+              <a href="tel:+551145740701" className="flex items-center bg-gray-800/30 rounded-lg p-2 flex-1 mr-2">
+                <Phone className="w-4 h-4 text-likekar-yellow mr-2" />
+                <span className="text-gray-300 text-sm">4574-0701</span>
+              </a>
+              <a href="https://wa.me/551145740701" className="flex items-center bg-gray-800/30 rounded-lg p-2 flex-1">
+                <MessageSquare className="w-4 h-4 text-likekar-yellow mr-2" />
+                <span className="text-gray-300 text-sm">WhatsApp</span>
+              </a>
             </div>
           </div>
 
-          {/* Links Rápidos */}
-          <div className="grid grid-cols-3 gap-4 mb-8">
-            <Link to="/" className="bg-gray-800/30 backdrop-blur-sm text-white hover:bg-likekar-yellow hover:text-black font-medium py-3 px-4 rounded-lg text-center text-sm transition-all duration-300">
-              Home
-            </Link>
-            <Link to="/produtos" className="bg-gray-800/30 backdrop-blur-sm text-white hover:bg-likekar-yellow hover:text-black font-medium py-3 px-4 rounded-lg text-center text-sm transition-all duration-300">
-              Produtos
-            </Link>
-            <Link to="/contato" className="bg-gray-800/30 backdrop-blur-sm text-white hover:bg-likekar-yellow hover:text-black font-medium py-3 px-4 rounded-lg text-center text-sm transition-all duration-300">
-              Contato
-            </Link>
+          {/* Horário Resumido */}
+          <div className="bg-gray-800/20 backdrop-blur-sm rounded-xl p-3 mb-4">
+            <div className="flex items-center justify-between text-gray-300 text-sm">
+              <div className="flex items-center">
+                <Clock className="w-4 h-4 text-likekar-yellow mr-2" />
+                <span>Seg-Sex:</span>
+              </div>
+              <span>08h - 18h</span>
+            </div>
           </div>
 
-          {/* Copyright */}
-          <div className="text-center text-sm text-gray-400">
-            <p>© {new Date().getFullYear()} Like Kar.</p>
-            <p>Todos os direitos reservados.</p>
+          {/* Redes Sociais */}
+          <div className="flex justify-center space-x-4 mb-4">
+            <a 
+              href="https://facebook.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="w-10 h-10 bg-likekar-yellow rounded-lg flex items-center justify-center"
+            >
+              <Facebook size={18} className="text-black" />
+            </a>
+            <a 
+              href="https://instagram.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="w-10 h-10 bg-likekar-yellow rounded-lg flex items-center justify-center"
+            >
+              <Instagram size={18} className="text-black" />
+            </a>
+            <a 
+              href="https://youtube.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="w-10 h-10 bg-likekar-yellow rounded-lg flex items-center justify-center"
+            >
+              <Youtube size={18} className="text-black" />
+            </a>
+          </div>
+
+          {/* Copyright simplificado */}
+          <div className="text-center text-xs text-gray-400">
+            <p>© {new Date().getFullYear()} Like Kar. Todos os direitos reservados.</p>
           </div>
         </div>
       </footer>
