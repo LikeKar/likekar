@@ -276,7 +276,7 @@ const Index = () => {
       </div>
 
       {/* Footer Desktop (escondido em mobile) */}
-      <footer className="bg-gradient-to-br from-gray-900 to-black hidden md:block">
+      <footer className="bg-black hidden md:block">
         <div className="container mx-auto px-4 max-w-7xl py-16">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
             {/* Sobre */}
@@ -417,7 +417,7 @@ const Index = () => {
       </footer>
 
       {/* Footer Mobile (visível apenas em mobile) */}
-      <footer className="bg-gradient-to-br from-gray-900 to-black md:hidden">
+      <footer className="bg-black md:hidden">
         <div className="container px-4 py-8">
           {/* Logo e Redes Sociais */}
           <div className="text-center mb-8">
