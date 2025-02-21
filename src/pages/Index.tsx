@@ -59,7 +59,7 @@ const Index = () => {
     logo: "/lovable-uploads/098f3533-203b-44ee-a093-86c5206e84cf.png"
   }, {
     name: "Audiophonic",
-    logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
+    logo: "/lovable-uploads/1c60bdc1-2dcb-4dab-afab-874660ce5f2f.png"
   }];
 
   return <div className="min-h-screen bg-white flex flex-col">
