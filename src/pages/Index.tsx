@@ -35,7 +35,7 @@ const Index = () => {
     logo: "/lovable-uploads/18cec1f1-dfcf-4626-bcee-43d608bf518b.png"
   }, {
     name: "Osram",
-    logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
+    logo: "/lovable-uploads/cfafc983-e801-4ae2-b5f8-79fac4608395.png"
   }, {
     name: "Bravox",
     logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
