@@ -51,7 +51,7 @@ const Hero = () => {
               <div className="text-gray-600 font-inter text-sm">Marcas Premium</div>
             </div>
             <div className="flex flex-col items-center">
-              <div className="font-montserrat font-bold text-2xl text-likekar-black">2500+</div>
+              <div className="font-montserrat font-bold text-2xl text-likekar-black">6500+</div>
               <div className="text-gray-600 font-inter text-sm">Projetos Realizados</div>
             </div>
           </div>
