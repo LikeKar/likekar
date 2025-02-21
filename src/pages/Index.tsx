@@ -255,7 +255,25 @@ const Index = () => {
 
         {/* Localização */}
         <section className="py-20 bg-gray-50">
-          
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold font-montserrat mb-4">
+                Venha nos Visitar
+              </h2>
+              <p className="text-gray-600">Av. Bartolomeu de Carlos, 333 - Jardim Flor da Montanha, Guarulhos, SP - CEP 07097-420</p>
+            </div>
+            <div className="w-full h-[400px] rounded-2xl overflow-hidden shadow-lg">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3659.9613371963897!2d-46.51791312534959!3d-23.45932225936611!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cef5193749e9e7%3A0x407e7183d919673e!2sAv.%20Bartolomeu%20de%20Carlos%2C%20333%20-%20Jardim%20Flor%20da%20Montanha%2C%20Guarulhos%20-%20SP%2C%2007097-420!5e0!3m2!1spt-BR!2sbr!4v1710203622599!5m2!1spt-BR!2sbr" 
+                width="100%" 
+                height="100%" 
+                style={{border: 0}} 
+                allowFullScreen={true} 
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </div>
         </section>
 
         {/* CTA */}
