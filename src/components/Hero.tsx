@@ -1,6 +1,12 @@
+
 import { ChevronRight, Star } from 'lucide-react';
 import { Button } from './ui/button';
+
 const Hero = () => {
+  const handleWhatsAppClick = () => {
+    window.open('https://api.whatsapp.com/send/?phone=551145740701&text&type=phone_number&app_absent=0', '_blank');
+  };
+
   return <div className="min-h-screen pt-20 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <div className="text-center">
@@ -30,7 +36,11 @@ const Hero = () => {
               Ver Produtos
               <ChevronRight size={20} />
             </Button>
-            <Button variant="outline" className="font-montserrat h-12 px-8 text-lg">
+            <Button 
+              variant="outline" 
+              className="font-montserrat h-12 px-8 text-lg"
+              onClick={handleWhatsAppClick}
+            >
               Fale Conosco
             </Button>
           </div>
