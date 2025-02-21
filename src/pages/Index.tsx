@@ -29,7 +29,7 @@ const Index = () => {
     logo: "/lovable-uploads/1c884ea7-e928-405d-b340-0e68047813ce.png"
   }, {
     name: "2mix",
-    logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
+    logo: "/lovable-uploads/0ef11402-c2e8-49ad-b1a2-6234ed3980bd.png"
   }, {
     name: "Winca",
     logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
