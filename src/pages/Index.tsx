@@ -46,9 +46,6 @@ const Index = () => {
     name: "Taramps",
     logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
   }, {
-    name: "Falcon",
-    logo: "/lovable-uploads/a55dcc90-203b-4c0d-9751-ce33c22f39d5.png"
-  }, {
     name: "Adak",
     logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
   }, {
