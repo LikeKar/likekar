@@ -20,7 +20,7 @@ const Index = () => {
 
   const partners = [{
     name: "JBL",
-    logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
+    logo: "/lovable-uploads/c006c759-b5f9-4749-9249-c95f966f83ef.png"
   }, {
     name: "Pioneer",
     logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
