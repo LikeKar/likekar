@@ -44,7 +44,7 @@ const Index = () => {
     logo: "/lovable-uploads/5fcb3237-237f-4fc4-bc93-4e9d56512887.png"
   }, {
     name: "Taramps",
-    logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
+    logo: "/lovable-uploads/23052ce6-a2ce-4f3f-8af6-1c893d7afe64.png"
   }, {
     name: "Adak",
     logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
