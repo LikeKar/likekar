@@ -134,59 +134,78 @@ const Index = () => {
         </section>
 
         {/* Por que nos escolher */}
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
           <div className="container mx-auto px-4 max-w-7xl">
-            <div className="lg:flex lg:items-center lg:gap-12">
+            <div className="lg:flex lg:items-center lg:gap-16">
               <div className="lg:w-1/2 mb-10 lg:mb-0">
-                <img alt="Like Kar Serviços" className="rounded-lg shadow-xl w-full object-cover" src="/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" />
+                <div className="relative">
+                  <div className="absolute -left-4 -top-4 w-24 h-24 bg-likekar-yellow rounded-full opacity-20 animate-pulse"></div>
+                  <img 
+                    alt="Like Kar Serviços" 
+                    className="rounded-2xl shadow-2xl w-full object-cover relative z-10 transform transition-transform duration-500 hover:scale-105" 
+                    src="/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png" 
+                  />
+                  <div className="absolute -right-4 -bottom-4 w-32 h-32 bg-black rounded-full opacity-10 animate-pulse delay-150"></div>
+                </div>
               </div>
               
-              <div className="lg:w-1/2 my-[32px] mx-[142px] px-[17px]">
-                <h2 className="text-3xl font-bold font-montserrat mb-6">
-                  Por que escolher a Like Kar?
-                </h2>
+              <div className="lg:w-1/2 space-y-8">
+                <div className="space-y-4">
+                  <h2 className="text-4xl font-bold font-montserrat bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">
+                    Por que escolher a Like Kar?
+                  </h2>
+                  <p className="text-gray-600 text-lg">
+                    Experiência e excelência em cada detalhe do seu veículo
+                  </p>
+                </div>
                 
                 <div className="space-y-6">
-                  <div className="flex gap-4">
-                    <div className="w-12 h-12 bg-likekar-yellow rounded-full flex items-center justify-center flex-shrink-0">
-                      <CheckCircle2 className="text-black" size={24} />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-montserrat font-bold mb-2">Experiência Comprovada</h3>
-                      <p className="text-gray-600">
-                        Mais de 26 anos no mercado automotivo, com milhares de clientes satisfeitos.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-4">
-                    <div className="w-12 h-12 bg-likekar-yellow rounded-full flex items-center justify-center flex-shrink-0">
-                      <Wrench className="text-black" size={24} />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-montserrat font-bold mb-2">Sonhos Realizados</h3>
-                      <p className="text-gray-600">
-                        Transformamos o sonho do seu carro ideal em realidade.
-                      </p>
+                  <div className="bg-white rounded-xl p-6 shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                    <div className="flex gap-4">
+                      <div className="w-12 h-12 bg-likekar-yellow rounded-xl flex items-center justify-center flex-shrink-0 transform transition-transform group-hover:rotate-6">
+                        <CheckCircle2 className="text-black w-6 h-6" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-montserrat font-bold mb-2">Experiência Comprovada</h3>
+                        <p className="text-gray-600">
+                          Mais de 26 anos no mercado automotivo, com milhares de clientes satisfeitos.
+                        </p>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="flex gap-4">
-                    <div className="w-12 h-12 bg-likekar-yellow rounded-full flex items-center justify-center flex-shrink-0">
-                      <MessageSquare className="text-black" size={24} />
+                  <div className="bg-white rounded-xl p-6 shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                    <div className="flex gap-4">
+                      <div className="w-12 h-12 bg-likekar-yellow rounded-xl flex items-center justify-center flex-shrink-0 transform transition-transform group-hover:rotate-6">
+                        <Wrench className="text-black w-6 h-6" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-montserrat font-bold mb-2">Sonhos Realizados</h3>
+                        <p className="text-gray-600">
+                          Transformamos o sonho do seu carro ideal em realidade com expertise e dedicação.
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-xl font-montserrat font-bold mb-2">Atendimento Personalizado</h3>
-                      <p className="text-gray-600">
-                        Equipe especializada para atender todas as suas necessidades.
-                      </p>
+                  </div>
+
+                  <div className="bg-white rounded-xl p-6 shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                    <div className="flex gap-4">
+                      <div className="w-12 h-12 bg-likekar-yellow rounded-xl flex items-center justify-center flex-shrink-0 transform transition-transform group-hover:rotate-6">
+                        <MessageSquare className="text-black w-6 h-6" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-montserrat font-bold mb-2">Atendimento Personalizado</h3>
+                        <p className="text-gray-600">
+                          Equipe especializada para atender todas as suas necessidades com excelência.
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-8">
+                <div className="pt-6">
                   <Link to="/produtos">
-                    <Button className="bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat text-lg text-center mx-0 px-[77px] py-[23px] my-[15px]">
+                    <Button className="bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat text-lg px-8 py-6 rounded-xl transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
                       Conheça Nossos Produtos
                     </Button>
                   </Link>
