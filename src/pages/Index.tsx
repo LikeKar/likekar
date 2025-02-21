@@ -159,7 +159,7 @@ const Index = () => {
 
                 <div className="mt-8">
                   <Link to="/produtos">
-                    <Button className="bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat text-lg">
+                    <Button className="bg-likekar-yellow hover:bg-yellow-400 text-black font-montserrat text-lg text-center mx-0 px-[77px] py-[23px] my-[15px]">
                       Conheça Nossos Produtos
                     </Button>
                   </Link>
