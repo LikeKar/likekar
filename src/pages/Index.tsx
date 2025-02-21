@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+
 const Index = () => {
   const navigate = useNavigate();
   const whatsappNumber = "551145740701";
@@ -16,25 +17,54 @@ const Index = () => {
     window.open(whatsappLink, '_blank');
     toast.success("Redirecionando para o WhatsApp...");
   };
+
   const partners = [{
-    name: "3M",
-    logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
-  }, {
     name: "JBL",
     logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
   }, {
     name: "Pioneer",
     logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
   }, {
+    name: "Htech",
+    logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
+  }, {
+    name: "2mix",
+    logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
+  }, {
+    name: "Winca",
+    logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
+  }, {
     name: "Osram",
     logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
   }, {
-    name: "Bosch",
+    name: "Bravox",
     logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
   }, {
-    name: "Alpine",
+    name: "Positron",
+    logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
+  }, {
+    name: "Taramps",
+    logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
+  }, {
+    name: "Falcon",
+    logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
+  }, {
+    name: "Adak",
+    logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
+  }, {
+    name: "Tury",
+    logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
+  }, {
+    name: "Etech",
+    logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
+  }, {
+    name: "Eros",
+    logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
+  }, {
+    name: "Audiophonic",
     logo: "/lovable-uploads/c099f154-5ae8-42bd-8ed0-e88be8b9c9d2.png"
   }];
+
   return <div className="min-h-screen bg-white flex flex-col">
       <Navbar />
       <Hero />
